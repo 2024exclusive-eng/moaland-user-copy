@@ -14,5 +14,57 @@ msgstr ""
 "Plural-Forms: \n"
 
 #: src/app/[locale]/page.tsx:8
-msgid "test"
-msgstr ""
+#~ msgid "test"
+#~ msgstr ""
+
+#: src/app/[locale]/register/page.tsx:182
+msgid "개인정보 수집/이용"
+msgstr "隐私政策"
+
+#: src/app/[locale]/register/page.tsx:194
+msgid "동의하고 회원가입"
+msgstr "同意并注册"
+
+#: src/app/[locale]/register/page.tsx:109
+msgid "비밀번호"
+msgstr "密码"
+
+#: src/app/[locale]/register/page.tsx:115
+msgid "비밀번호를 입력해주세요."
+msgstr "请输入密码。"
+
+#: src/app/[locale]/register/page.tsx:124
+msgid "비밀번호를 재입력해주세요."
+msgstr "请重新输入密码。"
+
+#: src/app/[locale]/register/page.tsx:163
+msgid "서비스 이용약관"
+msgstr "服务条款"
+
+#: src/app/[locale]/register/page.tsx:165
+msgid "에 동의합니다 (필수)"
+msgstr "（必填）"
+
+#: src/app/[locale]/register/page.tsx:184
+msgid "에 동의합니다(필수)"
+msgstr "（必填）"
+
+#: src/app/[locale]/register/page.tsx:63
+msgid "이메일"
+msgstr "电子邮件"
+
+#: src/app/[locale]/register/page.tsx:77
+msgid "인증번호 재전송"
+msgstr "重新发送验证码"
+
+#: src/app/[locale]/register/page.tsx:99
+msgid "인증완료"
+msgstr "验证完成"
+
+#: src/app/[locale]/register/page.tsx:146
+msgid "전체 동의"
+msgstr "同意全部"
+
+#: src/app/[locale]/register/page.tsx:57
+msgid "회원가입"
+msgstr "注册"
