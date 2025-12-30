@@ -50,7 +50,7 @@ export function ProfileBasicInfo() {
       </div>
 
       {/* Withdraw Link */}
-      <button className="text-sm font-medium text-[#9ca3af] underline text-left mt-auto pt-96">
+      <button className="text-sm cursor-pointer font-medium text-[#9ca3af] underline text-left mt-auto pt-96">
         탈퇴하기
       </button>
     </div>

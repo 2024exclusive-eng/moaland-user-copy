@@ -12,15 +12,12 @@ interface LandmarkCardProps {
   address: string;
   distance?: string;
   isFavorite?: boolean;
+  onClick?: () => void;
 }
 
-export function LandmarkCard({
-  image,
-  title,
-  isFavorite = false,
-}: LandmarkCardProps) {
+export function LandmarkCard({ image, title, onClick }: LandmarkCardProps) {
   return (
-    <div className="group cursor-pointer">
+    <div onClick={onClick} className="group cursor-pointer">
       {/* Image Container */}
       <div className="relative w-full aspect-square overflow-hidden rounded-lg mb-3">
         <Image

@@ -2,6 +2,8 @@
 
 import { ChevronRight } from "lucide-react";
 
+import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
+
 import { LandmarkCard } from "./LandmarkCard";
 
 interface Landmark {
@@ -31,6 +33,7 @@ export function LandmarkSection({
   showViewAll = true,
   hideTitle = false,
 }: LandmarkSectionProps) {
+  const r = useLocalizedNavigation();
   return (
     <section>
       <div className="container mx-auto px-4">
@@ -56,6 +59,9 @@ export function LandmarkSection({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {landmarks.map((landmark) => (
             <LandmarkCard
+              onClick={() => {
+                r.push("/campaign/1");
+              }}
               key={`${title}_${subtitle}_${landmark.id}`}
               {...landmark}
             />

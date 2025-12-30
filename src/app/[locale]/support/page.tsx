@@ -81,7 +81,7 @@ export default function Page() {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-6 md:border-l border-[#e5e7eb] md:pl-10 py-10 flex flex-col gap-3">
+        <div className="col-span-6 md:pl-10 py-10 flex flex-col gap-3">
           <h2 className="text-xl font-semibold text-[#111827] leading-normal">
             {categoryTitles[activeCategory]}
           </h2>

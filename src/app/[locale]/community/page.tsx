@@ -57,7 +57,7 @@ export default function Page(props: PageProps) {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-6 md:border-l border-[#e5e7eb] md:pl-10 py-10 flex flex-col gap-5">
+        <div className="col-span-6 md:pl-10 py-10 flex flex-col gap-5">
           <h2 className="text-xl font-bold text-[#111827]">공지사항</h2>
 
           {/* Announcements List */}
