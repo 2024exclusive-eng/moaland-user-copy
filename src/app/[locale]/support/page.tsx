@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 
 import {
   Accordion,
@@ -38,7 +38,45 @@ function getInitialCategory(tabParam: string | null): CategoryKey {
   return "faq";
 }
 
+function SupportPageFallback() {
+  return (
+    <div className="container mx-auto px-4">
+      <div className="grid md:grid-cols-8">
+        <div className="col-span-2 md:border-r border-[#e5e7eb]">
+          <div className="sticky top-10 pt-10">
+            <Skeleton className="h-8 w-24 mb-5" />
+            <div className="pl-3 mt-5 space-y-3">
+              <Skeleton className="h-6 w-28" />
+              <Skeleton className="h-6 w-36" />
+              <Skeleton className="h-6 w-20" />
+              <Skeleton className="h-6 w-32" />
+            </div>
+          </div>
+        </div>
+        <div className="col-span-6 md:pl-10 py-10 flex min-h-[65vh] flex-col gap-3">
+          <div className="space-y-2">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="px-3 py-4 border-b border-[#e5e7eb]">
+                <Skeleton className="h-5 w-3/4 mb-2" />
+                <Skeleton className="h-4 w-24" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Page() {
+  return (
+    <Suspense fallback={<SupportPageFallback />}>
+      <SupportPageContent />
+    </Suspense>
+  );
+}
+
+function SupportPageContent() {
   const searchParams = useSearchParams();
   const tabParam = searchParams.get("tab");
 
