@@ -21,6 +21,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "d3qcabrfj5nst9.cloudfront.net",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
   webpack: (config) => {

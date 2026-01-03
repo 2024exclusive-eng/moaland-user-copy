@@ -1,0 +1,328 @@
+"use client";
+
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
+
+import { Pagination } from "@/components/Pagination";
+import type { CampaignParams } from "@/lib/api/campaign";
+import { useCampaigns } from "@/shared/hooks/use-campaigns";
+import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
+
+import { CampaignCard } from "../../_components/CampaignCard";
+import { CampaignCardSkeletonGrid } from "../../_components/CampaignCardSkeleton";
+
+// Category tabs
+const CATEGORY_TABS = [
+  { label: "전체", value: undefined },
+  { label: "맛집", value: "restaurant" },
+  { label: "병원", value: "Hospital" },
+  { label: "뷰티", value: "Beauty" },
+  { label: "문화", value: "Culture" },
+  { label: "숙박", value: "Stay" },
+  { label: "마사지", value: "Massage" },
+  { label: "기타", value: "Other" },
+];
+
+// Region pills
+const REGION_PILLS = [
+  { label: "전체", value: undefined },
+  { label: "서울", value: "Seoul" },
+  { label: "부산", value: "Busan" },
+  { label: "제주", value: "Jeju" },
+  { label: "기타", value: "Other" },
+];
+
+// Social media options
+const SOCIAL_OPTIONS = [
+  { label: "미디어 전체", value: undefined },
+  { label: "샤오홍슈", value: "Xiaohongshu" },
+  { label: "더우인", value: "Douyin" },
+  { label: "다중디엔핑", value: "Dajongdienping" },
+  { label: "인스타그램", value: "Instagram" },
+  { label: "유튜브", value: "YouTube" },
+];
+
+// Sort options
+const SORT_OPTIONS = [
+  { label: "최신 등록순", value: undefined },
+  { label: "마감 임박순", value: "deadline" as const },
+];
+
+interface CampaignsContentProps {
+  initialCategory?: string;
+  initialSocial?: string;
+  initialPage?: number;
+}
+
+export function CampaignsContent({
+  initialCategory,
+  initialSocial,
+  initialPage = 1,
+}: CampaignsContentProps) {
+  const r = useLocalizedNavigation();
+
+  const [currentCategory, setCurrentCategory] = useState<string | undefined>(
+    initialCategory
+  );
+  const [currentRegion, setCurrentRegion] = useState<string | undefined>(
+    undefined
+  );
+  const [currentSocial, setCurrentSocial] = useState<string | undefined>(
+    initialSocial
+  );
+  const [currentSort, setCurrentSort] = useState<"deadline" | undefined>(
+    undefined
+  );
+  const [currentPage, setCurrentPage] = useState(initialPage);
+
+  // Dropdown states
+  const [showSocialDropdown, setShowSocialDropdown] = useState(false);
+  const [showSortDropdown, setShowSortDropdown] = useState(false);
+
+  // Build API params based on filters
+  const buildParams = (): CampaignParams => {
+    const params: CampaignParams = {
+      page: currentPage,
+      item: 12,
+    };
+
+    if (currentCategory) {
+      params.category = currentCategory;
+    }
+
+    if (currentRegion) {
+      params.region = currentRegion;
+    }
+
+    if (currentSocial) {
+      params.social = currentSocial;
+    }
+
+    if (currentSort) {
+      params.sort = currentSort;
+    }
+
+    return params;
+  };
+
+  const { campaigns, paging, isLoading, isError } = useCampaigns(buildParams());
+
+  const handleCategoryChange = (category: string | undefined) => {
+    setCurrentCategory(category);
+    setCurrentPage(1);
+  };
+
+  const handleRegionChange = (region: string | undefined) => {
+    setCurrentRegion(region);
+    setCurrentPage(1);
+  };
+
+  const handleSocialChange = (social: string | undefined) => {
+    setCurrentSocial(social);
+    setShowSocialDropdown(false);
+    setCurrentPage(1);
+  };
+
+  const handleSortChange = (sort: "deadline" | undefined) => {
+    setCurrentSort(sort);
+    setShowSortDropdown(false);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleCardClick = (missionId: number) => {
+    r.push(`/campaigns/${missionId}`);
+  };
+
+  const getSocialLabel = () => {
+    const option = SOCIAL_OPTIONS.find((o) => o.value === currentSocial);
+    return option?.label || "미디어 전체";
+  };
+
+  const getSortLabel = () => {
+    const option = SORT_OPTIONS.find((o) => o.value === currentSort);
+    return option?.label || "최신 등록순";
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <div className="container mx-auto px-4 py-8">
+        {/* Page Title */}
+        <h1 className="text-2xl font-bold text-[#111827] leading-[1.7] mb-5">
+          캠페인 목록
+        </h1>
+
+        {/* Filters Section */}
+        <div className="flex flex-col gap-3 mb-8">
+          {/* Category Tabs */}
+          <div className="border-b border-[#E5E7EB]">
+            <div className="flex items-center overflow-x-auto">
+              {CATEGORY_TABS.map((tab) => {
+                const isSelected = currentCategory === tab.value;
+                return (
+                  <button
+                    key={tab.label}
+                    onClick={() => handleCategoryChange(tab.value)}
+                    className={`px-5 py-2.5 text-base whitespace-nowrap transition-colors ${
+                      isSelected
+                        ? "font-bold text-[#111827] border-b-2 border-black"
+                        : "font-medium text-[#9CA3AF] hover:text-[#111827]"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Region Pills & Dropdowns */}
+          <div className="flex items-center gap-3">
+            {/* Region Pills */}
+            <div className="flex flex-1 gap-3 items-center overflow-x-auto">
+              {REGION_PILLS.map((pill) => {
+                const isSelected = currentRegion === pill.value;
+                return (
+                  <button
+                    key={pill.label}
+                    onClick={() => handleRegionChange(pill.value)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                      isSelected
+                        ? "bg-[#F3F4F6] border border-black text-[#111827]"
+                        : "bg-[#F3F4F6] text-[#111827] hover:bg-[#E5E7EB]"
+                    }`}
+                  >
+                    {pill.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Dropdown Filters */}
+            <div className="flex gap-2 shrink-0">
+              {/* Social Media Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => {
+                    setShowSocialDropdown(!showSocialDropdown);
+                    setShowSortDropdown(false);
+                  }}
+                  className="flex items-center gap-1 px-4 py-2 bg-white border border-[#E5E7EB] rounded-full text-sm font-medium text-[#111827]"
+                >
+                  {getSocialLabel()}
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+                {showSocialDropdown && (
+                  <div className="absolute top-full right-0 mt-1 bg-white border border-[#E5E7EB] rounded-lg shadow-lg z-10 min-w-[150px]">
+                    {SOCIAL_OPTIONS.map((option) => (
+                      <button
+                        key={option.label}
+                        onClick={() => handleSocialChange(option.value)}
+                        className={`w-full px-4 py-2 text-left text-sm hover:bg-[#F3F4F6] first:rounded-t-lg last:rounded-b-lg ${
+                          currentSocial === option.value
+                            ? "font-medium text-[#111827]"
+                            : "text-[#6B7280]"
+                        }`}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Sort Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => {
+                    setShowSortDropdown(!showSortDropdown);
+                    setShowSocialDropdown(false);
+                  }}
+                  className="flex items-center gap-1 px-4 py-2 bg-white border border-[#E5E7EB] rounded-full text-sm font-medium text-[#111827]"
+                >
+                  {getSortLabel()}
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+                {showSortDropdown && (
+                  <div className="absolute top-full right-0 mt-1 bg-white border border-[#E5E7EB] rounded-lg shadow-lg z-10 min-w-[180px]">
+                    {SORT_OPTIONS.map((option) => (
+                      <button
+                        key={option.label}
+                        onClick={() => handleSortChange(option.value)}
+                        className={`w-full px-4 py-2 text-left text-sm hover:bg-[#F3F4F6] first:rounded-t-lg last:rounded-b-lg ${
+                          currentSort === option.value
+                            ? "font-medium text-[#111827]"
+                            : "text-[#6B7280]"
+                        }`}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Loading State */}
+        {isLoading && <CampaignCardSkeletonGrid count={12} />}
+
+        {/* Error State */}
+        {isError && !isLoading && (
+          <div className="flex flex-col items-center justify-center py-12 text-gray-500">
+            <p className="text-lg font-medium">
+              캠페인을 불러오는데 실패했습니다
+            </p>
+            <p className="text-sm mt-1">잠시 후 다시 시도해주세요</p>
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!isLoading && !isError && campaigns.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-12 text-gray-500">
+            <p className="text-lg font-medium">캠페인이 없습니다</p>
+          </div>
+        )}
+
+        {/* Campaign Grid */}
+        {!isLoading && !isError && campaigns.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {campaigns.map((campaign) => (
+              <CampaignCard
+                key={campaign.missionId}
+                missionId={campaign.missionId}
+                title={campaign.title}
+                brand={campaign.brand}
+                missionContent={campaign.missionContent}
+                thumbnailImg={campaign.thumbnailImg}
+                enrollEndDate={campaign.enrollEndDate}
+                enrollCount={campaign.enrollCount}
+                maxEnroll={campaign.maxEnroll}
+                social={campaign.social}
+                point={campaign.point}
+                category={campaign.category}
+                onClick={() => handleCardClick(campaign.missionId)}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Pagination */}
+        {paging && paging.totalPages > 1 && (
+          <div className="pt-10 pb-10">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={paging.totalPages}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

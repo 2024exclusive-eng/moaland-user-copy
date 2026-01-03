@@ -60,7 +60,7 @@ export function LandmarkSection({
           {landmarks.map((landmark) => (
             <LandmarkCard
               onClick={() => {
-                r.push("/campaign/1");
+                r.push("/campaigns/1");
               }}
               key={`${title}_${subtitle}_${landmark.id}`}
               {...landmark}

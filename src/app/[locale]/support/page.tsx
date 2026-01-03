@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
 
 import {
   Accordion,
@@ -8,110 +9,177 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Skeleton } from "@/components/ui/skeleton";
+import { type FaqType, formatDate } from "@/lib/api/content";
+import { useFaqs } from "@/shared/hooks/use-content";
 
-// Mock data
-const mockFaqs = Array.from({ length: 6 }, (_, i) => ({
-  id: `item-${i + 1}`,
-  title: "제목입니다.",
-  date: "2024.08.12",
-  content: "내용입니다.",
-}));
+type CategoryKey = "faq" | "usage" | "term_of_use" | "privacy";
+
+const categoryToFaqType: Record<CategoryKey, FaqType> = {
+  faq: "faq",
+  usage: "service_guide",
+  term_of_use: "terms_of_use",
+  privacy: "privacy_policy",
+};
+
+const categoryTitles: Record<CategoryKey, string> = {
+  faq: "자주하는 질문",
+  usage: "서비스 이용 가이드",
+  term_of_use: "이용약관",
+  privacy: "개인정보처리방침",
+};
+
+const validCategories: CategoryKey[] = ["faq", "usage", "term_of_use", "privacy"];
+
+function getInitialCategory(tabParam: string | null): CategoryKey {
+  if (tabParam && validCategories.includes(tabParam as CategoryKey)) {
+    return tabParam as CategoryKey;
+  }
+  return "faq";
+}
 
 export default function Page() {
-  const [activeCategory, setActiveCategory] = useState<
-    "faq" | "usage" | "term_of_use" | "privacy"
-  >("faq");
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get("tab");
 
-  const categoryTitles = {
-    faq: "자주하는 질문",
-    usage: "서비스 이용 가이드",
-    term_of_use: "이용약관",
-    privacy: "개인정보처리방침",
+  // Use tabParam directly to derive active category, with local override for user clicks
+  const [userSelectedCategory, setUserSelectedCategory] = useState<CategoryKey | null>(null);
+
+  const activeCategory = useMemo(() => {
+    // If user has manually selected a category, use that
+    if (userSelectedCategory !== null) {
+      return userSelectedCategory;
+    }
+    // Otherwise, derive from URL param
+    return getInitialCategory(tabParam);
+  }, [userSelectedCategory, tabParam]);
+
+  const handleCategoryChange = (category: CategoryKey) => {
+    setUserSelectedCategory(category);
   };
+
+  const faqType = categoryToFaqType[activeCategory];
+  const { faqs, isLoading } = useFaqs(faqType);
 
   return (
     <div className="container mx-auto px-4">
       <div className="grid md:grid-cols-8">
         {/* Sidebar */}
-        <div className="col-span-2 pt-10 md:border-r border-[#e5e7eb]">
-          <h1 className="text-[#111827] text-2xl font-bold">고객센터</h1>
+        <div className="col-span-2 md:border-r border-[#e5e7eb]">
+          <div className="sticky top-10 pt-10">
+            <h1 className="text-[#111827] text-2xl font-bold">고객센터</h1>
 
-          <div className="pl-3 mt-5">
-            <button
-              onClick={() => setActiveCategory("faq")}
-              className={`text-lg transition-colors ${
-                activeCategory === "faq"
-                  ? "text-[#111827] font-semibold"
-                  : "text-[#9CA3AF]"
-              }`}
-            >
-              자주하는 질문
-            </button>
-            <button
-              onClick={() => setActiveCategory("usage")}
-              className={`text-lg mt-3 block transition-colors ${
-                activeCategory === "usage"
-                  ? "font-semibold text-[#111827]"
-                  : "text-[#9CA3AF]"
-              }`}
-            >
-              서비스 이용 가이드
-            </button>
-            <button
-              onClick={() => setActiveCategory("term_of_use")}
-              className={`text-lg mt-3 block transition-colors ${
-                activeCategory === "term_of_use"
-                  ? "font-semibold text-[#111827]"
-                  : "text-[#9CA3AF]"
-              }`}
-            >
-              이용약관
-            </button>
-            <button
-              onClick={() => setActiveCategory("privacy")}
-              className={`text-lg mt-3 block transition-colors ${
-                activeCategory === "privacy"
-                  ? "font-semibold text-[#111827]"
-                  : "text-[#9CA3AF]"
-              }`}
-            >
-              개인정보처리방침
-            </button>
+            <div className="pl-3 mt-5">
+              <button
+                onClick={() => handleCategoryChange("faq")}
+                className={`text-lg transition-colors ${
+                  activeCategory === "faq"
+                    ? "text-[#111827] font-semibold"
+                    : "text-[#9CA3AF]"
+                }`}
+              >
+                자주하는 질문
+              </button>
+              <button
+                onClick={() => handleCategoryChange("usage")}
+                className={`text-lg mt-3 block transition-colors ${
+                  activeCategory === "usage"
+                    ? "font-semibold text-[#111827]"
+                    : "text-[#9CA3AF]"
+                }`}
+              >
+                서비스 이용 가이드
+              </button>
+              <button
+                onClick={() => handleCategoryChange("term_of_use")}
+                className={`text-lg mt-3 block transition-colors ${
+                  activeCategory === "term_of_use"
+                    ? "font-semibold text-[#111827]"
+                    : "text-[#9CA3AF]"
+                }`}
+              >
+                이용약관
+              </button>
+              <button
+                onClick={() => handleCategoryChange("privacy")}
+                className={`text-lg mt-3 block transition-colors ${
+                  activeCategory === "privacy"
+                    ? "font-semibold text-[#111827]"
+                    : "text-[#9CA3AF]"
+                }`}
+              >
+                개인정보처리방침
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="col-span-6 md:pl-10 py-10 flex flex-col gap-3">
-          <h2 className="text-xl font-semibold text-[#111827] leading-normal">
-            {categoryTitles[activeCategory]}
-          </h2>
-
-          {/* FAQ Accordion */}
+        <div className="col-span-6 md:pl-10 py-10 flex min-h-[65vh] flex-col gap-3">
           {activeCategory === "faq" && (
+            <h2 className="text-xl font-semibold text-[#111827] leading-normal">
+              {categoryTitles[activeCategory]}
+            </h2>
+          )}
+
+          {/* Content */}
+          {isLoading ? (
+            <div className="space-y-2">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="px-3 py-4 border-b border-[#e5e7eb]">
+                  <Skeleton className="h-5 w-3/4 mb-2" />
+                  <Skeleton className="h-4 w-24" />
+                </div>
+              ))}
+            </div>
+          ) : faqs.length === 0 ? (
+            <div className="text-center py-10 text-[#9CA3AF]">
+              등록된 내용이 없습니다.
+            </div>
+          ) : activeCategory === "faq" ? (
+            // FAQ: Use accordion
             <Accordion type="single" collapsible className="w-full">
-              {mockFaqs.map((faq) => (
-                <AccordionItem key={faq.id} value={faq.id} className="border-0">
+              {faqs.map((faq) => (
+                <AccordionItem
+                  key={faq.id}
+                  value={`item-${faq.id}`}
+                  className="border-0"
+                >
                   <AccordionTrigger className="px-3 py-4 hover:no-underline items-center">
                     <div className="flex flex-col items-start text-sm text-left">
                       <span className="font-semibold text-[#111827] leading-[1.7]">
                         {faq.title}
                       </span>
                       <span className="text-[#4b5563] leading-[1.7]">
-                        {faq.date}
+                        {formatDate(faq.created)}
                       </span>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="bg-[#f3f4f6] border-b border-[#e5e7eb] px-3 py-4">
-                    <p className="text-sm text-[#4b5563] leading-[1.7]">
-                      {faq.content}
-                    </p>
+                    <div
+                      className="text-sm text-[#4b5563] leading-[1.7] prose prose-sm max-w-none"
+                      dangerouslySetInnerHTML={{ __html: faq.answer }}
+                    />
                   </AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
+          ) : (
+            // Other tabs: Render HTML directly
+            <div className="space-y-6">
+              {faqs.map((faq) => (
+                <div key={faq.id}>
+                  <h3 className="font-semibold text-[#111827] text-base mb-2">
+                    {faq.title}
+                  </h3>
+                  <div
+                    className="text-sm text-[#4b5563] leading-[1.7] prose prose-sm max-w-none"
+                    dangerouslySetInnerHTML={{ __html: faq.answer }}
+                  />
+                </div>
+              ))}
+            </div>
           )}
-
-          {activeCategory !== "faq" && <div>content goes here</div>}
         </div>
       </div>
     </div>

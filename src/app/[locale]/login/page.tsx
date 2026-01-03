@@ -13,6 +13,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/shared/hooks/use-auth";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
 export default function LoginPage() {
@@ -21,12 +22,18 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const r = useLocalizedNavigation();
+  const { login, isLoading, error, clearError } = useAuth();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Login:", { email, password });
-    r.push("/applications");
+    clearError();
+
+    try {
+      await login(email, password);
+      r.push("/my-campaign");
+    } catch {
+      // Error is handled by useAuth hook
+    }
   };
 
   const handleMoveToInquire = () => {
@@ -87,13 +94,18 @@ export default function LoginPage() {
                 비밀번호찾기
               </LocalizedLink>
             </div>
+
+            {error && (
+              <p className="text-sm text-red-500 text-center">{error}</p>
+            )}
           </div>
 
           <Button
             type="submit"
-            className="w-full h-10 bg-[#ea3a50] hover:bg-[#d63447] cursor-pointer text-white text-sm font-medium rounded-lg"
+            disabled={isLoading}
+            className="w-full h-10 bg-[#ea3a50] hover:bg-[#d63447] cursor-pointer text-white text-sm font-medium rounded-lg disabled:opacity-50"
           >
-            로그인
+            {isLoading ? "로그인 중..." : "로그인"}
           </Button>
 
           <Button

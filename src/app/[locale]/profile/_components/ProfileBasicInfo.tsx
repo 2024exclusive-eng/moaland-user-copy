@@ -1,20 +1,120 @@
-import Image from "next/image";
+"use client";
 
-export function ProfileBasicInfo() {
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import {
+  ProfileResponse,
+  updateProfile,
+  uploadProfileImage,
+} from "@/lib/api/profile";
+
+export function ProfileBasicInfo({
+  profile,
+}: {
+  profile?: ProfileResponse | null;
+}) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [email, setEmail] = useState(profile?.my?.email || "");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(
+    profile?.profile?.profileImg || null
+  );
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  // Update state when profile loads
+  useEffect(() => {
+    if (profile?.my?.email) {
+      setEmail(profile.my.email);
+    }
+    if (profile?.profile?.profileImg) {
+      setPreviewUrl(profile.profile.profileImg);
+    }
+  }, [profile]);
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    }
+  };
+
+  const handleSave = async () => {
+    setIsLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      let profileUrl: string | null = profile?.profile?.profileImg || null;
+
+      // Upload image if a new one was selected
+      if (selectedFile) {
+        const uploadResponse = await uploadProfileImage(selectedFile);
+        if (uploadResponse.success) {
+          profileUrl = uploadResponse.data.uri;
+        }
+      }
+
+      // Update profile with email and profile_url
+      const updateResponse = await updateProfile({
+        email,
+        profileImg: profileUrl,
+      });
+
+      if (updateResponse.success) {
+        setSuccess(true);
+        setSelectedFile(null);
+      }
+    } catch (err) {
+      const errorMessage = (
+        err as { response?: { data?: { error?: { msg?: string } | string } } }
+      )?.response?.data?.error;
+      if (typeof errorMessage === "object" && errorMessage?.msg) {
+        setError(errorMessage.msg);
+      } else if (typeof errorMessage === "string") {
+        setError(errorMessage);
+      } else {
+        setError("저장에 실패했습니다.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6">
       {/* Profile Picture */}
-      <div className="relative w-[78px] h-[73px]">
-        <div className="w-[68px] h-[68px]">
+      <div className="relative w-19.5 h-18.25">
+        <div className="w-17 h-17">
           <Image
-            src="/images/default-avatar.png"
+            src={previewUrl || "/images/default-avatar.svg"}
             width={68}
             height={68}
             alt="Profile"
             className="rounded-full object-cover"
           />
         </div>
-        <button className="absolute bottom-0 right-0 w-8 h-8 bg-white border border-[#e5e7eb] rounded-full flex items-center justify-center">
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="hidden"
+        />
+        <button
+          type="button"
+          onClick={handleImageClick}
+          className="absolute bottom-0 right-0 w-8 h-8 bg-white border border-[#e5e7eb] rounded-full flex items-center justify-center cursor-pointer"
+        >
           <svg
             width="16"
             height="16"
@@ -40,8 +140,8 @@ export function ProfileBasicInfo() {
         </label>
         <input
           type="email"
-          value="tirrilee00.google.com"
-          readOnly
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="w-full h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-[#111827] leading-[1.7]"
         />
         <p className="text-sm text-[#9ca3af] leading-[1.7]">
@@ -49,8 +149,21 @@ export function ProfileBasicInfo() {
         </p>
       </div>
 
+      {/* Error/Success Messages */}
+      {error && <p className="text-sm text-red-500">{error}</p>}
+      {success && <p className="text-sm text-green-500">저장되었습니다.</p>}
+
+      {/* Save Button */}
+      <Button
+        onClick={handleSave}
+        disabled={isLoading}
+        className="w-22 h-10 bg-[#ea3a50] hover:bg-[#ea3a50]/90 text-white rounded-lg disabled:opacity-50"
+      >
+        {isLoading ? "저장 중..." : "저장하기"}
+      </Button>
+
       {/* Withdraw Link */}
-      <button className="text-sm cursor-pointer font-medium text-[#9ca3af] underline text-left mt-auto pt-96">
+      <button className="text-sm cursor-pointer font-medium text-[#9ca3af] underline text-left mt-auto pt-3">
         탈퇴하기
       </button>
     </div>

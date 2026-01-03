@@ -17,54 +17,71 @@ msgstr ""
 #~ msgid "test"
 #~ msgstr ""
 
-#: src/app/[locale]/register/page.tsx:182
+#: src/app/[locale]/register/page.tsx:315
 msgid "개인정보 수집/이용"
 msgstr "Privacy Policy"
 
-#: src/app/[locale]/register/page.tsx:194
+#: src/app/[locale]/register/page.tsx:327
 msgid "동의하고 회원가입"
 msgstr "Agree and Sign Up"
 
-#: src/app/[locale]/register/page.tsx:109
+#: src/app/[locale]/forgot-password/page.tsx:238
+msgid "변경하기"
+msgstr ""
+
+#: src/app/[locale]/register/page.tsx:229
 msgid "비밀번호"
 msgstr "Password"
 
+#: src/app/[locale]/forgot-password/page.tsx:124
+#: src/app/[locale]/forgot-password/page.tsx:210
+msgid "비밀번호 재설정"
+msgstr ""
+
 #: src/app/[locale]/register/page.tsx:115
-msgid "비밀번호를 입력해주세요."
-msgstr "Please enter your password."
+#~ msgid "비밀번호를 입력해주세요."
+#~ msgstr "Please enter your password."
 
 #: src/app/[locale]/register/page.tsx:124
-msgid "비밀번호를 재입력해주세요."
-msgstr "Please re-enter your password."
+#~ msgid "비밀번호를 재입력해주세요."
+#~ msgstr "Please re-enter your password."
 
-#: src/app/[locale]/register/page.tsx:163
+#: src/app/[locale]/register/page.tsx:293
 msgid "서비스 이용약관"
 msgstr "Terms of Service"
 
-#: src/app/[locale]/register/page.tsx:165
+#: src/app/[locale]/register/page.tsx:295
 msgid "에 동의합니다 (필수)"
 msgstr " (Required)"
 
-#: src/app/[locale]/register/page.tsx:184
+#: src/app/[locale]/register/page.tsx:317
 msgid "에 동의합니다(필수)"
 msgstr "(Required)"
 
-#: src/app/[locale]/register/page.tsx:63
+#: src/app/[locale]/forgot-password/page.tsx:135
+#: src/app/[locale]/register/page.tsx:154
 msgid "이메일"
 msgstr "Email"
 
-#: src/app/[locale]/register/page.tsx:77
+#: src/app/[locale]/forgot-password/page.tsx:155
+#: src/app/[locale]/register/page.tsx:174
 msgid "인증번호 재전송"
 msgstr "Resend Verification Code"
 
-#: src/app/[locale]/register/page.tsx:99
+#: src/app/[locale]/forgot-password/page.tsx:157
+#: src/app/[locale]/register/page.tsx:176
+msgid "인증번호 전송"
+msgstr ""
+
+#: src/app/[locale]/forgot-password/page.tsx:195
+#: src/app/[locale]/register/page.tsx:214
 msgid "인증완료"
 msgstr "Verified"
 
-#: src/app/[locale]/register/page.tsx:146
+#: src/app/[locale]/register/page.tsx:273
 msgid "전체 동의"
 msgstr "Agree to All"
 
-#: src/app/[locale]/register/page.tsx:57
+#: src/app/[locale]/register/page.tsx:143
 msgid "회원가입"
 msgstr "Sign Up"

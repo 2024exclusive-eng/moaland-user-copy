@@ -2,14 +2,62 @@
 
 import { useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import { changePassword } from "@/lib/api/auth";
+
 export function ProfilePasswordChange() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle password change logic here
-    console.log("Password change submitted");
+    setError(null);
+    setSuccess(false);
+
+    // Validation
+    if (!newPassword) {
+      setError("새 비밀번호를 입력해주세요.");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setError("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await changePassword(newPassword);
+
+      if (response.success) {
+        setSuccess(true);
+        setNewPassword("");
+        setConfirmPassword("");
+      } else if (response.error) {
+        const errorMsg =
+          typeof response.error === "object"
+            ? response.error.msg
+            : response.error;
+        setError(errorMsg || "비밀번호 변경에 실패했습니다.");
+      }
+    } catch (err) {
+      const errorMessage = (
+        err as { response?: { data?: { error?: { msg?: string } | string } } }
+      )?.response?.data?.error;
+      if (typeof errorMessage === "object" && errorMessage?.msg) {
+        setError(errorMessage.msg);
+      } else if (typeof errorMessage === "string") {
+        setError(errorMessage);
+      } else {
+        setError("비밀번호 변경에 실패했습니다.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -42,15 +90,20 @@ export function ProfilePasswordChange() {
         />
       </div>
 
+      {/* Error/Success Messages */}
+      {error && <p className="text-sm text-red-500">{error}</p>}
+      {success && (
+        <p className="text-sm text-green-500">비밀번호가 변경되었습니다.</p>
+      )}
+
       {/* Submit Button */}
-      <button
+      <Button
         type="submit"
-        className="w-[116px] h-10 px-3 bg-[#ea3a50] rounded-lg flex items-center justify-center mt-3"
+        disabled={isLoading}
+        className="w-[116px] h-10 bg-[#ea3a50] hover:bg-[#ea3a50]/90 text-white rounded-lg mt-3 disabled:opacity-50"
       >
-        <span className="text-sm font-medium text-white leading-[1.5]">
-          비밀번호 저장
-        </span>
-      </button>
+        {isLoading ? "저장 중..." : "비밀번호 저장"}
+      </Button>
     </form>
   );
 }

@@ -3,12 +3,14 @@
 import { useState } from "react";
 
 import LocalizedLink from "@/components/LocalizedLink";
+import { useProfile } from "@/shared/hooks/use-profile";
 
 import { ProfileBasicInfo } from "./_components/ProfileBasicInfo";
 import { ProfilePasswordChange } from "./_components/ProfilePasswordChange";
 
 export default function ProfilePage() {
   const [profileTab, setProfileTab] = useState<"basic" | "password">("basic");
+  const { profile: profileData } = useProfile();
 
   return (
     <div className="container mx-auto px-4">
@@ -19,7 +21,7 @@ export default function ProfilePage() {
 
           <div className="pl-3 mt-5">
             <LocalizedLink
-              href="/applications"
+              href="/my-campaign"
               className="text-lg transition-colors text-[#9CA3AF] block"
             >
               나의 캠페인
@@ -34,7 +36,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-6 md:border-l border-[#e5e7eb] md:pl-10 py-10 flex flex-col gap-5.75">
+        <div className="col-span-6 md:pl-10 py-10 flex flex-col gap-5.75">
           <h2 className="text-xl font-semibold text-[#111827] leading-normal">
             계정 정보
           </h2>
@@ -63,10 +65,8 @@ export default function ProfilePage() {
                 비밀번호 변경
               </button>
             </div>
-
-            {/* Profile Content */}
             {profileTab === "basic" ? (
-              <ProfileBasicInfo />
+              <ProfileBasicInfo profile={profileData} />
             ) : (
               <ProfilePasswordChange />
             )}

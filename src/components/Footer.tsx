@@ -20,9 +20,14 @@ export function Footer() {
             <p className="text-sm text-gray-600 mb-6">
               지금 문의 해보세요! 누구나 손쉽게 시작할 수 있습니다.
             </p>
-            <button className="bg-[#EA3A50] hover:bg-red-700 cursor-pointer text-white h-11 w-29 rounded-md font-medium transition-colors">
+            <a
+              href="http://pf.kakao.com/_IRpxhn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-[#EA3A50] hover:bg-red-700 cursor-pointer text-white h-11 w-29 rounded-md font-medium transition-colors"
+            >
               문의하기
-            </button>
+            </a>
           </div>
         </div>
       )}
@@ -83,7 +88,7 @@ export function Footer() {
 
             {/* Copyright */}
             <p className="text-xs text-[#4B5563] leading-normal">
-              © 2025 servicename . All rights reserved
+              © {new Date().getFullYear()} servicename . All rights reserved
             </p>
           </div>
 
