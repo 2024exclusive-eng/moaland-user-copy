@@ -1,5 +1,6 @@
 "use client";
 
+import { Trans } from "@lingui/react/macro";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
@@ -25,20 +26,22 @@ export default function CommunityDetailPage(props: PageProps) {
       <div className="grid grid-cols-1 md:grid-cols-8">
         {/* Sidebar */}
         <div className="col-span-2 pt-10 border-r border-[#e5e7eb]">
-          <h1 className="text-[#111827] text-2xl font-bold">커뮤니티</h1>
+          <h1 className="text-[#111827] text-2xl font-bold">
+              <Trans>커뮤니티</Trans>
+            </h1>
 
           <div className="pl-3 mt-5">
             <Link
               href={`/${params.locale}/community`}
               className="text-lg text-[#111827] font-semibold"
             >
-              공지사항
+              <Trans>공지사항</Trans>
             </Link>
             <Link
               href={`/${params.locale}/community`}
               className="text-lg mt-3 block text-[#9CA3AF]"
             >
-              이벤트
+              <Trans>이벤트</Trans>
             </Link>
           </div>
         </div>
@@ -52,7 +55,7 @@ export default function CommunityDetailPage(props: PageProps) {
           >
             <ChevronLeft className="size-6" />
             <span className="text-sm font-semibold text-[#111827] leading-[1.7]">
-              목록으로
+              <Trans>목록으로</Trans>
             </span>
           </Link>
 
@@ -71,7 +74,7 @@ export default function CommunityDetailPage(props: PageProps) {
             </>
           ) : isError || !notice ? (
             <div className="text-center py-10 text-[#9CA3AF]">
-              공지사항을 찾을 수 없습니다.
+              <Trans>공지사항을 찾을 수 없습니다.</Trans>
             </div>
           ) : (
             <>

@@ -1,5 +1,6 @@
 "use client";
 
+import { Trans } from "@lingui/react/macro";
 import { useSearchParams } from "next/navigation";
 import { Suspense, use, useState } from "react";
 
@@ -36,12 +37,12 @@ function SearchContent() {
       {/* Search Result Title */}
       <h1 className="text-2xl font-bold text-[#111827] leading-[1.7] mb-10">
         {keyword && (
-          <>
+          <Trans>
             <span className="text-[#EA3A50]">&apos;{keyword}&apos;</span>{" "}
-            <span>검색결과</span>
-          </>
+            검색결과
+          </Trans>
         )}
-        {!keyword && <span>검색</span>}
+        {!keyword && <Trans>검색</Trans>}
       </h1>
 
       {/* Campaign Grid */}
@@ -56,12 +57,16 @@ function SearchContent() {
           {keyword ? (
             <>
               <p className="text-lg mb-2">
-                &apos;{keyword}&apos;에 대한 검색결과가 없습니다.
+                <Trans>&apos;{keyword}&apos;에 대한 검색결과가 없습니다.</Trans>
               </p>
-              <p className="text-sm">다른 검색어로 다시 검색해 보세요.</p>
+              <p className="text-sm">
+                <Trans>다른 검색어로 다시 검색해 보세요.</Trans>
+              </p>
             </>
           ) : (
-            <p className="text-lg">검색어를 입력해주세요.</p>
+            <p className="text-lg">
+              <Trans>검색어를 입력해주세요.</Trans>
+            </p>
           )}
         </div>
       ) : (

@@ -1,5 +1,7 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -82,6 +84,7 @@ function CampaignDetailSkeleton() {
 export function CampaignDetailContent({
   missionId,
 }: CampaignDetailContentProps) {
+  const { _ } = useLingui();
   const { mission, isLoading, isError } = useCampaignDetail(missionId);
 
   if (isLoading) {
@@ -162,7 +165,7 @@ export function CampaignDetailContent({
                   {daysRemaining > 0 && (
                     <div className="border border-[#e5e7eb] px-2.75 py-1.5 rounded-full">
                       <span className="text-sm font-semibold text-black leading-5">
-                        {daysRemaining}일 남음
+                        {_(msg`${daysRemaining}일 남음`)}
                       </span>
                     </div>
                   )}
@@ -191,7 +194,7 @@ export function CampaignDetailContent({
               <div className="flex gap-4 py-4">
                 <div className="w-[118px] shrink-0">
                   <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
-                    제공 내역
+                    {_(msg`제공 내역`)}
                   </h3>
                 </div>
                 <div className="flex-1">
@@ -207,7 +210,7 @@ export function CampaignDetailContent({
               <div className="flex gap-4 py-4">
                 <div className="w-[118px] shrink-0">
                   <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
-                    매장 위치
+                    {_(msg`매장 위치`)}
                   </h3>
                 </div>
                 <div className="flex-1 flex flex-col gap-3">
@@ -232,7 +235,7 @@ export function CampaignDetailContent({
                   <div className="flex gap-4 py-4">
                     <div className="w-[118px] shrink-0">
                       <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
-                        가이드라인
+                        {_(msg`가이드라인`)}
                       </h3>
                     </div>
                     <div className="flex-1">
@@ -252,7 +255,7 @@ export function CampaignDetailContent({
                   <div className="flex gap-4 py-4">
                     <div className="w-[118px] shrink-0">
                       <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
-                        미션 내용
+                        {_(msg`미션 내용`)}
                       </h3>
                     </div>
                     <div className="flex-1">
@@ -273,7 +276,7 @@ export function CampaignDetailContent({
                 <div className="flex gap-4 py-4 pb-16">
                   <div className="w-[118px] shrink-0">
                     <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
-                      추가 안내사항
+                      {_(msg`추가 안내사항`)}
                     </h3>
                   </div>
                   <div className="flex-1">

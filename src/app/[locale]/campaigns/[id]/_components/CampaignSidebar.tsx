@@ -1,5 +1,7 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -65,11 +67,15 @@ function getButtonState(
   return "apply";
 }
 
-const buttonConfig: Record<ButtonState, { text: string; disabled: boolean }> = {
-  "opening-soon": { text: "오픈 예정", disabled: true },
-  apply: { text: "캠페인 신청하기", disabled: false },
-  deadline: { text: "신청 마감", disabled: true },
-};
+function getButtonConfig(
+  _: ReturnType<typeof useLingui>["_"]
+): Record<ButtonState, { text: string; disabled: boolean }> {
+  return {
+    "opening-soon": { text: _(msg`오픈 예정`), disabled: true },
+    apply: { text: _(msg`캠페인 신청하기`), disabled: false },
+    deadline: { text: _(msg`신청 마감`), disabled: true },
+  };
+}
 
 export function CampaignSidebar({
   missionId,
@@ -84,6 +90,7 @@ export function CampaignSidebar({
   enrollEndDate,
   social,
 }: CampaignSidebarProps) {
+  const { _ } = useLingui();
   const { push } = useLocalizedNavigation();
   const [isApplyDialogOpen, setIsApplyDialogOpen] = useState(false);
   const [alertType, setAlertType] = useState<
@@ -115,13 +122,15 @@ export function CampaignSidebar({
   }, [banners, isBannerLoading, hasSelectedBanner]);
 
   const buttonState = getButtonState(enrollStartDate, enrollEndDate);
+  const buttonConfig = getButtonConfig(_);
   const { text: buttonText, disabled: isButtonDisabled } =
     buttonConfig[buttonState];
 
   // Determine final button text
   const getButtonText = () => {
-    if (isChecking) return "확인 중...";
-    if (buttonState === "apply" && !isLoggedIn) return "로그인 후 신청하세요!";
+    if (isChecking) return _(msg`확인 중...`);
+    if (buttonState === "apply" && !isLoggedIn)
+      return _(msg`로그인 후 신청하세요!`);
     return buttonText;
   };
 
@@ -166,20 +175,23 @@ export function CampaignSidebar({
       <div className="flex flex-col gap-5">
         {/* Campaign Info */}
         <div className="flex flex-col gap-3">
-          <InfoRow label="캠페인 신청기간" value={applicationPeriod} />
-          <InfoRow label="인플루언서 발표" value={announcementDate} />
-          <InfoRow label="방문기간" value={visitPeriod} />
-          <InfoRow label="콘텐츠 등록기간" value={registrationPeriod} />
+          <InfoRow label={_(msg`캠페인 신청기간`)} value={applicationPeriod} />
+          <InfoRow label={_(msg`인플루언서 발표`)} value={announcementDate} />
+          <InfoRow label={_(msg`방문기간`)} value={visitPeriod} />
+          <InfoRow label={_(msg`콘텐츠 등록기간`)} value={registrationPeriod} />
           <div className="flex items-start pt-[1.63px]">
             <div className="w-35 shrink-0">
               <p className="text-base font-semibold text-[#111827] leading-[1.7]">
-                신청자{" "}
+                {_(msg`신청자`)}{" "}
               </p>
             </div>
             <div className="flex-1">
               <p className="text-base font-semibold leading-[1.7]">
                 <span className="text-[#ea3a50]">{applicants.current}</span>
-                <span className="text-[#111827]"> / {applicants.total}명</span>
+                <span className="text-[#111827]">
+                  {" "}
+                  / {_(msg`${applicants.total}명`)}
+                </span>
               </p>
             </div>
           </div>
@@ -224,7 +236,9 @@ export function CampaignSidebar({
           </a>
         ) : (
           <div className="min-h-45 bg-[#eae5e2] rounded-lg flex items-center justify-center">
-            <p className="text-sm font-medium text-[#9ca3af]">광고 배너</p>
+            <p className="text-sm font-medium text-[#9ca3af]">
+              {_(msg`광고 배너`)}
+            </p>
           </div>
         )}
       </div>

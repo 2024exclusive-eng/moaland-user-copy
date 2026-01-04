@@ -1,5 +1,7 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { use, useState } from "react";
@@ -16,6 +18,7 @@ interface PageProps {
 }
 
 export default function Page(props: PageProps) {
+  const { _ } = useLingui();
   const params = use(props.params);
   const [currentPage, setCurrentPage] = useState(1);
   const [eventPage, setEventPage] = useState(1);
@@ -52,7 +55,9 @@ export default function Page(props: PageProps) {
         {/* Sidebar */}
         <div className="col-span-2 md:border-r border-[#e5e7eb]">
           <div className="sticky top-0 pt-10">
-            <h1 className="text-[#111827] text-2xl font-bold">커뮤니티</h1>
+            <h1 className="text-[#111827] text-2xl font-bold">
+              {_(msg`커뮤니티`)}
+            </h1>
 
             <div className="pl-3 mt-5">
               <button
@@ -63,7 +68,7 @@ export default function Page(props: PageProps) {
                     : "text-[#9CA3AF]"
                 }`}
               >
-                공지사항
+                {_(msg`공지사항`)}
               </button>
               <button
                 onClick={() => handleCategoryChange("event")}
@@ -73,7 +78,7 @@ export default function Page(props: PageProps) {
                     : "text-[#9CA3AF]"
                 }`}
               >
-                이벤트
+                {_(msg`이벤트`)}
               </button>
             </div>
           </div>
@@ -82,7 +87,9 @@ export default function Page(props: PageProps) {
         {/* Main Content */}
         <div className="col-span-6 md:pl-10 py-10 min-h-[65vh] flex flex-col gap-5">
           <h2 className="text-xl font-bold text-[#111827]">
-            {activeCategory === "notice" ? "공지사항" : "이벤트"}
+            {activeCategory === "notice"
+              ? _(msg`공지사항`)
+              : _(msg`이벤트`)}
           </h2>
 
           {/* Notice List */}
@@ -103,7 +110,7 @@ export default function Page(props: PageProps) {
                   ))
                 ) : notices.length === 0 ? (
                   <div className="text-center py-10 text-[#9CA3AF]">
-                    등록된 공지사항이 없습니다.
+                    {_(msg`등록된 공지사항이 없습니다.`)}
                   </div>
                 ) : (
                   notices.map((notice) => (
@@ -148,7 +155,7 @@ export default function Page(props: PageProps) {
                   ))
                 ) : events.length === 0 ? (
                   <div className="col-span-2 text-center py-10 text-[#9CA3AF]">
-                    진행 중인 이벤트가 없습니다.
+                    {_(msg`진행 중인 이벤트가 없습니다.`)}
                   </div>
                 ) : (
                   events.map((event) => (

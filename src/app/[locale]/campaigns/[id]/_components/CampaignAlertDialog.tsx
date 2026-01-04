@@ -1,5 +1,7 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import { X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -14,27 +16,33 @@ interface CampaignAlertDialogProps {
   type: AlertType;
 }
 
-const alertContent: Record<AlertType, { title: string; description: string }> =
-  {
+function getAlertContent(
+  _: ReturnType<typeof useLingui>["_"]
+): Record<AlertType, { title: string; description: string }> {
+  return {
     "already-applied": {
-      title: "이미 신청한 캠페인 입니다",
-      description:
-        "신청한 캠페인은 마이페이지 신청내역에서 확인할 수 있습니다.",
+      title: _(msg`이미 신청한 캠페인 입니다`),
+      description: _(
+        msg`신청한 캠페인은 마이페이지 신청내역에서 확인할 수 있습니다.`
+      ),
     },
     success: {
-      title: "캠페인 신청완료",
-      description:
-        "신청한 캠페인은 마이페이지 신청내역에서 확인할 수 있습니다.",
+      title: _(msg`캠페인 신청완료`),
+      description: _(
+        msg`신청한 캠페인은 마이페이지 신청내역에서 확인할 수 있습니다.`
+      ),
     },
   };
+}
 
 export function CampaignAlertDialog({
   open,
   onOpenChange,
   type,
 }: CampaignAlertDialogProps) {
+  const { _ } = useLingui();
   const { push } = useLocalizedNavigation();
-
+  const alertContent = getAlertContent(_);
   const content = alertContent[type];
 
   const handleViewApplicationList = () => {
@@ -79,13 +87,13 @@ export function CampaignAlertDialog({
             onClick={handleViewApplicationList}
             className="flex-1 h-10 text-sm font-medium text-[#ea3a50] border-[#ea3a50] hover:bg-[#ea3a50]/5 rounded-lg"
           >
-            신청내역 보러가기
+            {_(msg`신청내역 보러가기`)}
           </Button>
           <Button
             onClick={handleOk}
             className="flex-1 h-10 text-sm font-medium bg-[#ea3a50] hover:bg-[#d63447] text-white rounded-lg"
           >
-            확인
+            {_(msg`확인`)}
           </Button>
         </div>
       </DialogContent>

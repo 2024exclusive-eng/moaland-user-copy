@@ -1,5 +1,7 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -14,6 +16,7 @@ export function DetailImagesSection({
   images,
   title,
 }: DetailImagesSectionProps) {
+  const { _ } = useLingui();
   const [showAll, setShowAll] = useState(false);
 
   // Show only first image initially, rest when expanded
@@ -63,7 +66,7 @@ export function DetailImagesSection({
           showAll ? "mt-2" : ""
         }`}
       >
-        {showAll ? "이미지 접기" : "상세이미지 더보기"}
+        {showAll ? _(msg`이미지 접기`) : _(msg`상세이미지 더보기`)}
       </Button>
     </div>
   );

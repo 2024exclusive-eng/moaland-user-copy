@@ -1,5 +1,7 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import { X } from "lucide-react";
 import { useState } from "react";
 
@@ -46,6 +48,7 @@ export function CampaignApplyDialog({
   social,
   onSuccess,
 }: CampaignApplyDialogProps) {
+  const { _ } = useLingui();
   const socialLabel = getSocialLabel(social);
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -64,16 +67,16 @@ export function CampaignApplyDialog({
     const newErrors: FormErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = "이름을 입력해주세요";
+      newErrors.name = _(msg`이름을 입력해주세요`);
     }
     if (!formData.instagramLink.trim()) {
-      newErrors.instagramLink = `${socialLabel} 링크를 입력해주세요`;
+      newErrors.instagramLink = _(msg`${socialLabel} 링크를 입력해주세요`);
     }
     if (!formData.wechatId.trim()) {
-      newErrors.wechatId = "위챗 아이디를 입력해주세요";
+      newErrors.wechatId = _(msg`위챗 아이디를 입력해주세요`);
     }
     if (!formData.visitDatetime.trim()) {
-      newErrors.visitDatetime = "방문일 및 시간을 입력해주세요";
+      newErrors.visitDatetime = _(msg`방문일 및 시간을 입력해주세요`);
     }
 
     setErrors(newErrors);
@@ -122,11 +125,13 @@ export function CampaignApplyDialog({
         });
         setAgreed(false);
       } else {
-        setSubmitError(response.error?.message || "Application failed");
+        setSubmitError(
+          response.error?.message || _(msg`신청에 실패했습니다`)
+        );
       }
     } catch (error) {
       console.error("Failed to apply:", error);
-      setSubmitError("An error occurred. Please try again.");
+      setSubmitError(_(msg`오류가 발생했습니다. 다시 시도해주세요.`));
     } finally {
       setIsSubmitting(false);
     }
@@ -150,7 +155,7 @@ export function CampaignApplyDialog({
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-5 bg-white">
             <DialogTitle className="text-base font-semibold text-[#242424]">
-              캠페인 신청서
+              {_(msg`캠페인 신청서`)}
             </DialogTitle>
             <button
               onClick={() => onOpenChange(false)}
@@ -181,7 +186,7 @@ export function CampaignApplyDialog({
               <div className="flex gap-2 items-center">
                 <div className="w-[140px] shrink-0">
                   <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                    이름
+                    {_(msg`이름`)}
                   </span>
                   <span className="text-sm font-semibold text-[#ff614e]">
                     *
@@ -191,7 +196,7 @@ export function CampaignApplyDialog({
                   type="text"
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
-                  placeholder="이름 입력"
+                  placeholder={_(msg`이름 입력`)}
                   className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
                 />
               </div>
@@ -200,7 +205,7 @@ export function CampaignApplyDialog({
               <div className="flex gap-2 items-center">
                 <div className="w-[140px] shrink-0">
                   <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                    {socialLabel} 링크
+                    {_(msg`${socialLabel} 링크`)}
                   </span>
                   <span className="text-sm font-semibold text-[#ff614e]">
                     *
@@ -212,7 +217,7 @@ export function CampaignApplyDialog({
                   onChange={(e) =>
                     handleInputChange("instagramLink", e.target.value)
                   }
-                  placeholder={`${socialLabel} 링크 입력`}
+                  placeholder={_(msg`${socialLabel} 링크 입력`)}
                   className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
                 />
               </div>
@@ -221,7 +226,7 @@ export function CampaignApplyDialog({
               <div className="flex gap-2 items-center">
                 <div className="w-[140px] shrink-0">
                   <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                    위챗 아이디
+                    {_(msg`위챗 아이디`)}
                   </span>
                   <span className="text-sm font-semibold text-[#ff614e]">
                     *
@@ -233,7 +238,7 @@ export function CampaignApplyDialog({
                   onChange={(e) =>
                     handleInputChange("wechatId", e.target.value)
                   }
-                  placeholder="위챗 아이디 입력"
+                  placeholder={_(msg`위챗 아이디 입력`)}
                   className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
                 />
               </div>
@@ -242,7 +247,7 @@ export function CampaignApplyDialog({
               <div className="flex gap-2 items-center">
                 <div className="w-[140px] shrink-0">
                   <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                    방문일 및 시간
+                    {_(msg`방문일 및 시간`)}
                   </span>
                   <span className="text-sm font-semibold text-[#ff614e]">
                     *
@@ -262,14 +267,14 @@ export function CampaignApplyDialog({
               <div className="flex gap-2 items-center">
                 <div className="w-[140px] shrink-0">
                   <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                    메모
+                    {_(msg`메모`)}
                   </span>
                 </div>
                 <input
                   type="text"
                   value={formData.memo}
                   onChange={(e) => handleInputChange("memo", e.target.value)}
-                  placeholder="메모"
+                  placeholder={_(msg`메모`)}
                   className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
                 />
               </div>
@@ -282,22 +287,24 @@ export function CampaignApplyDialog({
                   className="mt-0.5 w-5 h-5 rounded-[3px] data-[state=checked]:bg-[#ea3a50] data-[state=checked]:border-[#ea3a50]"
                 />
                 <p className="flex-1 text-sm text-[#4b5563] leading-[1.7]">
-                  캠페인 유의사항, 개인정보 및 콘텐츠 제3자 제공, 저작물 이용에
-                  동의합니다.{" "}
+                  {_(
+                    msg`캠페인 유의사항, 개인정보 및 콘텐츠 제3자 제공, 저작물 이용에 동의합니다.`
+                  )}{" "}
                   <button
                     type="button"
                     onClick={() => setShowTermsPopup(true)}
                     className="underline hover:text-[#ea3a50] transition-colors"
                   >
-                    자세히보기
+                    {_(msg`자세히보기`)}
                   </button>
                 </p>
               </div>
 
               {/* Warning Text */}
               <p className="text-sm text-[#e72b23] leading-[1.7]">
-                *입력한 정보의 수정을 원할 시 신청 취소 후 다시 신청해야 하며,
-                선정 이후에는 정보를 변경할 수 없습니다.
+                {_(
+                  msg`*입력한 정보의 수정을 원할 시 신청 취소 후 다시 신청해야 하며, 선정 이후에는 정보를 변경할 수 없습니다.`
+                )}
               </p>
 
               {/* Error Message */}
@@ -316,7 +323,7 @@ export function CampaignApplyDialog({
               disabled={!isFormValid || isSubmitting}
               className="w-full h-10 bg-[#ea3a50] hover:bg-[#d63447] text-white text-sm font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "신청중..." : "캠페인 신청하기"}
+              {isSubmitting ? _(msg`신청중...`) : _(msg`캠페인 신청하기`)}
             </Button>
           </div>
         </DialogContent>
@@ -331,7 +338,7 @@ export function CampaignApplyDialog({
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-5 bg-white">
             <DialogTitle className="text-base font-semibold text-[#242424]">
-              캠페인 유의사항 및 저작물 이용 동의
+              {_(msg`캠페인 유의사항 및 저작물 이용 동의`)}
             </DialogTitle>
             <button
               onClick={() => setShowTermsPopup(false)}
@@ -345,31 +352,34 @@ export function CampaignApplyDialog({
           <div className="px-5 py-4 bg-white">
             <ul className="text-sm text-[#6b7280] leading-[1.7] space-y-2 list-disc pl-5">
               <li>
-                정당한 사유 없이 콘텐츠 등록 기간 내 콘텐츠 및 구매평을 작성하지
-                않을 경우 제공상품 또는 용역의 대가를 환불해야 하며, 관련 법
-                조항(형법 제347조)에 따라 법적 처벌 대상이 될 수 있습니다.
+                {_(
+                  msg`정당한 사유 없이 콘텐츠 등록 기간 내 콘텐츠 및 구매평을 작성하지 않을 경우 제공상품 또는 용역의 대가를 환불해야 하며, 관련 법 조항(형법 제347조)에 따라 법적 처벌 대상이 될 수 있습니다.`
+                )}
               </li>
               <li>
-                등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에
-                대한 비용이 청구될 수 있습니다.
+                {_(
+                  msg`등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에 대한 비용이 청구될 수 있습니다.`
+                )}
               </li>
               <li>
-                등록한 콘텐츠 및 구매평은 홍보나 필요에 의해 사용될 수 있으며,
-                광고주가 판매 사이트에 콘텐츠 활용을 할 수 있습니다. (광고 등
-                2차적 저작물 활용)
+                {_(
+                  msg`등록한 콘텐츠 및 구매평은 홍보나 필요에 의해 사용될 수 있으며, 광고주가 판매 사이트에 콘텐츠 활용을 할 수 있습니다. (광고 등 2차적 저작물 활용)`
+                )}
               </li>
               <li>
-                제공 내역은 타인에게 양도 및 판매, 교환을 허용하지 않습니다.
+                {_(
+                  msg`제공 내역은 타인에게 양도 및 판매, 교환을 허용하지 않습니다.`
+                )}
               </li>
               <li>
-                키워드 챌린지 캠페인은 최소 30일 동안 유지되어야 하며, 유지 기간
-                미준수 시 콘텐츠 재개 요청이 있을 수 있습니다.
+                {_(
+                  msg`키워드 챌린지 캠페인은 최소 30일 동안 유지되어야 하며, 유지 기간 미준수 시 콘텐츠 재개 요청이 있을 수 있습니다.`
+                )}
               </li>
               <li>
-                원활한 캠페인 서비스 제공을 위해 최소한의 범주 내에서 아래와
-                같이 개인정보를 제공합니다. 회원님께서는 제3자 제공에 동의하지
-                않으실 수 있으며, 이를 거부할 경우 일부 캠페인 참여가
-                제한됩니다.
+                {_(
+                  msg`원활한 캠페인 서비스 제공을 위해 최소한의 범주 내에서 아래와 같이 개인정보를 제공합니다. 회원님께서는 제3자 제공에 동의하지 않으실 수 있으며, 이를 거부할 경우 일부 캠페인 참여가 제한됩니다.`
+                )}
               </li>
             </ul>
           </div>
@@ -380,7 +390,7 @@ export function CampaignApplyDialog({
               onClick={() => setShowTermsPopup(false)}
               className="w-full h-10 bg-[#ea3a50] hover:bg-[#d63447] text-white text-sm font-medium rounded-lg"
             >
-              확인
+              {_(msg`확인`)}
             </Button>
           </div>
         </DialogContent>

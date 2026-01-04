@@ -1,7 +1,6 @@
 "use client";
 
 import { Trans } from "@lingui/react/macro";
-import { t } from "@lingui/macro";
 import { X } from "lucide-react";
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";

@@ -1,5 +1,7 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import { Eye, EyeOff, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -17,6 +19,7 @@ import { useAuth } from "@/shared/hooks/use-auth";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
 export default function LoginPage() {
+  const { _ } = useLingui();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -51,7 +54,7 @@ export default function LoginPage() {
           <div className="flex flex-col gap-3">
             <Input
               type="email"
-              placeholder="이메일"
+              placeholder={_(msg`이메일`)}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="h-10 px-3.5 py-2.5 border-[#e5e7eb] text-sm placeholder:text-[#9ca3af]"
@@ -60,7 +63,7 @@ export default function LoginPage() {
             <div className="relative">
               <Input
                 type={showPassword ? "text" : "password"}
-                placeholder="비밀번호"
+                placeholder={_(msg`비밀번호`)}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="h-10 px-3.5 py-2.5 pr-10 border-[#e5e7eb] text-sm placeholder:text-[#9ca3af]"
@@ -84,14 +87,14 @@ export default function LoginPage() {
                 onClick={() => setDialogOpen(true)}
                 className="text-sm font-medium text-[#7f828c] hover:text-[#6b7280] transition-colors"
               >
-                이메일찾기
+                {_(msg`이메일찾기`)}
               </button>
               <div className="h-3 w-px bg-[#e5e7eb]" />
               <LocalizedLink
                 href="/forgot-password"
                 className="text-sm font-medium text-[#7f828c] hover:text-[#6b7280] transition-colors"
               >
-                비밀번호찾기
+                {_(msg`비밀번호찾기`)}
               </LocalizedLink>
             </div>
 
@@ -105,7 +108,7 @@ export default function LoginPage() {
             disabled={isLoading}
             className="w-full h-10 bg-[#ea3a50] hover:bg-[#d63447] cursor-pointer text-white text-sm font-medium rounded-lg disabled:opacity-50"
           >
-            {isLoading ? "로그인 중..." : "로그인"}
+            {isLoading ? _(msg`로그인 중...`) : _(msg`로그인`)}
           </Button>
 
           <Button
@@ -114,7 +117,7 @@ export default function LoginPage() {
             onClick={() => r.push("/register")}
             className="w-full h-10 border-[#ea3a50] text-[#ea3a50] hover:text-[#ea3a50] hover:bg-white cursor-pointer text-sm font-medium rounded-lg"
           >
-            회원가입
+            {_(msg`회원가입`)}
           </Button>
         </form>
       </div>
@@ -126,7 +129,7 @@ export default function LoginPage() {
             <div className="flex items-center justify-between">
               <div className="w-5" />
               <DialogTitle className="text-base font-semibold text-[#242424] text-center">
-                이메일찾기
+                {_(msg`이메일찾기`)}
               </DialogTitle>
               <button
                 onClick={() => setDialogOpen(false)}
@@ -138,7 +141,9 @@ export default function LoginPage() {
           </DialogHeader>
           <div className="px-5 py-4 text-center">
             <p className="text-base text-[#374151] leading-[1.7] whitespace-pre-wrap">
-              가입 이메일을 잊으셨나요?{"\n"}문의 채널을 이용해주세요.
+              {_(msg`가입 이메일을 잊으셨나요?`)}
+              {"\n"}
+              {_(msg`문의 채널을 이용해주세요.`)}
             </p>
           </div>
           <div className="px-5 py-4">
@@ -147,7 +152,7 @@ export default function LoginPage() {
               variant="outline"
               className="w-full h-10 border-[#e5e7eb] text-[#374151] text-sm font-medium"
             >
-              문의채널로 이동
+              {_(msg`문의채널로 이동`)}
             </Button>
           </div>
         </DialogContent>
