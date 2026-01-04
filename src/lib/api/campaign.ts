@@ -1,3 +1,5 @@
+import { msg } from "@lingui/core/macro";
+
 import api from "@/lib/axios";
 
 // Types
@@ -158,20 +160,44 @@ export const CATEGORY_MAP: Record<string, string> = {
   Massage: "마사지",
 };
 
-// Social platform label mappings (Korean)
-export const SOCIAL_LABEL_MAP: Record<string, string> = {
-  Xiaohongshu: "샤오홍슈",
-  Douyin: "도우인",
-  Dajongdienping: "따종디엔핑",
-  Instagram: "인스타그램",
-  YouTube: "유튜브",
-};
+// Social platform label keys
+export const SOCIAL_KEYS = [
+  "Xiaohongshu",
+  "Douyin",
+  "Dajongdienping",
+  "Instagram",
+  "YouTube",
+] as const;
 
-// Helper function to get social label
-export function getSocialLabel(social: string): string {
+export type SocialKey = (typeof SOCIAL_KEYS)[number];
+
+// Helper function to get social label with translation
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getSocialLabel(social: string, _?: (m: any) => string): string {
   // Handle comma-separated social platforms, get the first one
   const firstSocial = social.split(",")[0].trim();
-  return SOCIAL_LABEL_MAP[firstSocial] || firstSocial;
+
+  if (!_) {
+    // Fallback to Korean if no translator provided
+    const fallbackMap: Record<string, string> = {
+      Xiaohongshu: "샤오홍슈",
+      Douyin: "도우인",
+      Dajongdienping: "따종디엔핑",
+      Instagram: "인스타그램",
+      YouTube: "유튜브",
+    };
+    return fallbackMap[firstSocial] || firstSocial;
+  }
+
+  const labelMap: Record<string, string> = {
+    Xiaohongshu: _(msg`샤오홍슈`),
+    Douyin: _(msg`도우인`),
+    Dajongdienping: _(msg`따종디엔핑`),
+    Instagram: _(msg`인스타그램`),
+    YouTube: _(msg`유튜브`),
+  };
+
+  return labelMap[firstSocial] || firstSocial;
 }
 
 // Social platform mappings with custom dimensions

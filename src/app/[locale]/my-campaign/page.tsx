@@ -1,8 +1,8 @@
 "use client";
 
 import { msg } from "@lingui/core/macro";
-import { Trans } from "@lingui/react/macro";
 import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -31,6 +31,39 @@ import { ViewSelectedCampaignDialog } from "./_components/ViewSelectedCampaignDi
 
 const ITEMS_PER_PAGE = 10;
 
+// Helper function to format visit datetime (e.g., "08.31 오후 6시 방문")
+function formatVisitDateTime(
+  dateString: string | null,
+  _: ReturnType<typeof useLingui>["_"]
+): string {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = date.getHours();
+  const isPM = hours >= 12;
+  const hour12 = hours % 12 || 12;
+  const ampm = isPM ? _(msg`오후`) : _(msg`오전`);
+  return `${month}.${day} ${ampm} ${hour12}${_(msg`시`)} ${_(msg`방문`)}`;
+}
+
+// Helper function to format content date range (e.g., "08.31~09.13 등록")
+function formatContentDateRange(
+  startDate: string | null,
+  endDate: string | null,
+  _: ReturnType<typeof useLingui>["_"]
+): string {
+  if (!startDate || !endDate) return "";
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const formatDate = (d: Date) => {
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${month}.${day}`;
+  };
+  return `${formatDate(start)}~${formatDate(end)} ${_(msg`등록`)}`;
+}
+
 // Tab configuration with labels - using function to enable translation
 function getTabs(_: ReturnType<typeof useLingui>["_"]) {
   return [
@@ -42,27 +75,58 @@ function getTabs(_: ReturnType<typeof useLingui>["_"]) {
 }
 
 // Action button configuration based on status
-function getActionButtons(status: MyCampaignStatus, _: ReturnType<typeof useLingui>["_"]) {
+function getActionButtons(
+  status: MyCampaignStatus,
+  _: ReturnType<typeof useLingui>["_"]
+) {
   switch (status) {
     case "applied":
       return [
         { label: _(msg`신청취소`), variant: "cancel" as const, key: "cancel" },
-        { label: _(msg`신청서 보기`), variant: "view" as const, key: "viewApp" },
+        {
+          label: _(msg`신청서 보기`),
+          variant: "view" as const,
+          key: "viewApp",
+        },
       ];
     case "selected":
       return [
-        { label: _(msg`콘텐츠 등록`), variant: "view" as const, key: "submitContent" },
-        { label: _(msg`캠페인 보기`), variant: "primaryFilled" as const, key: "viewCampaign" },
+        {
+          label: _(msg`신청서 보기`),
+          variant: "view" as const,
+          key: "submitContent",
+        },
+        {
+          label: _(msg`컨텐츠 등록하기`),
+          variant: "primaryFilled" as const,
+          key: "viewCampaign",
+        },
       ];
     case "registered":
       return [
-        { label: _(msg`콘텐츠 수정`), variant: "view" as const, key: "editContent" },
-        { label: _(msg`캠페인 보기`), variant: "primaryFilled" as const, key: "viewCampaign" },
+        {
+          label: _(msg`콘텐츠 수정`),
+          variant: "view" as const,
+          key: "editContent",
+        },
+        {
+          label: _(msg`캠페인 보기`),
+          variant: "primaryFilled" as const,
+          key: "viewCampaign",
+        },
       ];
     case "ended":
       return [
-        { label: _(msg`캠페인 보기`), variant: "view" as const, key: "viewCampaign" },
-        { label: _(msg`콘텐츠 보기`), variant: "view" as const, key: "viewContent" },
+        {
+          label: _(msg`캠페인 보기`),
+          variant: "view" as const,
+          key: "viewCampaign",
+        },
+        {
+          label: _(msg`콘텐츠 보기`),
+          variant: "view" as const,
+          key: "viewContent",
+        },
       ];
     default:
       return [];
@@ -143,91 +207,165 @@ function CampaignCard({
 
   return (
     <div className="border-b border-[#e5e7eb] px-3 py-5 flex gap-3 items-center">
-      {/* Campaign Image */}
-      <div className="w-19.5 h-19.5 rounded overflow-hidden shrink-0">
-        <Image
-          src={campaign.thumbnailImg || "/images/placeholder.png"}
-          width={78}
-          height={78}
-          alt={campaign.title}
-          className="w-full h-full object-cover"
-        />
-      </div>
-
-      {/* Campaign Info */}
-      <div className="flex-1 flex flex-col gap-2 justify-center min-w-0">
-        <div className="flex flex-col">
-          <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
-            {campaign.title}
-          </h3>
-          <p className="text-sm text-[#6b7280] leading-[1.7] line-clamp-1">
-            {campaign.missionContent}
-          </p>
+      {/* Campaign Image & Info - Clickable to detail page */}
+      <LocalizedLink
+        href={`/campaigns/${campaign.missionId}`}
+        className="flex gap-3 items-center flex-1 min-w-0 hover:opacity-80 transition-opacity"
+      >
+        {/* Campaign Image */}
+        <div className="w-19.5 h-19.5 rounded overflow-hidden shrink-0">
+          <Image
+            src={campaign.thumbnailImg || "/images/placeholder.png"}
+            width={78}
+            height={78}
+            alt={campaign.title}
+            className="w-full h-full object-cover"
+          />
         </div>
 
-        <div className="flex gap-3 items-center">
-          {socialPlatforms.length > 0 && (
-            <div className="flex gap-1.5 items-center">
-              {socialPlatforms.slice(0, 1).map((platform) => {
-                const logoConfig = SOCIAL_LOGO_MAP[platform];
-                if (!logoConfig) return null;
-                return (
-                  <Image
-                    key={platform}
-                    src={logoConfig.src}
-                    width={logoConfig.width}
-                    height={logoConfig.height}
-                    alt={platform}
-                    className="object-cover"
-                  />
-                );
-              })}
-              {status !== "ended" && daysRemaining > 0 && (
+        {/* Campaign Info */}
+        <div className="flex-1 flex flex-col gap-2 justify-center min-w-0">
+          <div className="flex flex-col">
+            <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
+              {campaign.title}
+            </h3>
+            <p className="text-sm text-[#6b7280] leading-[1.7] line-clamp-1">
+              {campaign.missionContent}
+            </p>
+          </div>
+
+          {/* Different layout for selected status */}
+          {status === "selected" ? (
+            <div className="flex gap-3 items-center">
+              {/* Visit datetime */}
+              <div className="flex gap-1.5 items-center">
+                <Image
+                  src="/icons/calendar-check.svg"
+                  width={15}
+                  height={15}
+                  alt="calendar"
+                />
                 <p className="text-xs font-semibold text-[#111827] leading-[1.7]">
-                  <Trans>{daysRemaining}일 남음</Trans>
+                  {formatVisitDateTime(campaign.visitDatetimeStart, _)}
                 </p>
-              )}
-              {status === "ended" && (
-                <p className="text-xs font-semibold text-[#9ca3af] leading-[1.7]">
-                  <Trans>종료됨</Trans>
+              </div>
+
+              <div className="h-2.5 w-0 border-l border-[#e5e7eb]" />
+
+              {/* Content registration period */}
+              <div className="flex gap-1.5 items-center">
+                {socialPlatforms.slice(0, 1).map((platform) => {
+                  const logoConfig = SOCIAL_LOGO_MAP[platform];
+                  if (!logoConfig) return null;
+                  return (
+                    <Image
+                      key={platform}
+                      src={logoConfig.src}
+                      width={16}
+                      height={16}
+                      alt={platform}
+                      className="object-cover"
+                    />
+                  );
+                })}
+                <p className="text-xs font-semibold text-[#111827] leading-[1.7]">
+                  {formatContentDateRange(
+                    campaign.contentStartDate,
+                    campaign.contentEndDate,
+                    _
+                  )}
                 </p>
+              </div>
+            </div>
+          ) : (
+            <div className="flex gap-3 items-center">
+              {socialPlatforms.length > 0 && (
+                <div className="flex gap-1.5 items-center">
+                  {socialPlatforms.slice(0, 1).map((platform) => {
+                    const logoConfig = SOCIAL_LOGO_MAP[platform];
+                    if (!logoConfig) return null;
+                    return (
+                      <Image
+                        key={platform}
+                        src={logoConfig.src}
+                        width={logoConfig.width}
+                        height={logoConfig.height}
+                        alt={platform}
+                        className="object-cover"
+                      />
+                    );
+                  })}
+                  {status !== "ended" && daysRemaining > 0 && (
+                    <p className="text-xs font-semibold text-[#111827] leading-[1.7]">
+                      <Trans>{daysRemaining}일 남음</Trans>
+                    </p>
+                  )}
+                  {status === "ended" && (
+                    <p className="text-xs font-semibold text-[#9ca3af] leading-[1.7]">
+                      <Trans>종료됨</Trans>
+                    </p>
+                  )}
+                </div>
               )}
+
+              <div className="h-2.5 w-0 border-l border-[#e5e7eb]" />
+
+              <p className="text-xs text-[#4b5563] leading-[1.7]">
+                <Trans>신청</Trans> {campaign.enrollCount}/ {campaign.maxEnroll}
+              </p>
             </div>
           )}
-
-          <div className="h-2.5 w-0 border-l border-[#e5e7eb]" />
-
-          <p className="text-xs text-[#4b5563] leading-[1.7]">
-            <Trans>신청</Trans> {campaign.enrollCount}/ {campaign.maxEnroll}
-          </p>
         </div>
-      </div>
+      </LocalizedLink>
 
       {/* Action Buttons */}
-      <div className="flex gap-2 w-50 shrink-0">
-        {actionButtons.map((button, index) => (
-          <button
-            key={index}
-            onClick={() => handleButtonClick(button.variant, button.key)}
-            className={`flex-1 h-8 px-3 rounded-md flex items-center justify-center ${
-              button.variant === "primaryFilled"
-                ? "bg-[#ea3a50] border border-[#ea3a50]"
-                : "bg-transparent border border-[#e5e7eb]"
-            }`}
-          >
-            <span
-              className={`text-sm font-medium leading-normal ${
-                button.variant === "cancel"
-                  ? "text-[#ff614e]"
-                  : button.variant === "primaryFilled"
-                  ? "text-white"
-                  : "text-[#374151]"
+      <div className="flex items-center gap-2 w-50 shrink-0">
+        {actionButtons.map((button, index) => {
+          // Check if this is the content registration button and if we're before the content start date
+          const isContentRegistrationButton =
+            status === "selected" && button.key === "viewCampaign";
+          const isBeforeContentStartDate =
+            isContentRegistrationButton &&
+            !!campaign.contentStartDate &&
+            new Date() < new Date(campaign.contentStartDate);
+
+          const buttonLabel = isBeforeContentStartDate
+            ? _(msg`컨텐츠 등록 기간이 아닙니다.`)
+            : button.label;
+
+          const isDisabled = isBeforeContentStartDate;
+
+          return (
+            <button
+              key={index}
+              onClick={() => handleButtonClick(button.variant, button.key)}
+              disabled={isDisabled}
+              className={`w-full px-3 rounded-md flex items-center justify-center ${
+                isDisabled
+                  ? "min-h-8 py-1.5 bg-[#e5e7eb] border border-[#e5e7eb] cursor-not-allowed"
+                  : "h-8 whitespace-nowrap bg-transparent border border-[#e5e7eb]"
+              } ${
+                !isDisabled && button.variant === "primaryFilled"
+                  ? "bg-[#ea3a50] border-[#ea3a50]"
+                  : ""
               }`}
             >
-              {button.label}
-            </span>
-          </button>
-        ))}
+              <span
+                className={`text-sm font-medium leading-normal text-center ${
+                  isDisabled
+                    ? "text-[#9ca3af]"
+                    : button.variant === "cancel"
+                    ? "text-[#ff614e]"
+                    : button.variant === "primaryFilled"
+                    ? "text-white"
+                    : "text-[#374151]"
+                }`}
+              >
+                {buttonLabel}
+              </span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
@@ -356,7 +494,9 @@ export default function Page() {
       <div className="grid md:grid-cols-8">
         {/* Sidebar */}
         <div className="col-span-2 pt-10">
-          <h1 className="text-[#111827] text-2xl font-bold"><Trans>마이페이지</Trans></h1>
+          <h1 className="text-[#111827] text-2xl font-bold">
+            <Trans>마이페이지</Trans>
+          </h1>
 
           <div className="pl-3 mt-5">
             <LocalizedLink

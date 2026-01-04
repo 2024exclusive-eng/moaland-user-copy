@@ -25,7 +25,9 @@ const categoryToFaqType: Record<CategoryKey, FaqType> = {
   privacy: "privacy_policy",
 };
 
-function getCategoryTitles(_: ReturnType<typeof useLingui>["_"]): Record<CategoryKey, string> {
+function getCategoryTitles(
+  _: ReturnType<typeof useLingui>["_"]
+): Record<CategoryKey, string> {
   return {
     faq: _(msg`자주하는 질문`),
     usage: _(msg`서비스 이용 가이드`),
@@ -117,7 +119,9 @@ function SupportPageContent() {
         {/* Sidebar */}
         <div className="col-span-2 md:border-r border-[#e5e7eb]">
           <div className="sticky top-10 pt-10">
-            <h1 className="text-[#111827] text-2xl font-bold"><Trans>고객센터</Trans></h1>
+            <h1 className="text-[#111827] text-2xl font-bold">
+              <Trans>고객센터</Trans>
+            </h1>
 
             <div className="pl-3 mt-5">
               <button
@@ -166,11 +170,9 @@ function SupportPageContent() {
 
         {/* Main Content */}
         <div className="col-span-6 md:pl-10 py-10 flex min-h-[65vh] flex-col gap-3">
-          {activeCategory === "faq" && (
-            <h2 className="text-xl font-semibold text-[#111827] leading-normal">
-              {getCategoryTitles(_)[activeCategory]}
-            </h2>
-          )}
+          <h2 className="text-xl font-semibold text-[#111827] leading-normal">
+            {getCategoryTitles(_)[activeCategory]}
+          </h2>
 
           {/* Content */}
           {isLoading ? (
@@ -219,9 +221,6 @@ function SupportPageContent() {
             <div className="space-y-6">
               {faqs.map((faq) => (
                 <div key={faq.id}>
-                  <h3 className="font-semibold text-[#111827] text-base mb-2">
-                    {faq.title}
-                  </h3>
                   <div
                     className="text-sm text-[#4b5563] leading-[1.7] ck-content"
                     dangerouslySetInnerHTML={{ __html: faq.answer }}

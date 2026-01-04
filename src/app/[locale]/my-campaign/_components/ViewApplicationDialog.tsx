@@ -1,5 +1,6 @@
 "use client";
 
+import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { X } from "lucide-react";
 
@@ -47,6 +48,7 @@ export function ViewApplicationDialog({
   campaign,
   onCancel,
 }: ViewApplicationDialogProps) {
+  const { _ } = useLingui();
   if (!campaign) return null;
 
   const handleCancel = () => {
@@ -114,7 +116,7 @@ export function ViewApplicationDialog({
           <div className="flex gap-2 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                {getSocialLabel(campaign.social)} <Trans>링크</Trans>
+                {getSocialLabel(campaign.social, _)} <Trans>링크</Trans>
               </p>
             </div>
             <p className="text-sm text-[#374151] leading-[1.7] break-all">

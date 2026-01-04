@@ -3,16 +3,16 @@
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { useState, useEffect } from "react";
 import { X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import {
-  submitContentLinks,
-  parseSocialPlatforms,
-  SOCIAL_LABEL_MAP,
+  getSocialLabel,
   type MyCampaign,
+  parseSocialPlatforms,
+  submitContentLinks,
 } from "@/lib/api/campaign";
 
 interface SubmitContentDialogProps {
@@ -82,9 +82,7 @@ export function SubmitContentDialog({
     // Validate all platform links are filled
     const emptyPlatforms = platforms.filter((p) => !links[p]?.trim());
     if (emptyPlatforms.length > 0) {
-      const labels = emptyPlatforms
-        .map((p) => SOCIAL_LABEL_MAP[p] || p)
-        .join(", ");
+      const labels = emptyPlatforms.map((p) => getSocialLabel(p, _)).join(", ");
       setError(_(msg`${labels} URL을 입력해주세요.`));
       return;
     }
@@ -168,13 +166,15 @@ export function SubmitContentDialog({
           {platforms.map((platform) => (
             <div key={platform} className="flex flex-col gap-2">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                {SOCIAL_LABEL_MAP[platform] || platform} URL
+                {getSocialLabel(platform, _)} URL
               </p>
               <input
                 type="url"
                 value={links[platform] || ""}
                 onChange={(e) => handleLinkChange(platform, e.target.value)}
-                placeholder={_(msg`${SOCIAL_LABEL_MAP[platform] || platform} URL을 등록해주세요.`)}
+                placeholder={_(
+                  msg`${getSocialLabel(platform, _)} URL을 등록해주세요.`
+                )}
                 className="w-full h-10 px-3.5 py-2.5 border border-[#e5e7eb] rounded-lg text-sm text-[#111827] placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50] transition-colors"
               />
             </div>

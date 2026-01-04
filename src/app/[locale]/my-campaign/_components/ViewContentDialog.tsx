@@ -1,12 +1,13 @@
 "use client";
 
+import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { X } from "lucide-react";
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import {
+  getSocialLabel,
   parseSocialPlatforms,
-  SOCIAL_LABEL_MAP,
   type MyCampaign,
 } from "@/lib/api/campaign";
 
@@ -46,6 +47,7 @@ export function ViewContentDialog({
   onOpenChange,
   campaign,
 }: ViewContentDialogProps) {
+  const { _ } = useLingui();
   if (!campaign) return null;
 
   const handleClose = () => {
@@ -117,7 +119,7 @@ export function ViewContentDialog({
                 <div key={platform} className="flex flex-col gap-1">
                   {platforms.length > 1 && (
                     <p className="text-xs text-[#9ca3af]">
-                      {SOCIAL_LABEL_MAP[platform] || platform}
+                      {getSocialLabel(platform, _)}
                     </p>
                   )}
                   {links[platform] ? (

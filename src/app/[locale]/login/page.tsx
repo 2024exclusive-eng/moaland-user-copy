@@ -18,6 +18,23 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/shared/hooks/use-auth";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
+// Helper function to translate common error messages
+function useTranslatedError(error: string | null, _: ReturnType<typeof useLingui>["_"]): string | null {
+  if (!error) return null;
+
+  // Map common error messages to translations
+  const errorMap: Record<string, string> = {
+    "Login failed": _(msg`로그인에 실패했습니다.`),
+    "Invalid email or password": _(msg`이메일 또는 비밀번호가 올바르지 않습니다.`),
+    "User not found": _(msg`사용자를 찾을 수 없습니다.`),
+    "Invalid credentials": _(msg`인증 정보가 올바르지 않습니다.`),
+    "Account is disabled": _(msg`계정이 비활성화되었습니다.`),
+    "Too many attempts": _(msg`너무 많은 시도가 있었습니다. 잠시 후 다시 시도해주세요.`),
+  };
+
+  return errorMap[error] || error;
+}
+
 export default function LoginPage() {
   const { _ } = useLingui();
   const [email, setEmail] = useState("");
@@ -26,6 +43,7 @@ export default function LoginPage() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const r = useLocalizedNavigation();
   const { login, isLoading, error, clearError } = useAuth();
+  const translatedError = useTranslatedError(error, _);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,8 +116,8 @@ export default function LoginPage() {
               </LocalizedLink>
             </div>
 
-            {error && (
-              <p className="text-sm text-red-500 text-center">{error}</p>
+            {translatedError && (
+              <p className="text-sm text-red-500 text-center">{translatedError}</p>
             )}
           </div>
 

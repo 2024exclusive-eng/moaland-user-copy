@@ -9,8 +9,8 @@ import { FloatingInquiryButton } from "@/components/FloatingInquiryButton";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   calculateDaysRemaining,
+  getSocialLabel,
   parseSocialPlatforms,
-  SOCIAL_LABEL_MAP,
   SOCIAL_LOGO_MAP,
 } from "@/lib/api/campaign";
 import { useCampaignDetail } from "@/shared/hooks/use-campaigns";
@@ -156,7 +156,7 @@ export function CampaignDetailContent({
                           </div>
                         )}
                         <span className="text-sm font-semibold text-black leading-5">
-                          {SOCIAL_LABEL_MAP[platform] || platform}
+                          {getSocialLabel(platform, _)}
                         </span>
                       </div>
                     );

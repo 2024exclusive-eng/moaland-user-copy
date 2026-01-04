@@ -141,11 +141,10 @@ export function ProfileBasicInfo({
     <div className="flex flex-col gap-6">
       {/* Profile Picture */}
       <div className="relative w-19.5 h-18.25">
-        <div className="w-17 h-17 relative">
+        <div className="min-w-17 min-h-17 max-w-17 max-h-17 relative">
           <Image
             src={previewUrl || "/images/default-avatar.svg"}
-            width={68}
-            height={68}
+            fill
             alt="Profile"
             className={`rounded-full object-cover ${
               isLoading ? "opacity-50" : ""
@@ -199,7 +198,11 @@ export function ProfileBasicInfo({
 
       {/* Error/Success Messages */}
       {error && <p className="text-sm text-red-500">{error}</p>}
-      {success && <p className="text-sm text-green-500"><Trans>저장되었습니다.</Trans></p>}
+      {success && (
+        <p className="text-sm text-green-500">
+          <Trans>저장되었습니다.</Trans>
+        </p>
+      )}
 
       {/* Withdraw Link */}
       <button
@@ -213,9 +216,14 @@ export function ProfileBasicInfo({
       <Dialog open={showWithdrawDialog} onOpenChange={setShowWithdrawDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle><Trans>회원 탈퇴</Trans></DialogTitle>
+            <DialogTitle>
+              <Trans>회원 탈퇴</Trans>
+            </DialogTitle>
             <DialogDescription>
-              <Trans>정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.</Trans>
+              <Trans>
+                정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할
+                수 없습니다.
+              </Trans>
             </DialogDescription>
           </DialogHeader>
           {withdrawError && (

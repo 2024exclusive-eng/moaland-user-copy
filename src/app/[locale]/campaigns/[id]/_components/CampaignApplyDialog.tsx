@@ -49,7 +49,7 @@ export function CampaignApplyDialog({
   onSuccess,
 }: CampaignApplyDialogProps) {
   const { _ } = useLingui();
-  const socialLabel = getSocialLabel(social);
+  const socialLabel = getSocialLabel(social, _);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     instagramLink: "",
