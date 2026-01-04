@@ -1,5 +1,6 @@
 "use client";
 
+import { Trans } from "@lingui/react/macro";
 import Image from "next/image";
 
 import LocalizedLink from "@/components/LocalizedLink";
@@ -15,10 +16,10 @@ export function Footer() {
         <div className="bg-[#FEF5F6] py-12 text-center">
           <div className="container mx-auto px-4">
             <h3 className="text-lg font-bold text-gray-900 mb-2">
-              광고주 이신가요?
+              <Trans>광고주 이신가요?</Trans>
             </h3>
             <p className="text-sm text-gray-600 mb-6">
-              지금 문의 해보세요! 누구나 손쉽게 시작할 수 있습니다.
+              <Trans>지금 문의 해보세요! 누구나 손쉽게 시작할 수 있습니다.</Trans>
             </p>
             <a
               href="http://pf.kakao.com/_IRpxhn"
@@ -26,7 +27,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-[#EA3A50] hover:bg-red-700 cursor-pointer text-white h-11 w-29 rounded-md font-medium transition-colors"
             >
-              문의하기
+              <Trans>문의하기</Trans>
             </a>
           </div>
         </div>
@@ -46,24 +47,24 @@ export function Footer() {
           <div className="flex-1 flex flex-col gap-3 md:gap-3.5 w-full">
             {/* First Row - Company Info */}
             <div className="flex flex-wrap items-center gap-2 md:gap-3 text-xs text-[#4B5563] leading-normal">
-              <span>서비스이름(주)</span>
+              <span><Trans>서비스이름(주)</Trans></span>
               <span className="text-[#E5E7EB] hidden sm:inline">|</span>
               <span className="w-full sm:w-auto">
-                <span className="font-bold">대표</span> 홍길동
+                <span className="font-bold"><Trans>대표</Trans></span> 홍길동
               </span>
               <span className="text-[#E5E7EB] hidden sm:inline">|</span>
               <span className="w-full sm:w-auto">
-                <span className="font-bold">사업자등록번호</span> 123412341234
+                <span className="font-bold"><Trans>사업자등록번호</Trans></span> 123412341234
               </span>
               <span className="text-[#E5E7EB] hidden sm:inline">|</span>
               <span className="w-full sm:w-auto">
-                <span className="font-bold">주소</span> 주소입니다.
+                <span className="font-bold"><Trans>주소</Trans></span> 주소입니다.
               </span>
             </div>
 
             {/* Second Row - Contact */}
             <div className="flex flex-wrap items-center gap-2 md:gap-3 text-xs text-[#4B5563] leading-normal">
-              <span className="font-bold">문의</span>
+              <span className="font-bold"><Trans>문의</Trans></span>
               <span>010-1234-1234</span>
               <span className="text-[#E5E7EB]">|</span>
               <span>kviewo12@ email.com</span>
@@ -75,14 +76,14 @@ export function Footer() {
                 href="/privacy"
                 className="font-bold hover:text-[#EA3A50]"
               >
-                개인정보처리방침
+                <Trans>개인정보처리방침</Trans>
               </LocalizedLink>
               <span className="text-[#E5E7EB]">|</span>
               <LocalizedLink
                 href="/terms"
                 className="font-bold hover:text-[#EA3A50]"
               >
-                이용약관
+                <Trans>이용약관</Trans>
               </LocalizedLink>
             </div>
 

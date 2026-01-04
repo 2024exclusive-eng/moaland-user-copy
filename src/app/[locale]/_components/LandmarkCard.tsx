@@ -1,5 +1,6 @@
 "use client";
 
+import { Trans } from "@lingui/react/macro";
 import Image from "next/image";
 
 interface LandmarkCardProps {
@@ -43,12 +44,12 @@ export function LandmarkCard({ image, title, onClick }: LandmarkCardProps) {
             />
 
             <span className="text-[#111827] font-semibold text-sm">
-              3 일 남음
+              <Trans>3 일 남음</Trans>
             </span>
           </div>
           <div>
             <span className="text-[#4B5563] text-xs font-light">
-              신청 20/ 2
+              <Trans>신청 20/ 2</Trans>
             </span>
           </div>
         </div>

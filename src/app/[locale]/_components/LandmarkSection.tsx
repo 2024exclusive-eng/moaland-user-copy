@@ -1,5 +1,6 @@
 "use client";
 
+import { Trans } from "@lingui/react/macro";
 import { ChevronRight } from "lucide-react";
 
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
@@ -48,7 +49,7 @@ export function LandmarkSection({
             </div>
             {showViewAll && (
               <button className="flex items-center gap-1 text-sm text-gray-600 hover:text-red-600 transition-colors">
-                더보기
+                <Trans>더보기</Trans>
                 <ChevronRight className="w-4 h-4" />
               </button>
             )}

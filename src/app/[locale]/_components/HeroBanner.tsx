@@ -1,5 +1,6 @@
 "use client";
 
+import { Trans } from "@lingui/react/macro";
 import { AlertCircle } from "lucide-react";
 import Image from "next/image";
 
@@ -49,7 +50,7 @@ export function HeroBanner() {
               <CarouselItem className="pl-2 md:pl-4 basis-full">
                 <div className="bg-gray-100 rounded-lg min-h-45 flex flex-col items-center justify-center text-gray-500">
                   <AlertCircle className="w-8 h-8 mb-2 text-red-400" />
-                  <p className="text-sm">배너를 불러오는데 실패했습니다</p>
+                  <p className="text-sm"><Trans>배너를 불러오는데 실패했습니다</Trans></p>
                 </div>
               </CarouselItem>
             )}
@@ -59,7 +60,7 @@ export function HeroBanner() {
               <CarouselItem className="pl-2 md:pl-4 basis-full">
                 <div className="bg-gray-900 rounded-lg pb-5 pl-5 min-h-45 flex flex-col justify-end">
                   <h2 className="text-white text-xl font-bold">K-VIEWO</h2>
-                  <p className="text-white text-sm">캠페인에 참여하세요!</p>
+                  <p className="text-white text-sm"><Trans>캠페인에 참여하세요!</Trans></p>
                 </div>
               </CarouselItem>
             )}

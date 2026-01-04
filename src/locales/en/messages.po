@@ -70,6 +70,10 @@ msgstr "*Content cannot be modified after the registration period ends."
 msgid "<0>'{keyword}'</0> 검색결과"
 msgstr "<0>'{keyword}'</0> Search Results"
 
+#: src/app/[locale]/_components/LandmarkCard.tsx:47
+msgid "3 일 남음"
+msgstr "3 days left"
+
 #: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:238
 msgid "가이드라인"
 msgstr "Guidelines"
@@ -88,6 +92,7 @@ msgstr "Privacy Policy"
 
 #: src/app/[locale]/support/page.tsx:33
 #: src/app/[locale]/support/page.tsx:161
+#: src/components/Footer.tsx:79
 msgid "개인정보처리방침"
 msgstr "Privacy Policy"
 
@@ -134,6 +139,10 @@ msgstr "Advertisement"
 msgid "광고문의"
 msgstr "Advertising"
 
+#: src/components/Footer.tsx:19
+msgid "광고주 이신가요?"
+msgstr "Are you an advertiser?"
+
 #: src/app/[locale]/profile/page.tsx:58
 msgid "기본 정보"
 msgstr "Basic Info"
@@ -158,7 +167,12 @@ msgstr "Try searching with a different keyword."
 msgid "다중디엔핑"
 msgstr "Dianping"
 
+#: src/components/Footer.tsx:53
+msgid "대표"
+msgstr "CEO"
+
 #: src/app/[locale]/_components/CampaignSection.tsx:66
+#: src/app/[locale]/_components/LandmarkSection.tsx:52
 msgid "더보기"
 msgstr "See More"
 
@@ -249,6 +263,7 @@ msgstr "Ending soon"
 msgid "마사지"
 msgstr "Massage"
 
+#: src/app/[locale]/my-campaign/page.tsx:359
 #: src/app/[locale]/profile/page.tsx:22
 msgid "마이페이지"
 msgstr "My Page"
@@ -273,6 +288,10 @@ msgstr "Notes"
 msgid "목록으로"
 msgstr "Back to List"
 
+#: src/components/Footer.tsx:67
+msgid "문의"
+msgstr "Contact"
+
 #: src/app/[locale]/login/page.tsx:146
 msgid "문의 채널을 이용해주세요."
 msgstr "Please use the inquiry channel."
@@ -280,6 +299,12 @@ msgstr "Please use the inquiry channel."
 #: src/app/[locale]/login/page.tsx:155
 msgid "문의채널로 이동"
 msgstr "Go to Inquiry Channel"
+
+#: src/components/FloatingInquiryButton.tsx:17
+#: src/components/FloatingInquiryButton.tsx:20
+#: src/components/Footer.tsx:30
+msgid "문의하기"
+msgstr "Contact Us"
 
 #: src/app/[locale]/_components/CategoryIcons.tsx:74
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:24
@@ -308,6 +333,10 @@ msgstr "Visit Date & Time"
 #: src/app/[locale]/campaigns/[id]/_components/CampaignApplyDialog.tsx:79
 msgid "방문일 및 시간을 입력해주세요"
 msgstr "Please enter the visit date and time"
+
+#: src/app/[locale]/_components/HeroBanner.tsx:53
+msgid "배너를 불러오는데 실패했습니다"
+msgstr "Failed to load banners"
 
 #: src/app/[locale]/forgot-password/page.tsx:241
 msgid "변경하기"
@@ -375,6 +404,10 @@ msgstr "Please re-enter your password."
 msgid "비밀번호찾기"
 msgstr "Find Password"
 
+#: src/components/Footer.tsx:57
+msgid "사업자등록번호"
+msgstr "Business Registration No."
+
 #: src/app/[locale]/campaigns/[id]/_components/DetailImagesSection.tsx:69
 msgid "상세이미지 더보기"
 msgstr "View More Images"
@@ -409,6 +442,10 @@ msgstr "Service Guide"
 msgid "서비스 이용약관"
 msgstr "Terms of Service"
 
+#: src/components/Footer.tsx:50
+msgid "서비스이름(주)"
+msgstr "Service Name Co., Ltd."
+
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:35
 msgid "서울"
 msgstr "Seoul"
@@ -430,6 +467,10 @@ msgstr "Accommodation"
 #: src/app/[locale]/my-campaign/page.tsx:201
 msgid "신청"
 msgstr "Apply"
+
+#: src/app/[locale]/_components/LandmarkCard.tsx:52
+msgid "신청 20/ 2"
+msgstr "Applied 20/2"
 
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:76
 msgid "신청 마감"
@@ -589,6 +630,7 @@ msgstr "User Guide"
 
 #: src/app/[locale]/support/page.tsx:32
 #: src/app/[locale]/support/page.tsx:151
+#: src/components/Footer.tsx:86
 msgid "이용약관"
 msgstr "Terms of Use"
 
@@ -730,6 +772,14 @@ msgstr "No ended campaigns."
 msgid "종료됨"
 msgstr "Ended"
 
+#: src/components/Footer.tsx:61
+msgid "주소"
+msgstr "Address"
+
+#: src/components/Footer.tsx:22
+msgid "지금 문의 해보세요! 누구나 손쉽게 시작할 수 있습니다."
+msgstr "Contact us now! Anyone can easily get started."
+
 #: src/app/[locale]/community/page.tsx:158
 msgid "진행 중인 이벤트가 없습니다."
 msgstr "No events in progress."
@@ -826,6 +876,10 @@ msgstr "Campaign Terms and Content Usage Agreement"
 msgid "캠페인 유의사항, 개인정보 및 콘텐츠 제3자 제공, 저작물 이용에 동의합니다."
 msgstr "I agree to campaign terms, personal information and content sharing with third parties, and content usage rights."
 
+#: src/app/[locale]/_components/HeroBanner.tsx:63
+msgid "캠페인에 참여하세요!"
+msgstr "Join the campaign!"
+
 #: src/app/[locale]/my-campaign/_components/CancelConfirmDialog.tsx:74
 msgid "캠페인은 신청기간내 재신청이 가능합니다."
 msgstr "You can reapply during the application period."
@@ -842,7 +896,6 @@ msgstr "No campaigns available"
 
 #: src/app/[locale]/community/[id]/page.tsx:30
 #: src/app/[locale]/community/page.tsx:59
-#: src/app/[locale]/my-campaign/page.tsx:359
 #: src/components/Header.tsx:178
 msgid "커뮤니티"
 msgstr "Community"
@@ -893,6 +946,10 @@ msgstr "Delete Account"
 msgid "필수 약관에 동의해주세요."
 msgstr "Please agree to the required terms."
 
+#: src/components/Header.tsx:217
+msgid "한국어 (KO)"
+msgstr "Korean (KO)"
+
 #: src/app/[locale]/campaigns/[id]/_components/CampaignAlertDialog.tsx:96
 #: src/app/[locale]/campaigns/[id]/_components/CampaignApplyDialog.tsx:393
 #: src/app/[locale]/forgot-password/page.tsx:190
@@ -914,3 +971,7 @@ msgstr "Delete Account"
 #: src/app/[locale]/register/page.tsx:194
 msgid "회원가입"
 msgstr "Sign Up"
+
+#: src/components/Header.tsx:227
+msgid "中文 (CN)"
+msgstr "Chinese (CN)"

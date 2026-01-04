@@ -214,7 +214,7 @@ export function Header() {
                     : "text-[#374151]"
                 }`}
               >
-                한국어 (KO)
+                <Trans>한국어 (KO)</Trans>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => handleLocaleChange("zh")}
@@ -224,7 +224,7 @@ export function Header() {
                     : "text-[#374151]"
                 }`}
               >
-                中文 (CN)
+                <Trans>中文 (CN)</Trans>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

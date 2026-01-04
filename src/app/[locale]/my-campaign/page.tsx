@@ -356,7 +356,7 @@ export default function Page() {
       <div className="grid md:grid-cols-8">
         {/* Sidebar */}
         <div className="col-span-2 pt-10">
-          <h1 className="text-[#111827] text-2xl font-bold"><Trans>커뮤니티</Trans></h1>
+          <h1 className="text-[#111827] text-2xl font-bold"><Trans>마이페이지</Trans></h1>
 
           <div className="pl-3 mt-5">
             <LocalizedLink

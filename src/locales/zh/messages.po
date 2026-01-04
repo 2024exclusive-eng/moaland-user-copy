@@ -70,6 +70,10 @@ msgstr "*内容注册期限过后将无法修改。"
 msgid "<0>'{keyword}'</0> 검색결과"
 msgstr "<0>'{keyword}'</0> 搜索结果"
 
+#: src/app/[locale]/_components/LandmarkCard.tsx:47
+msgid "3 일 남음"
+msgstr "还剩3天"
+
 #: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:238
 msgid "가이드라인"
 msgstr "指南"
@@ -88,6 +92,7 @@ msgstr "隐私政策"
 
 #: src/app/[locale]/support/page.tsx:33
 #: src/app/[locale]/support/page.tsx:161
+#: src/components/Footer.tsx:79
 msgid "개인정보처리방침"
 msgstr "隐私政策"
 
@@ -134,6 +139,10 @@ msgstr "广告横幅"
 msgid "광고문의"
 msgstr "广告咨询"
 
+#: src/components/Footer.tsx:19
+msgid "광고주 이신가요?"
+msgstr "您是广告主吗？"
+
 #: src/app/[locale]/profile/page.tsx:58
 msgid "기본 정보"
 msgstr "基本信息"
@@ -158,7 +167,12 @@ msgstr "请尝试其他搜索词。"
 msgid "다중디엔핑"
 msgstr "大众点评"
 
+#: src/components/Footer.tsx:53
+msgid "대표"
+msgstr "代表"
+
 #: src/app/[locale]/_components/CampaignSection.tsx:66
+#: src/app/[locale]/_components/LandmarkSection.tsx:52
 msgid "더보기"
 msgstr "查看更多"
 
@@ -249,6 +263,7 @@ msgstr "即将结束"
 msgid "마사지"
 msgstr "按摩"
 
+#: src/app/[locale]/my-campaign/page.tsx:359
 #: src/app/[locale]/profile/page.tsx:22
 msgid "마이페이지"
 msgstr "我的页面"
@@ -273,6 +288,10 @@ msgstr "备注"
 msgid "목록으로"
 msgstr "返回列表"
 
+#: src/components/Footer.tsx:67
+msgid "문의"
+msgstr "咨询"
+
 #: src/app/[locale]/login/page.tsx:146
 msgid "문의 채널을 이용해주세요."
 msgstr "请使用咨询渠道。"
@@ -280,6 +299,12 @@ msgstr "请使用咨询渠道。"
 #: src/app/[locale]/login/page.tsx:155
 msgid "문의채널로 이동"
 msgstr "前往咨询渠道"
+
+#: src/components/FloatingInquiryButton.tsx:17
+#: src/components/FloatingInquiryButton.tsx:20
+#: src/components/Footer.tsx:30
+msgid "문의하기"
+msgstr "联系我们"
 
 #: src/app/[locale]/_components/CategoryIcons.tsx:74
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:24
@@ -308,6 +333,10 @@ msgstr "访问日期和时间"
 #: src/app/[locale]/campaigns/[id]/_components/CampaignApplyDialog.tsx:79
 msgid "방문일 및 시간을 입력해주세요"
 msgstr "请输入访问日期和时间"
+
+#: src/app/[locale]/_components/HeroBanner.tsx:53
+msgid "배너를 불러오는데 실패했습니다"
+msgstr "加载横幅失败"
 
 #: src/app/[locale]/forgot-password/page.tsx:241
 msgid "변경하기"
@@ -375,6 +404,10 @@ msgstr "请重新输入密码。"
 msgid "비밀번호찾기"
 msgstr "找回密码"
 
+#: src/components/Footer.tsx:57
+msgid "사업자등록번호"
+msgstr "营业执照号"
+
 #: src/app/[locale]/campaigns/[id]/_components/DetailImagesSection.tsx:69
 msgid "상세이미지 더보기"
 msgstr "查看更多详细图片"
@@ -409,6 +442,10 @@ msgstr "服务使用指南"
 msgid "서비스 이용약관"
 msgstr "服务条款"
 
+#: src/components/Footer.tsx:50
+msgid "서비스이름(주)"
+msgstr "服务名称有限公司"
+
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:35
 msgid "서울"
 msgstr "首尔"
@@ -430,6 +467,10 @@ msgstr "住宿"
 #: src/app/[locale]/my-campaign/page.tsx:201
 msgid "신청"
 msgstr "申请"
+
+#: src/app/[locale]/_components/LandmarkCard.tsx:52
+msgid "신청 20/ 2"
+msgstr "申请 20/2"
 
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:76
 msgid "신청 마감"
@@ -589,6 +630,7 @@ msgstr "使用指南"
 
 #: src/app/[locale]/support/page.tsx:32
 #: src/app/[locale]/support/page.tsx:151
+#: src/components/Footer.tsx:86
 msgid "이용약관"
 msgstr "使用条款"
 
@@ -730,6 +772,14 @@ msgstr "暂无已结束的活动。"
 msgid "종료됨"
 msgstr "已结束"
 
+#: src/components/Footer.tsx:61
+msgid "주소"
+msgstr "地址"
+
+#: src/components/Footer.tsx:22
+msgid "지금 문의 해보세요! 누구나 손쉽게 시작할 수 있습니다."
+msgstr "现在联系我们！任何人都可以轻松开始。"
+
 #: src/app/[locale]/community/page.tsx:158
 msgid "진행 중인 이벤트가 없습니다."
 msgstr "暂无进行中的活动。"
@@ -826,6 +876,10 @@ msgstr "活动注意事项及作品使用同意"
 msgid "캠페인 유의사항, 개인정보 및 콘텐츠 제3자 제공, 저작물 이용에 동의합니다."
 msgstr "我同意活动注意事项、个人信息及内容向第三方提供、作品使用。"
 
+#: src/app/[locale]/_components/HeroBanner.tsx:63
+msgid "캠페인에 참여하세요!"
+msgstr "参加活动吧！"
+
 #: src/app/[locale]/my-campaign/_components/CancelConfirmDialog.tsx:74
 msgid "캠페인은 신청기간내 재신청이 가능합니다."
 msgstr "可在申请期限内重新申请活动。"
@@ -842,7 +896,6 @@ msgstr "暂无活动"
 
 #: src/app/[locale]/community/[id]/page.tsx:30
 #: src/app/[locale]/community/page.tsx:59
-#: src/app/[locale]/my-campaign/page.tsx:359
 #: src/components/Header.tsx:178
 msgid "커뮤니티"
 msgstr "社区"
@@ -893,6 +946,10 @@ msgstr "注销账户"
 msgid "필수 약관에 동의해주세요."
 msgstr "请同意必填条款。"
 
+#: src/components/Header.tsx:217
+msgid "한국어 (KO)"
+msgstr "韩语 (KO)"
+
 #: src/app/[locale]/campaigns/[id]/_components/CampaignAlertDialog.tsx:96
 #: src/app/[locale]/campaigns/[id]/_components/CampaignApplyDialog.tsx:393
 #: src/app/[locale]/forgot-password/page.tsx:190
@@ -914,3 +971,7 @@ msgstr "账户注销"
 #: src/app/[locale]/register/page.tsx:194
 msgid "회원가입"
 msgstr "注册"
+
+#: src/components/Header.tsx:227
+msgid "中文 (CN)"
+msgstr "中文 (CN)"
