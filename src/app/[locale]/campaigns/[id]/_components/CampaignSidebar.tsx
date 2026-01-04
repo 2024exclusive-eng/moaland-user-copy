@@ -58,6 +58,8 @@ function getButtonState(
   const now = new Date();
   const startDate = new Date(enrollStartDate);
   const endDate = new Date(enrollEndDate);
+  // Set end date to end of day (23:59:59.999) so enrollment is available all day
+  endDate.setHours(23, 59, 59, 999);
 
   if (now < startDate) {
     return "opening-soon";
