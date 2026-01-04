@@ -59,7 +59,9 @@ export function DetailImagesSection({
       <Button
         variant="outline"
         onClick={() => setShowAll(!showAll)}
-        className="w-full cursor-pointer h-10 border-[#111827] text-[#111827] shadow-[0px_2px_6px_0px_rgba(0,0,0,0.34)]"
+        className={`w-full cursor-pointer h-10 border-[#111827] text-[#111827] shadow-[0px_2px_6px_0px_rgba(0,0,0,0.34)] ${
+          showAll ? "mt-2" : ""
+        }`}
       >
         {showAll ? "이미지 접기" : "상세이미지 더보기"}
       </Button>

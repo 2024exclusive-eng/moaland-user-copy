@@ -5,74 +5,83 @@ import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { deleteAccount } from "@/lib/api/auth";
+import {
   ProfileResponse,
   updateProfile,
   uploadProfileImage,
 } from "@/lib/api/profile";
+import { useAuth } from "@/shared/hooks/use-auth";
 
 export function ProfileBasicInfo({
   profile,
 }: {
   profile?: ProfileResponse | null;
 }) {
+  const { logout } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [email, setEmail] = useState(profile?.my?.email || "");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(
     profile?.profile?.profileImg || null
   );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [showWithdrawDialog, setShowWithdrawDialog] = useState(false);
+  const [isWithdrawing, setIsWithdrawing] = useState(false);
+  const [withdrawError, setWithdrawError] = useState<string | null>(null);
 
   // Update state when profile loads
   useEffect(() => {
-    if (profile?.my?.email) {
-      setEmail(profile.my.email);
-    }
     if (profile?.profile?.profileImg) {
       setPreviewUrl(profile.profile.profileImg);
     }
   }, [profile]);
 
   const handleImageClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
+    if (!isLoading) {
+      fileInputRef.current?.click();
     }
   };
 
-  const handleSave = async () => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Show preview immediately
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+
+    // Upload and save
     setIsLoading(true);
     setError(null);
     setSuccess(false);
 
     try {
-      let profileUrl: string | null = profile?.profile?.profileImg || null;
-
-      // Upload image if a new one was selected
-      if (selectedFile) {
-        const uploadResponse = await uploadProfileImage(selectedFile);
-        if (uploadResponse.success) {
-          profileUrl = uploadResponse.data.uri;
-        }
+      // Upload image
+      const uploadResponse = await uploadProfileImage(file);
+      if (!uploadResponse.success) {
+        throw new Error("이미지 업로드에 실패했습니다.");
       }
 
-      // Update profile with email and profile_url
+      const profileUrl = uploadResponse.data.uri;
+
+      // Update profile with new profile image
       const updateResponse = await updateProfile({
-        email,
         profileImg: profileUrl,
       });
 
       if (updateResponse.success) {
         setSuccess(true);
-        setSelectedFile(null);
+        setPreviewUrl(profileUrl);
+        // Auto-hide success message after 2 seconds
+        setTimeout(() => setSuccess(false), 2000);
       }
     } catch (err) {
       const errorMessage = (
@@ -85,8 +94,42 @@ export function ProfileBasicInfo({
       } else {
         setError("저장에 실패했습니다.");
       }
+      // Revert preview on error
+      setPreviewUrl(profile?.profile?.profileImg || null);
     } finally {
       setIsLoading(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  const handleWithdraw = async () => {
+    setIsWithdrawing(true);
+    setWithdrawError(null);
+
+    try {
+      const response = await deleteAccount();
+      if (response.success) {
+        // Clear auth token and redirect to login page
+        logout();
+        const locale = window.location.pathname.split("/")[1] || "en";
+        window.location.href = `/${locale}/login`;
+      }
+    } catch (err) {
+      const errorMessage = (
+        err as { response?: { data?: { error?: { msg?: string } | string } } }
+      )?.response?.data?.error;
+      if (typeof errorMessage === "object" && errorMessage?.msg) {
+        setWithdrawError(errorMessage.msg);
+      } else if (typeof errorMessage === "string") {
+        setWithdrawError(errorMessage);
+      } else {
+        setWithdrawError("탈퇴 처리에 실패했습니다.");
+      }
+    } finally {
+      setIsWithdrawing(false);
     }
   };
 
@@ -94,14 +137,21 @@ export function ProfileBasicInfo({
     <div className="flex flex-col gap-6">
       {/* Profile Picture */}
       <div className="relative w-19.5 h-18.25">
-        <div className="w-17 h-17">
+        <div className="w-17 h-17 relative">
           <Image
             src={previewUrl || "/images/default-avatar.svg"}
             width={68}
             height={68}
             alt="Profile"
-            className="rounded-full object-cover"
+            className={`rounded-full object-cover ${
+              isLoading ? "opacity-50" : ""
+            }`}
           />
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-5 h-5 border-2 border-[#ea3a50] border-t-transparent rounded-full animate-spin" />
+            </div>
+          )}
         </div>
         <input
           ref={fileInputRef}
@@ -138,14 +188,8 @@ export function ProfileBasicInfo({
         <label className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
           가입 이메일
         </label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-[#111827] leading-[1.7]"
-        />
-        <p className="text-sm text-[#9ca3af] leading-[1.7]">
-          이메일 수정 시 재인증이 필요합니다.
+        <p className="text-sm text-[#111827] leading-[1.7]">
+          {profile?.my?.email || "-"}
         </p>
       </div>
 
@@ -153,19 +197,47 @@ export function ProfileBasicInfo({
       {error && <p className="text-sm text-red-500">{error}</p>}
       {success && <p className="text-sm text-green-500">저장되었습니다.</p>}
 
-      {/* Save Button */}
-      <Button
-        onClick={handleSave}
-        disabled={isLoading}
-        className="w-22 h-10 bg-[#ea3a50] hover:bg-[#ea3a50]/90 text-white rounded-lg disabled:opacity-50"
-      >
-        {isLoading ? "저장 중..." : "저장하기"}
-      </Button>
-
       {/* Withdraw Link */}
-      <button className="text-sm cursor-pointer font-medium text-[#9ca3af] underline text-left mt-auto pt-3">
+      <button
+        onClick={() => setShowWithdrawDialog(true)}
+        className="text-sm cursor-pointer font-medium text-[#9ca3af] underline text-left mt-auto pt-3"
+      >
         탈퇴하기
       </button>
+
+      {/* Withdraw Confirmation Dialog */}
+      <Dialog open={showWithdrawDialog} onOpenChange={setShowWithdrawDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>회원 탈퇴</DialogTitle>
+            <DialogDescription>
+              정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할 수
+              없습니다.
+            </DialogDescription>
+          </DialogHeader>
+          {withdrawError && (
+            <p className="text-sm text-red-500">{withdrawError}</p>
+          )}
+          <DialogFooter className="flex gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setShowWithdrawDialog(false)}
+              disabled={isWithdrawing}
+              className="flex-1 sm:flex-none"
+            >
+              취소
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleWithdraw}
+              disabled={isWithdrawing}
+              className="flex-1 sm:flex-none bg-[#ea3a50] hover:bg-[#ea3a50]/90"
+            >
+              {isWithdrawing ? "처리 중..." : "탈퇴하기"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

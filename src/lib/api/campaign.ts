@@ -93,7 +93,7 @@ export interface CampaignParams {
   social?: string;
   is_recommended?: boolean;
   sort?: "deadline" | "newest";
-  keyword?: string;
+  search?: string;
 }
 
 // My Campaign Types

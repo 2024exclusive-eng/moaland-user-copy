@@ -29,7 +29,12 @@ const categoryTitles: Record<CategoryKey, string> = {
   privacy: "개인정보처리방침",
 };
 
-const validCategories: CategoryKey[] = ["faq", "usage", "term_of_use", "privacy"];
+const validCategories: CategoryKey[] = [
+  "faq",
+  "usage",
+  "term_of_use",
+  "privacy",
+];
 
 function getInitialCategory(tabParam: string | null): CategoryKey {
   if (tabParam && validCategories.includes(tabParam as CategoryKey)) {
@@ -81,7 +86,8 @@ function SupportPageContent() {
   const tabParam = searchParams.get("tab");
 
   // Use tabParam directly to derive active category, with local override for user clicks
-  const [userSelectedCategory, setUserSelectedCategory] = useState<CategoryKey | null>(null);
+  const [userSelectedCategory, setUserSelectedCategory] =
+    useState<CategoryKey | null>(null);
 
   const activeCategory = useMemo(() => {
     // If user has manually selected a category, use that
@@ -195,7 +201,7 @@ function SupportPageContent() {
                   </AccordionTrigger>
                   <AccordionContent className="bg-[#f3f4f6] border-b border-[#e5e7eb] px-3 py-4">
                     <div
-                      className="text-sm text-[#4b5563] leading-[1.7] prose prose-sm max-w-none"
+                      className="text-sm text-[#4b5563] leading-[1.7] ck-content"
                       dangerouslySetInnerHTML={{ __html: faq.answer }}
                     />
                   </AccordionContent>
@@ -211,7 +217,7 @@ function SupportPageContent() {
                     {faq.title}
                   </h3>
                   <div
-                    className="text-sm text-[#4b5563] leading-[1.7] prose prose-sm max-w-none"
+                    className="text-sm text-[#4b5563] leading-[1.7] ck-content"
                     dangerouslySetInnerHTML={{ __html: faq.answer }}
                   />
                 </div>

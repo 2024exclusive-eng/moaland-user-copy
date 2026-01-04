@@ -79,7 +79,7 @@ export function CampaignCard({
         {/* Title & Brand */}
         <div className="text-[#111827] font-semibold text-[16px] mt-2">
           <h3>{title}</h3>
-          <p className="text-[#6B7280] font-light text-sm mt-1">
+          <p className="text-[#6B7280] font-light text-sm mt-1 line-clamp-2">
             <span dangerouslySetInnerHTML={{ __html: missionContent }} />
           </p>
         </div>

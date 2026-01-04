@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { mutate } from "swr";
 
 import {
   type AuthResponse,
@@ -89,6 +90,8 @@ export function useAuth(): UseAuthReturn {
       if (response.success && response.accessToken && response.userInfo) {
         tokenStorage.set(response.accessToken);
         setUser(response.userInfo);
+        // Invalidate profile cache so it refetches for the new user
+        mutate("profile");
       } else if (!response.success && response.error) {
         const errorMsg =
           typeof response.error === "object"
@@ -115,6 +118,8 @@ export function useAuth(): UseAuthReturn {
         if (response.success && response.accessToken && response.userInfo) {
           tokenStorage.set(response.accessToken);
           setUser(response.userInfo);
+          // Invalidate profile cache so it fetches for the new user
+          mutate("profile");
         } else if (!response.success && response.error) {
           const errorMsg =
             typeof response.error === "object"
@@ -176,6 +181,8 @@ export function useAuth(): UseAuthReturn {
   const logout = useCallback(() => {
     tokenStorage.remove();
     setUser(null);
+    // Clear profile cache on logout
+    mutate("profile", undefined, { revalidate: false });
   }, []);
 
   // Forgot Password Methods

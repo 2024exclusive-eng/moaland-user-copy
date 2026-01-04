@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   calculateDaysRemaining,
   parseSocialPlatforms,
+  SOCIAL_LABEL_MAP,
   SOCIAL_LOGO_MAP,
 } from "@/lib/api/campaign";
 import { useCampaignDetail } from "@/shared/hooks/use-campaigns";
@@ -152,7 +153,7 @@ export function CampaignDetailContent({
                           </div>
                         )}
                         <span className="text-sm font-semibold text-black leading-5">
-                          {platform}
+                          {SOCIAL_LABEL_MAP[platform] || platform}
                         </span>
                       </div>
                     );
@@ -236,7 +237,7 @@ export function CampaignDetailContent({
                     </div>
                     <div className="flex-1">
                       <div
-                        className="text-base text-[#111827] leading-[1.7] prose prose-sm max-w-none"
+                        className="text-base text-[#111827] leading-[1.7] prose prose-sm max-w-none ck-content"
                         dangerouslySetInnerHTML={{ __html: mission.guideline }}
                       />
                     </div>
@@ -256,7 +257,7 @@ export function CampaignDetailContent({
                     </div>
                     <div className="flex-1">
                       <div
-                        className="text-base text-[#111827] leading-[1.7] prose prose-sm max-w-none"
+                        className="text-base text-[#111827] leading-[1.7] prose prose-sm max-w-none ck-content"
                         dangerouslySetInnerHTML={{
                           __html: mission.missionContents,
                         }}
@@ -277,7 +278,7 @@ export function CampaignDetailContent({
                   </div>
                   <div className="flex-1">
                     <div
-                      className="text-base text-[#111827] leading-[1.7] prose prose-sm max-w-none"
+                      className="text-base text-[#111827] leading-[1.7] prose prose-sm max-w-none ck-content"
                       dangerouslySetInnerHTML={{
                         __html: mission.additionalInfo,
                       }}

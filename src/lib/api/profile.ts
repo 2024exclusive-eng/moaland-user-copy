@@ -63,7 +63,7 @@ export async function uploadProfileImage(
 }
 
 export interface UpdateProfileRequest {
-  email: string;
+  email?: string;
   profileImg: string | null;
 }
 

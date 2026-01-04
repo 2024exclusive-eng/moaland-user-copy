@@ -1,7 +1,7 @@
 "use client";
 
 import { Trans } from "@lingui/react/macro";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,6 @@ const RegisterPage = () => {
     verifyCode,
     register,
     isLoading,
-    error,
     clearError,
   } = useAuth();
 
@@ -36,10 +35,52 @@ const RegisterPage = () => {
     privacy: false,
   });
   const [validationError, setValidationError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [verificationError, setVerificationError] = useState<string | null>(
+    null
+  );
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData((prev) => {
+      const newData = { ...prev, [field]: value };
+      // Validate password match when confirmPassword changes
+      if (field === "confirmPassword") {
+        if (newData.password && value) {
+          if (newData.password !== value) {
+            setPasswordError("비밀번호가 일치하지 않습니다.");
+          } else {
+            setPasswordError(null);
+          }
+        } else {
+          // Clear error if confirmPassword is empty
+          setPasswordError(null);
+        }
+      }
+      // Also validate when password changes and confirmPassword already has value
+      if (field === "password" && newData.confirmPassword) {
+        if (value !== newData.confirmPassword) {
+          setPasswordError("비밀번호가 일치하지 않습니다.");
+        } else {
+          setPasswordError(null);
+        }
+      }
+      return newData;
+    });
     setValidationError(null);
+    if (field === "email") {
+      setEmailError(null);
+    }
+    if (field === "verificationCode") {
+      setVerificationError(null);
+    }
+  };
+
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   const handleAgreementChange = (field: "all" | "terms" | "privacy") => {
@@ -59,10 +100,15 @@ const RegisterPage = () => {
 
   const handleSendVerificationCode = async () => {
     if (!formData.email) {
-      setValidationError("이메일을 입력해주세요.");
+      setEmailError("이메일을 입력해주세요.");
+      return;
+    }
+    if (!isValidEmail(formData.email)) {
+      setEmailError("잘못된 이메일 주소입니다.");
       return;
     }
     clearError();
+    setEmailError(null);
     try {
       const { verify } = await sendVerificationCode(formData.email);
       setVerifyToken(verify);
@@ -75,10 +121,11 @@ const RegisterPage = () => {
 
   const handleVerifyCode = async () => {
     if (!formData.verificationCode || !verifyToken) {
-      setValidationError("인증번호를 입력해주세요.");
+      setVerificationError("인증번호를 입력해주세요.");
       return;
     }
     clearError();
+    setVerificationError(null);
     try {
       const success = await verifyCode(
         formData.email,
@@ -87,9 +134,11 @@ const RegisterPage = () => {
       );
       if (success) {
         setIsVerified(true);
+      } else {
+        setVerificationError("잘못된 인증번호입니다. 다시 확인 후 입력해 주세요.");
       }
     } catch {
-      // Error is handled by useAuth hook
+      setVerificationError("잘못된 인증번호입니다. 다시 확인 후 입력해 주세요.");
     }
   };
 
@@ -133,7 +182,6 @@ const RegisterPage = () => {
     }
   };
 
-  const displayError = validationError || error;
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-md">
@@ -142,11 +190,6 @@ const RegisterPage = () => {
         <h1 className="text-2xl font-bold text-[#242424] text-center">
           <Trans>회원가입</Trans>
         </h1>
-
-        {/* Error Display */}
-        {displayError && (
-          <p className="text-sm text-red-500 text-center">{displayError}</p>
-        )}
 
         {/* Email Section */}
         <div className="flex flex-col gap-3">
@@ -158,8 +201,9 @@ const RegisterPage = () => {
             value={formData.email}
             onChange={(e) => handleInputChange("email", e.target.value)}
             placeholder="이메일"
-            className="h-10 border-[#e5e7eb] rounded-lg"
+            className={`h-10 rounded-lg ${!emailError ? "border-[#e5e7eb]" : ""}`}
             disabled={isCodeSent}
+            error={!isCodeSent ? emailError ?? undefined : undefined}
           />
           <Button
             type="button"
@@ -188,12 +232,16 @@ const RegisterPage = () => {
                     handleInputChange("verificationCode", e.target.value)
                   }
                   placeholder="인증번호를 입력해주세요."
-                  className={`h-10 rounded-lg flex-1 ${
+                  className={`h-10 rounded-lg ${
                     isVerified
                       ? "border-[#5ecb55] focus-visible:border-[#5ecb55]"
-                      : "border-[#e5e7eb]"
+                      : !verificationError
+                        ? "border-[#e5e7eb]"
+                        : ""
                   }`}
+                  wrapperClassName="flex-1"
                   disabled={isVerified}
+                  error={!isVerified ? verificationError ?? undefined : undefined}
                 />
                 {!isVerified && (
                   <Button
@@ -228,24 +276,53 @@ const RegisterPage = () => {
           >
             <Trans>비밀번호</Trans>
           </label>
-          <Input
-            type="password"
-            value={formData.password}
-            onChange={(e) => handleInputChange("password", e.target.value)}
-            placeholder="비밀번호를 입력해주세요."
-            className="h-10 border-[#e5e7eb] rounded-lg disabled:bg-gray-50 disabled:text-gray-400"
-            disabled={!isVerified}
-          />
-          <Input
-            type="password"
-            value={formData.confirmPassword}
-            onChange={(e) =>
-              handleInputChange("confirmPassword", e.target.value)
-            }
-            placeholder="비밀번호를 재입력해주세요."
-            className="h-10 border-[#e5e7eb] rounded-lg disabled:bg-gray-50 disabled:text-gray-400"
-            disabled={!isVerified}
-          />
+          <div className="relative">
+            <Input
+              type={showPassword ? "text" : "password"}
+              value={formData.password}
+              onChange={(e) => handleInputChange("password", e.target.value)}
+              placeholder="비밀번호를 입력해주세요."
+              className="h-10 pr-10 border-[#e5e7eb] rounded-lg disabled:bg-gray-50 disabled:text-gray-400"
+              disabled={!isVerified}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#9ca3af] hover:text-[#6b7280] transition-colors disabled:pointer-events-none"
+              disabled={!isVerified}
+            >
+              {showPassword ? (
+                <EyeOff className="size-4" />
+              ) : (
+                <Eye className="size-4" />
+              )}
+            </button>
+          </div>
+          <div className="relative">
+            <Input
+              type={showConfirmPassword ? "text" : "password"}
+              value={formData.confirmPassword}
+              onChange={(e) =>
+                handleInputChange("confirmPassword", e.target.value)
+              }
+              placeholder="비밀번호를 재입력해주세요."
+              className={`h-10 pr-10 rounded-lg disabled:bg-gray-50 disabled:text-gray-400 ${!passwordError ? "border-[#e5e7eb]" : ""}`}
+              disabled={!isVerified}
+              error={isVerified ? passwordError ?? undefined : undefined}
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className={`absolute right-3.5 top-1/2 -translate-y-1/2 text-[#9ca3af] hover:text-[#6b7280] transition-colors disabled:pointer-events-none ${passwordError ? "-translate-y-[calc(50%+14px)]" : ""}`}
+              disabled={!isVerified}
+            >
+              {showConfirmPassword ? (
+                <EyeOff className="size-4" />
+              ) : (
+                <Eye className="size-4" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Divider */}
@@ -318,6 +395,23 @@ const RegisterPage = () => {
             </label>
           </div>
         </div>
+
+        {/* Form Validation Error */}
+        {validationError && (
+          <div className="flex items-center gap-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="#ff614e"
+              className="size-4 shrink-0"
+            >
+              <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 15V17H13V15H11ZM11 7V13H13V7H11Z" />
+            </svg>
+            <span className="text-sm text-[#ff614e] leading-[1.7]">
+              {validationError}
+            </span>
+          </div>
+        )}
 
         <Button
           type="submit"

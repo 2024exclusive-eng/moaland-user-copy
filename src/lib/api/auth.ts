@@ -183,3 +183,16 @@ export async function resetPassword(
   );
   return response.data;
 }
+
+export interface SecessionResponse {
+  success: boolean;
+  error?: ApiErrorDetail | string;
+}
+
+/**
+ * Delete user account (secession/withdrawal)
+ */
+export async function deleteAccount(): Promise<SecessionResponse> {
+  const response = await api.delete<SecessionResponse>("/user/auth/secession");
+  return response.data;
+}

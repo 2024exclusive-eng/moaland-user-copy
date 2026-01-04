@@ -22,7 +22,7 @@ function SearchContent() {
   const r = useLocalizedNavigation();
 
   const { campaigns, paging, isLoading } = useCampaigns({
-    keyword: keyword || undefined,
+    search: keyword || undefined,
     page: currentPage,
     item: 12,
   });

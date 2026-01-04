@@ -123,3 +123,197 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* CKEditor 5 Content Styles */
+.ck-content {
+  /* Headings */
+  h1 {
+    font-size: 2.25em;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0.8em 0 0.4em;
+  }
+  h2 {
+    font-size: 1.75em;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0.8em 0 0.4em;
+  }
+  h3 {
+    font-size: 1.375em;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0.8em 0 0.4em;
+  }
+  h4 {
+    font-size: 1.125em;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 0.8em 0 0.4em;
+  }
+
+  /* Paragraphs */
+  p {
+    margin: 0 0 1em;
+  }
+
+  /* Lists */
+  ul, ol {
+    margin: 1em 0;
+    padding-left: 2em;
+  }
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  li {
+    margin: 0.25em 0;
+  }
+
+  /* Nested lists */
+  ul ul, ol ul {
+    list-style-type: circle;
+  }
+  ul ul ul, ol ul ul {
+    list-style-type: square;
+  }
+
+  /* Blockquote */
+  blockquote {
+    border-left: 4px solid #e5e7eb;
+    padding-left: 1em;
+    margin: 1em 0;
+    font-style: italic;
+    color: #6b7280;
+  }
+
+  /* Code */
+  code {
+    background-color: #f3f4f6;
+    padding: 0.125em 0.25em;
+    border-radius: 0.25em;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+  }
+  pre {
+    background-color: #1f2937;
+    color: #f9fafb;
+    padding: 1em;
+    border-radius: 0.5em;
+    overflow-x: auto;
+    margin: 1em 0;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+  }
+  th, td {
+    border: 1px solid #e5e7eb;
+    padding: 0.5em 0.75em;
+    text-align: left;
+  }
+  th {
+    background-color: #f9fafb;
+    font-weight: 600;
+  }
+
+  /* Images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  figure {
+    margin: 1em 0;
+  }
+  figure.image {
+    text-align: center;
+  }
+  figure.image img {
+    margin: 0 auto;
+  }
+  figure.image-style-side {
+    float: right;
+    margin-left: 1em;
+    max-width: 50%;
+  }
+  figcaption {
+    font-size: 0.875em;
+    color: #6b7280;
+    text-align: center;
+    margin-top: 0.5em;
+  }
+
+  /* Links */
+  a {
+    color: #2563eb;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: #1d4ed8;
+  }
+
+  /* Horizontal rule */
+  hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 2em 0;
+  }
+
+  /* Text alignment (CKEditor classes) */
+  .text-tiny {
+    font-size: 0.7em;
+  }
+  .text-small {
+    font-size: 0.85em;
+  }
+  .text-big {
+    font-size: 1.4em;
+  }
+  .text-huge {
+    font-size: 1.8em;
+  }
+
+  /* Alignment */
+  [style*="text-align:center"], .text-center {
+    text-align: center;
+  }
+  [style*="text-align:right"], .text-right {
+    text-align: right;
+  }
+  [style*="text-align:justify"], .text-justify {
+    text-align: justify;
+  }
+
+  /* Marker/highlight */
+  mark, .marker-yellow {
+    background-color: #fdff00;
+    padding: 0.125em 0;
+  }
+  .marker-green {
+    background-color: #62f962;
+  }
+  .marker-pink {
+    background-color: #fc7999;
+  }
+  .marker-blue {
+    background-color: #72ccfd;
+  }
+  .pen-red {
+    color: #e91313;
+    background: transparent;
+  }
+  .pen-green {
+    color: #128a00;
+    background: transparent;
+  }
+}
