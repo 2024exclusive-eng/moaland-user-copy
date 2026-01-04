@@ -88,11 +88,11 @@ msgstr "忘记注册邮箱？"
 
 #: src/app/[locale]/register/page.tsx:548
 #~ msgid "개인정보 보유 및 이용 기간: 회원 탈퇴 시까지 (단, 관계 법령에 따라 보존할 필요가 있는 경우 해당 기간까지)"
-#~ msgstr ""
+#~ msgstr "个人信息保留及使用期限：至会员退出时（但如根据相关法律需要保存，则保留至该期限）"
 
 #: src/app/[locale]/register/page.tsx:543
 #~ msgid "개인정보 수집 및 이용 목적: 회원 식별 및 관리, 서비스 제공, 캠페인 참여 관리, 고객 문의 응대"
-#~ msgstr ""
+#~ msgstr "个人信息收集及使用目的：会员识别及管理、服务提供、活动参与管理、客户咨询回复"
 
 #: src/app/[locale]/register/page.tsx:420
 msgid "개인정보 수집/이용"
@@ -100,7 +100,7 @@ msgstr "隐私政策"
 
 #: src/app/[locale]/register/page.tsx:553
 #~ msgid "개인정보는 수집 및 이용 목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다."
-#~ msgstr ""
+#~ msgstr "个人信息在收集及使用目的达成后将立即销毁。"
 
 #: src/app/[locale]/support/page.tsx:35
 #: src/app/[locale]/support/page.tsx:165
@@ -129,7 +129,7 @@ msgstr "账户信息"
 
 #: src/app/[locale]/login/page.tsx:31
 msgid "계정이 비활성화되었습니다."
-msgstr ""
+msgstr "您的账户已被停用。"
 
 #: src/app/[locale]/support/page.tsx:123
 #: src/components/Header.tsx:188
@@ -177,7 +177,7 @@ msgstr "我的活动"
 
 #: src/app/[locale]/login/page.tsx:32
 msgid "너무 많은 시도가 있었습니다. 잠시 후 다시 시도해주세요."
-msgstr ""
+msgstr "尝试次数过多，请稍后再试。"
 
 #: src/app/[locale]/search/page.tsx:63
 msgid "다른 검색어로 다시 검색해 보세요."
@@ -202,7 +202,7 @@ msgstr "抖音"
 
 #: src/lib/api/campaign.ts:194
 msgid "도우인"
-msgstr ""
+msgstr "抖音"
 
 #: src/app/[locale]/register/page.tsx:449
 msgid "동의하고 회원가입"
@@ -258,7 +258,7 @@ msgstr "如未遵守注册内容和评价的保留期限（6个月），可能�
 
 #: src/lib/api/campaign.ts:195
 msgid "따종디엔핑"
-msgstr ""
+msgstr "大众点评"
 
 #: src/components/Header.tsx:278
 msgid "로그아웃"
@@ -279,7 +279,7 @@ msgstr "请登录后申请！"
 
 #: src/app/[locale]/login/page.tsx:27
 msgid "로그인에 실패했습니다."
-msgstr ""
+msgstr "登录失败。"
 
 #: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:119
 #: src/app/[locale]/my-campaign/_components/ViewSelectedCampaignDialog.tsx:106
@@ -393,7 +393,7 @@ msgstr "医院"
 
 #: src/app/[locale]/register/page.tsx:471
 #~ msgid "본 서비스는 KVIEWO(케이뷰오)가 제공하는 인플루언서 마케팅 플랫폼입니다."
-#~ msgstr ""
+#~ msgstr "本服务是由KVIEWO提供的网红营销平台。"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:36
 msgid "부산"
@@ -458,7 +458,7 @@ msgstr "营业执照号"
 
 #: src/app/[locale]/login/page.tsx:29
 msgid "사용자를 찾을 수 없습니다."
-msgstr ""
+msgstr "找不到用户。"
 
 #: src/app/[locale]/campaigns/[id]/_components/DetailImagesSection.tsx:69
 msgid "상세이미지 더보기"
@@ -497,7 +497,7 @@ msgstr "服务条款"
 
 #: src/app/[locale]/register/page.tsx:486
 #~ msgid "서비스를 통해 제공받은 혜택을 타인에게 양도, 판매, 교환할 수 없습니다."
-#~ msgstr ""
+#~ msgstr "通过服务获得的福利不得转让、出售或与他人交换。"
 
 #: src/components/Footer.tsx:50
 msgid "서비스이름(주)"
@@ -517,7 +517,7 @@ msgstr "暂无入选的活动。"
 
 #: src/app/[locale]/register/page.tsx:538
 #~ msgid "수집하는 개인정보 항목: 이메일 주소, 비밀번호, 이름, 연락처, SNS 계정 정보"
-#~ msgstr ""
+#~ msgstr "收集的个人信息项目：电子邮件地址、密码、姓名、联系方式、社交账号信息"
 
 #: src/app/[locale]/_components/CategoryIcons.tsx:82
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:25
@@ -667,7 +667,7 @@ msgstr "电子邮件"
 
 #: src/app/[locale]/login/page.tsx:28
 msgid "이메일 또는 비밀번호가 올바르지 않습니다."
-msgstr ""
+msgstr "邮箱或密码不正确。"
 
 #: src/app/[locale]/forgot-password/page.tsx:89
 #: src/app/[locale]/register/page.tsx:161
@@ -722,7 +722,7 @@ msgstr "Instagram"
 
 #: src/app/[locale]/login/page.tsx:30
 msgid "인증 정보가 올바르지 않습니다."
-msgstr ""
+msgstr "认证信息不正确。"
 
 #: src/app/[locale]/forgot-password/page.tsx:158
 #: src/app/[locale]/register/page.tsx:224
@@ -1068,7 +1068,7 @@ msgstr "确认中..."
 
 #: src/app/[locale]/register/page.tsx:491
 #~ msgid "회사는 서비스 운영상 필요한 경우 사전 공지 후 서비스 내용을 변경할 수 있습니다."
-#~ msgstr ""
+#~ msgstr "如服务运营需要，公司可在事先通知后更改服务内容。"
 
 #: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:220
 msgid "회원 탈퇴"
@@ -1081,19 +1081,19 @@ msgstr "注册"
 
 #: src/app/[locale]/register/page.tsx:558
 #~ msgid "회원은 개인정보 수집 및 이용에 동의하지 않을 권리가 있으나, 동의를 거부할 경우 서비스 이용이 제한될 수 있습니다."
-#~ msgstr ""
+#~ msgstr "会员有权拒绝同意收集和使用个人信息，但如果拒绝同意，服务使用可能会受到限制。"
 
 #: src/app/[locale]/register/page.tsx:476
 #~ msgid "회원은 서비스 이용 시 관련 법령 및 본 약관을 준수해야 합니다."
-#~ msgstr ""
+#~ msgstr "会员在使用服务时必须遵守相关法律法规及本条款。"
 
 #: src/app/[locale]/register/page.tsx:481
 #~ msgid "회원은 타인의 정보를 도용하거나 허위 정보를 등록해서는 안 됩니다."
-#~ msgstr ""
+#~ msgstr "会员不得盗用他人信息或注册虚假信息。"
 
 #: src/app/[locale]/register/page.tsx:496
 #~ msgid "회원이 약관을 위반할 경우 서비스 이용이 제한될 수 있습니다."
-#~ msgstr ""
+#~ msgstr "如会员违反条款，服务使用可能会受到限制。"
 
 #: src/components/Header.tsx:227
 msgid "中文 (CN)"
