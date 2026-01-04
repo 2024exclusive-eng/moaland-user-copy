@@ -1,5 +1,8 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
@@ -11,42 +14,50 @@ import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 import { CampaignCard } from "../../_components/CampaignCard";
 import { CampaignCardSkeletonGrid } from "../../_components/CampaignCardSkeleton";
 
-// Category tabs
-const CATEGORY_TABS = [
-  { label: "전체", value: undefined },
-  { label: "맛집", value: "restaurant" },
-  { label: "병원", value: "Hospital" },
-  { label: "뷰티", value: "Beauty" },
-  { label: "문화", value: "Culture" },
-  { label: "숙박", value: "Stay" },
-  { label: "마사지", value: "Massage" },
-  { label: "기타", value: "Other" },
-];
+// Category tabs - using function for translation
+function getCategoryTabs(_: ReturnType<typeof useLingui>["_"]) {
+  return [
+    { label: _(msg`전체`), value: undefined },
+    { label: _(msg`맛집`), value: "restaurant" },
+    { label: _(msg`병원`), value: "Hospital" },
+    { label: _(msg`뷰티`), value: "Beauty" },
+    { label: _(msg`문화`), value: "Culture" },
+    { label: _(msg`숙박`), value: "Stay" },
+    { label: _(msg`마사지`), value: "Massage" },
+    { label: _(msg`기타`), value: "Other" },
+  ];
+}
 
-// Region pills
-const REGION_PILLS = [
-  { label: "전체", value: undefined },
-  { label: "서울", value: "Seoul" },
-  { label: "부산", value: "Busan" },
-  { label: "제주", value: "Jeju" },
-  { label: "기타", value: "Other" },
-];
+// Region pills - using function for translation
+function getRegionPills(_: ReturnType<typeof useLingui>["_"]) {
+  return [
+    { label: _(msg`전체`), value: undefined },
+    { label: _(msg`서울`), value: "Seoul" },
+    { label: _(msg`부산`), value: "Busan" },
+    { label: _(msg`제주`), value: "Jeju" },
+    { label: _(msg`기타`), value: "Other" },
+  ];
+}
 
-// Social media options
-const SOCIAL_OPTIONS = [
-  { label: "미디어 전체", value: undefined },
-  { label: "샤오홍슈", value: "Xiaohongshu" },
-  { label: "더우인", value: "Douyin" },
-  { label: "다중디엔핑", value: "Dajongdienping" },
-  { label: "인스타그램", value: "Instagram" },
-  { label: "유튜브", value: "YouTube" },
-];
+// Social media options - using function for translation
+function getSocialOptions(_: ReturnType<typeof useLingui>["_"]) {
+  return [
+    { label: _(msg`미디어 전체`), value: undefined },
+    { label: _(msg`샤오홍슈`), value: "Xiaohongshu" },
+    { label: _(msg`더우인`), value: "Douyin" },
+    { label: _(msg`다중디엔핑`), value: "Dajongdienping" },
+    { label: _(msg`인스타그램`), value: "Instagram" },
+    { label: _(msg`유튜브`), value: "YouTube" },
+  ];
+}
 
-// Sort options
-const SORT_OPTIONS = [
-  { label: "최신 등록순", value: undefined },
-  { label: "마감 임박순", value: "deadline" as const },
-];
+// Sort options - using function for translation
+function getSortOptions(_: ReturnType<typeof useLingui>["_"]) {
+  return [
+    { label: _(msg`최신 등록순`), value: undefined },
+    { label: _(msg`마감 임박순`), value: "deadline" as const },
+  ];
+}
 
 interface CampaignsContentProps {
   initialCategory?: string;
@@ -59,6 +70,7 @@ export function CampaignsContent({
   initialSocial,
   initialPage = 1,
 }: CampaignsContentProps) {
+  const { _ } = useLingui();
   const r = useLocalizedNavigation();
 
   const [currentCategory, setCurrentCategory] = useState<string | undefined>(
@@ -139,13 +151,13 @@ export function CampaignsContent({
   };
 
   const getSocialLabel = () => {
-    const option = SOCIAL_OPTIONS.find((o) => o.value === currentSocial);
-    return option?.label || "미디어 전체";
+    const option = getSocialOptions(_).find((o) => o.value === currentSocial);
+    return option?.label || _(msg`미디어 전체`);
   };
 
   const getSortLabel = () => {
-    const option = SORT_OPTIONS.find((o) => o.value === currentSort);
-    return option?.label || "최신 등록순";
+    const option = getSortOptions(_).find((o) => o.value === currentSort);
+    return option?.label || _(msg`최신 등록순`);
   };
 
   return (
@@ -153,7 +165,7 @@ export function CampaignsContent({
       <div className="container mx-auto px-4 py-8">
         {/* Page Title */}
         <h1 className="text-2xl font-bold text-[#111827] leading-[1.7] mb-5">
-          캠페인 목록
+          <Trans>캠페인 목록</Trans>
         </h1>
 
         {/* Filters Section */}
@@ -161,7 +173,7 @@ export function CampaignsContent({
           {/* Category Tabs */}
           <div className="border-b border-[#E5E7EB]">
             <div className="flex items-center overflow-x-auto">
-              {CATEGORY_TABS.map((tab) => {
+              {getCategoryTabs(_).map((tab) => {
                 const isSelected = currentCategory === tab.value;
                 return (
                   <button
@@ -184,7 +196,7 @@ export function CampaignsContent({
           <div className="flex items-center gap-3">
             {/* Region Pills */}
             <div className="flex flex-1 gap-3 items-center overflow-x-auto">
-              {REGION_PILLS.map((pill) => {
+              {getRegionPills(_).map((pill) => {
                 const isSelected = currentRegion === pill.value;
                 return (
                   <button
@@ -218,7 +230,7 @@ export function CampaignsContent({
                 </button>
                 {showSocialDropdown && (
                   <div className="absolute top-full right-0 mt-1 bg-white border border-[#E5E7EB] rounded-lg shadow-lg z-10 min-w-[150px]">
-                    {SOCIAL_OPTIONS.map((option) => (
+                    {getSocialOptions(_).map((option) => (
                       <button
                         key={option.label}
                         onClick={() => handleSocialChange(option.value)}
@@ -249,7 +261,7 @@ export function CampaignsContent({
                 </button>
                 {showSortDropdown && (
                   <div className="absolute top-full right-0 mt-1 bg-white border border-[#E5E7EB] rounded-lg shadow-lg z-10 min-w-[180px]">
-                    {SORT_OPTIONS.map((option) => (
+                    {getSortOptions(_).map((option) => (
                       <button
                         key={option.label}
                         onClick={() => handleSortChange(option.value)}
@@ -276,16 +288,16 @@ export function CampaignsContent({
         {isError && !isLoading && (
           <div className="flex flex-col items-center justify-center py-12 text-gray-500">
             <p className="text-lg font-medium">
-              캠페인을 불러오는데 실패했습니다
+              <Trans>캠페인을 불러오는데 실패했습니다</Trans>
             </p>
-            <p className="text-sm mt-1">잠시 후 다시 시도해주세요</p>
+            <p className="text-sm mt-1"><Trans>잠시 후 다시 시도해주세요</Trans></p>
           </div>
         )}
 
         {/* Empty State */}
         {!isLoading && !isError && campaigns.length === 0 && (
           <div className="flex flex-col items-center justify-center py-12 text-gray-500">
-            <p className="text-lg font-medium">캠페인이 없습니다</p>
+            <p className="text-lg font-medium"><Trans>캠페인이 없습니다</Trans></p>
           </div>
         )}
 

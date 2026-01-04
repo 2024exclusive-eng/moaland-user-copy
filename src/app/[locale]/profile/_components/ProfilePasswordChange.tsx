@@ -1,11 +1,15 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { changePassword } from "@/lib/api/auth";
 
 export function ProfilePasswordChange() {
+  const { _ } = useLingui();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -19,12 +23,12 @@ export function ProfilePasswordChange() {
 
     // Validation
     if (!newPassword) {
-      setError("새 비밀번호를 입력해주세요.");
+      setError(_(msg`새 비밀번호를 입력해주세요.`));
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      setError("비밀번호가 일치하지 않습니다.");
+      setError(_(msg`비밀번호가 일치하지 않습니다.`));
       return;
     }
 
@@ -42,7 +46,7 @@ export function ProfilePasswordChange() {
           typeof response.error === "object"
             ? response.error.msg
             : response.error;
-        setError(errorMsg || "비밀번호 변경에 실패했습니다.");
+        setError(errorMsg || _(msg`비밀번호 변경에 실패했습니다.`));
       }
     } catch (err) {
       const errorMessage = (
@@ -53,7 +57,7 @@ export function ProfilePasswordChange() {
       } else if (typeof errorMessage === "string") {
         setError(errorMessage);
       } else {
-        setError("비밀번호 변경에 실패했습니다.");
+        setError(_(msg`비밀번호 변경에 실패했습니다.`));
       }
     } finally {
       setIsLoading(false);
@@ -65,13 +69,13 @@ export function ProfilePasswordChange() {
       {/* New Password */}
       <div className="flex flex-col gap-2">
         <label className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-          새 비밀번호
+          <Trans>새 비밀번호</Trans>
         </label>
         <input
           type="password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
-          placeholder="재설정할 비밀번호를 입력해주세요."
+          placeholder={_(msg`재설정할 비밀번호를 입력해주세요.`)}
           className="w-full h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-[#111827] leading-[1.7] placeholder:text-[#9ca3af]"
         />
       </div>
@@ -79,13 +83,13 @@ export function ProfilePasswordChange() {
       {/* Confirm Password */}
       <div className="flex flex-col gap-2">
         <label className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-          새 비밀번호 확인
+          <Trans>새 비밀번호 확인</Trans>
         </label>
         <input
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="재설정할 비밀번호를 한번 더 입력해주세요."
+          placeholder={_(msg`재설정할 비밀번호를 한번 더 입력해주세요.`)}
           className="w-full h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-[#111827] leading-[1.7] placeholder:text-[#9ca3af]"
         />
       </div>
@@ -93,7 +97,7 @@ export function ProfilePasswordChange() {
       {/* Error/Success Messages */}
       {error && <p className="text-sm text-red-500">{error}</p>}
       {success && (
-        <p className="text-sm text-green-500">비밀번호가 변경되었습니다.</p>
+        <p className="text-sm text-green-500"><Trans>비밀번호가 변경되었습니다.</Trans></p>
       )}
 
       {/* Submit Button */}
@@ -102,7 +106,7 @@ export function ProfilePasswordChange() {
         disabled={isLoading}
         className="w-[116px] h-10 bg-[#ea3a50] hover:bg-[#ea3a50]/90 text-white rounded-lg mt-3 disabled:opacity-50"
       >
-        {isLoading ? "저장 중..." : "비밀번호 저장"}
+        {isLoading ? _(msg`저장 중...`) : <Trans>비밀번호 저장</Trans>}
       </Button>
     </form>
   );

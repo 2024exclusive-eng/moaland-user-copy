@@ -1,5 +1,7 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { CheckCircle2 } from "lucide-react";
 import React, { useState } from "react";
@@ -10,6 +12,7 @@ import { useAuth } from "@/shared/hooks/use-auth";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
 export default function ForgotPasswordPage() {
+  const { _ } = useLingui();
   const r = useLocalizedNavigation();
   const {
     sendForgotPasswordCode,
@@ -38,7 +41,7 @@ export default function ForgotPasswordPage() {
 
   const handleSendVerificationCode = async () => {
     if (!formData.email) {
-      setValidationError("이메일을 입력해주세요.");
+      setValidationError(_(msg`이메일을 입력해주세요.`));
       return;
     }
     clearError();
@@ -54,7 +57,7 @@ export default function ForgotPasswordPage() {
 
   const handleVerifyCode = async () => {
     if (!formData.verificationCode || !verifyToken) {
-      setValidationError("인증번호를 입력해주세요.");
+      setValidationError(_(msg`인증번호를 입력해주세요.`));
       return;
     }
     clearError();
@@ -79,23 +82,23 @@ export default function ForgotPasswordPage() {
 
     // Validation
     if (!formData.email) {
-      setValidationError("이메일을 입력해주세요.");
+      setValidationError(_(msg`이메일을 입력해주세요.`));
       return;
     }
     if (!verifyToken || !formData.verificationCode) {
-      setValidationError("이메일 인증을 완료해주세요.");
+      setValidationError(_(msg`이메일 인증을 완료해주세요.`));
       return;
     }
     if (!isVerified) {
-      setValidationError("인증번호 확인을 완료해주세요.");
+      setValidationError(_(msg`인증번호 확인을 완료해주세요.`));
       return;
     }
     if (!formData.newPassword) {
-      setValidationError("새 비밀번호를 입력해주세요.");
+      setValidationError(_(msg`새 비밀번호를 입력해주세요.`));
       return;
     }
     if (formData.newPassword !== formData.confirmPassword) {
-      setValidationError("비밀번호가 일치하지 않습니다.");
+      setValidationError(_(msg`비밀번호가 일치하지 않습니다.`));
       return;
     }
 
@@ -138,7 +141,7 @@ export default function ForgotPasswordPage() {
             type="email"
             value={formData.email}
             onChange={(e) => handleInputChange("email", e.target.value)}
-            placeholder="이메일을 입력해주세요."
+            placeholder={_(msg`이메일을 입력해주세요.`)}
             className="h-10 border-[#e5e7eb] rounded-lg text-sm"
             disabled={isCodeSent}
           />
@@ -150,7 +153,7 @@ export default function ForgotPasswordPage() {
             className="h-10 border-[#e5e7eb] text-[#374151] rounded-lg text-sm font-medium disabled:opacity-50"
           >
             {isLoading && !isCodeSent ? (
-              "전송 중..."
+              _(msg`전송 중...`)
             ) : isCodeSent ? (
               <Trans>인증번호 재전송</Trans>
             ) : (
@@ -168,7 +171,7 @@ export default function ForgotPasswordPage() {
                   onChange={(e) =>
                     handleInputChange("verificationCode", e.target.value)
                   }
-                  placeholder="인증번호를 입력해주세요."
+                  placeholder={_(msg`인증번호를 입력해주세요.`)}
                   className={`h-10 rounded-lg text-sm flex-1 ${
                     isVerified
                       ? "border-[#5ecb55] focus-visible:border-[#5ecb55]"
@@ -184,7 +187,7 @@ export default function ForgotPasswordPage() {
                     disabled={isLoading || !formData.verificationCode}
                     className="h-10 border-[#e5e7eb] text-[#374151] rounded-lg disabled:opacity-50"
                   >
-                    확인
+                    <Trans>확인</Trans>
                   </Button>
                 )}
               </div>
@@ -213,7 +216,7 @@ export default function ForgotPasswordPage() {
             type="password"
             value={formData.newPassword}
             onChange={(e) => handleInputChange("newPassword", e.target.value)}
-            placeholder="재설정할 비밀번호를 입력해주세요."
+            placeholder={_(msg`재설정할 비밀번호를 입력해주세요.`)}
             className="h-10 border-[#e5e7eb] rounded-lg text-sm disabled:bg-gray-50 disabled:text-gray-400"
             disabled={!isVerified}
           />
@@ -223,7 +226,7 @@ export default function ForgotPasswordPage() {
             onChange={(e) =>
               handleInputChange("confirmPassword", e.target.value)
             }
-            placeholder="재설정할 비밀번호를 재입력해주세요."
+            placeholder={_(msg`재설정할 비밀번호를 재입력해주세요.`)}
             className="h-10 border-[#e5e7eb] rounded-lg text-sm disabled:bg-gray-50 disabled:text-gray-400"
             disabled={!isVerified}
           />
@@ -235,7 +238,7 @@ export default function ForgotPasswordPage() {
           disabled={isLoading || !isVerified}
           className="h-10 bg-[#ea3a50] hover:bg-[#ea3a50]/90 text-white rounded-lg text-sm font-medium disabled:opacity-50"
         >
-          {isLoading ? "처리 중..." : <Trans>변경하기</Trans>}
+          {isLoading ? _(msg`처리 중...`) : <Trans>변경하기</Trans>}
         </Button>
       </form>
     </div>

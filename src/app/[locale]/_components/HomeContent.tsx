@@ -1,5 +1,7 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import { useRef, useState } from "react";
 
 import { Pagination } from "@/components/Pagination";
@@ -14,6 +16,7 @@ import { CategoryIcons } from "./CategoryIcons";
 import { HeroBanner } from "./HeroBanner";
 
 export function HomeContent() {
+  const { _ } = useLingui();
   const [currentPage, setCurrentPage] = useState(1);
   const newCampaignsSectionRef = useRef<HTMLDivElement>(null);
 
@@ -52,8 +55,8 @@ export function HomeContent() {
 
       <div className="flex flex-col gap-16">
         <CampaignSection
-          title="캠페인"
-          subtitle="추천"
+          title={_(msg`캠페인`)}
+          subtitle={_(msg`추천`)}
           campaigns={recommendedCampaigns}
           isLoading={recommendedLoading}
           isError={recommendedError}
@@ -61,8 +64,8 @@ export function HomeContent() {
         />
 
         <CampaignSection
-          title="캠페인"
-          subtitle="마감임박"
+          title={_(msg`캠페인`)}
+          subtitle={_(msg`마감임박`)}
           campaigns={deadlineCampaigns}
           isLoading={deadlineLoading}
           isError={deadlineError}
@@ -71,8 +74,8 @@ export function HomeContent() {
 
         <div ref={newCampaignsSectionRef} className="scroll-mt-20">
           <CampaignSection
-            title="캠페인"
-            subtitle="새로운"
+            title={_(msg`캠페인`)}
+            subtitle={_(msg`새로운`)}
             campaigns={newCampaigns}
             isLoading={newLoading}
             isError={newError}

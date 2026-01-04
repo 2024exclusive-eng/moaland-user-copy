@@ -1,5 +1,7 @@
 "use client";
 
+import { Trans } from "@lingui/react/macro";
+import { t } from "@lingui/macro";
 import { X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -66,7 +68,7 @@ export function ViewApplicationDialog({
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-5 bg-white">
           <DialogTitle className="text-base font-semibold text-[#242424]">
-            캠페인 신청서
+            <Trans>캠페인 신청서</Trans>
           </DialogTitle>
           <button
             onClick={handleClose}
@@ -82,7 +84,7 @@ export function ViewApplicationDialog({
           <div className="flex gap-3 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                신청 캠페인
+                <Trans>신청 캠페인</Trans>
               </p>
             </div>
             <div className="flex-1 flex flex-col gap-1">
@@ -102,7 +104,7 @@ export function ViewApplicationDialog({
           <div className="flex gap-2 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                이름
+                <Trans>이름</Trans>
               </p>
             </div>
             <p className="text-sm text-[#374151] leading-[1.7]">
@@ -113,7 +115,7 @@ export function ViewApplicationDialog({
           <div className="flex gap-2 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                {getSocialLabel(campaign.social)} 링크
+                {getSocialLabel(campaign.social)} <Trans>링크</Trans>
               </p>
             </div>
             <p className="text-sm text-[#374151] leading-[1.7] break-all">
@@ -124,7 +126,7 @@ export function ViewApplicationDialog({
           <div className="flex gap-2 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                위챗 아이디
+                <Trans>위챗 아이디</Trans>
               </p>
             </div>
             <p className="text-sm text-[#374151] leading-[1.7]">
@@ -135,7 +137,7 @@ export function ViewApplicationDialog({
           <div className="flex gap-2 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                방문일 및 시간
+                <Trans>방문일 및 시간</Trans>
               </p>
             </div>
             <p className="text-sm text-[#374151] leading-[1.7]">
@@ -149,7 +151,7 @@ export function ViewApplicationDialog({
           <div className="flex gap-2 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                메모
+                <Trans>메모</Trans>
               </p>
             </div>
             <p className="text-sm text-[#374151] leading-[1.7]">
@@ -159,8 +161,7 @@ export function ViewApplicationDialog({
 
           {/* Warning Text */}
           <p className="text-sm text-[#e72b23] leading-[1.7]">
-            *입력한 정보의 수정을 원할 시 신청 취소 후 다시 신청해야 하며, 선정
-            이후에는 정보를 변경할 수 없습니다.
+            <Trans>*입력한 정보의 수정을 원할 시 신청 취소 후 다시 신청해야 하며, 선정 이후에는 정보를 변경할 수 없습니다.</Trans>
           </p>
         </div>
 
@@ -171,13 +172,13 @@ export function ViewApplicationDialog({
             onClick={handleCancel}
             className="w-1/2 h-10 text-sm font-medium text-[#ea3a50] border-[#ea3a50] hover:bg-[#ea3a50]/5 rounded-lg"
           >
-            신청 취소
+            <Trans>신청 취소</Trans>
           </Button>
           <Button
             onClick={handleClose}
             className="w-1/2 h-10 text-sm font-medium bg-[#ea3a50] hover:bg-[#d63447] text-white rounded-lg"
           >
-            확인
+            <Trans>확인</Trans>
           </Button>
         </div>
       </DialogContent>

@@ -1,5 +1,7 @@
 "use client";
 
+import { Trans } from "@lingui/react/macro";
+import { t } from "@lingui/macro";
 import { X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -28,7 +30,7 @@ export function CancelSuccessDialog({
         <div className="flex items-center justify-between px-5 py-5 bg-white">
           <div className="w-5" /> {/* Spacer for centering */}
           <DialogTitle className="text-base font-semibold text-[#242424] text-center">
-            신청 취소 완료
+            <Trans>신청 취소 완료</Trans>
           </DialogTitle>
           <button
             onClick={handleClose}
@@ -41,7 +43,7 @@ export function CancelSuccessDialog({
         {/* Content */}
         <div className="flex flex-col items-center justify-center px-5 py-4 bg-white">
           <p className="text-base font-medium text-[#374151] text-center tracking-[-0.3px] leading-7">
-            캠페인 신청이 취소되었습니다.
+            <Trans>캠페인 신청이 취소되었습니다.</Trans>
           </p>
         </div>
 
@@ -51,7 +53,7 @@ export function CancelSuccessDialog({
             onClick={handleClose}
             className="w-full h-10 text-sm font-medium bg-[#ea3a50] hover:bg-[#d63447] text-white rounded-lg"
           >
-            확인
+            <Trans>확인</Trans>
           </Button>
         </div>
       </DialogContent>

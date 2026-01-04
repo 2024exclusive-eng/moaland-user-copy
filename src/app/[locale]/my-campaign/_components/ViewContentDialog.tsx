@@ -1,5 +1,7 @@
 "use client";
 
+import { Trans } from "@lingui/react/macro";
+import { t } from "@lingui/macro";
 import { X } from "lucide-react";
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -63,7 +65,7 @@ export function ViewContentDialog({
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-5 bg-white">
           <DialogTitle className="text-base font-semibold text-[#242424]">
-            콘텐츠 수정
+            <Trans>콘텐츠 수정</Trans>
           </DialogTitle>
           <button
             onClick={handleClose}
@@ -78,7 +80,7 @@ export function ViewContentDialog({
           {/* Campaign Info */}
           <div className="flex flex-col gap-3">
             <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-              신청 캠페인
+              <Trans>신청 캠페인</Trans>
             </p>
             <div className="flex flex-col gap-1">
               <p className="text-base font-medium text-[#111827] leading-[1.5]">
@@ -93,7 +95,7 @@ export function ViewContentDialog({
           {/* Content Registration Period */}
           <div className="flex flex-col gap-2">
             <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-              콘텐츠 등록기간
+              <Trans>콘텐츠 등록기간</Trans>
             </p>
             <p className="text-sm text-[#374151] leading-[1.7]">
               {formatDateRange(
@@ -109,7 +111,7 @@ export function ViewContentDialog({
           {/* Content URLs - View Only */}
           <div className="flex flex-col gap-2">
             <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-              콘텐츠 URL
+              <Trans>콘텐츠 URL</Trans>
             </p>
             <div className="flex flex-col gap-2">
               {platforms.map((platform) => (
@@ -138,7 +140,7 @@ export function ViewContentDialog({
 
           {/* Warning Text */}
           <p className="text-sm text-[#ea3a50] leading-[1.7]">
-            *콘텐츠 등록기간이 지나면 수정할 수 없습니다.
+            <Trans>*콘텐츠 등록기간이 지나면 수정할 수 없습니다.</Trans>
           </p>
         </div>
       </DialogContent>

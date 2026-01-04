@@ -1,6 +1,9 @@
 "use client";
 
-import { Search, X } from "lucide-react";
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
+import { Globe, Search, X } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -38,6 +41,7 @@ function useIsLoggedIn() {
 }
 
 export function Header() {
+  const { _ } = useLingui();
   const pn = usePathname();
   const router = useRouter();
   const r = useLocalizedNavigation();
@@ -49,7 +53,19 @@ export function Header() {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Get locale from pathname
-  const locale = pn.split("/")[1] || "en";
+  const locale = pn.split("/")[1] || "ko";
+
+  const localeLabels: Record<string, string> = {
+    ko: "KO",
+    zh: "CN",
+    en: "EN",
+  };
+
+  const handleLocaleChange = (newLocale: string) => {
+    // Replace the locale in the current path
+    const pathWithoutLocale = pn.replace(/^\/[a-z]{2}/, "");
+    router.push(`/${newLocale}${pathWithoutLocale || "/"}`);
+  };
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -114,7 +130,7 @@ export function Header() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="검색어를 입력하세요"
+            placeholder={_(msg`검색어를 입력하세요`)}
             className="flex-1 h-full text-sm text-black outline-none placeholder:text-gray-400"
           />
           <button
@@ -149,7 +165,7 @@ export function Header() {
                   : "font-medium text-gray-900"
               } hover:text-red-600`}
             >
-              캠페인
+              <Trans>캠페인</Trans>
             </LocalizedLink>
             <LocalizedLink
               href="/community"
@@ -159,7 +175,7 @@ export function Header() {
                   : "font-medium text-gray-900"
               } hover:text-red-600`}
             >
-              커뮤니티
+              <Trans>커뮤니티</Trans>
             </LocalizedLink>
             <LocalizedLink
               href="/support"
@@ -169,20 +185,57 @@ export function Header() {
                   : "font-medium text-gray-900"
               } hover:text-red-600`}
             >
-              고객센터
+              <Trans>고객센터</Trans>
             </LocalizedLink>
           </nav>
         </div>
 
         {/* Right side - Auth & Search */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
+          {/* Language Switcher */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="flex items-center gap-1.5 text-[#4b5563] hover:text-gray-900 transition-colors">
+                <Globe className="w-4 h-4" />
+                <span className="text-sm font-semibold">
+                  {localeLabels[locale] || "KO"}
+                </span>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="bg-white border border-[#e5e7eb] rounded-[6px] p-1 min-w-[80px]"
+            >
+              <DropdownMenuItem
+                onClick={() => handleLocaleChange("ko")}
+                className={`h-8 px-2 py-1.5 cursor-pointer text-xs leading-[1.7] hover:bg-gray-50 rounded-sm ${
+                  locale === "ko"
+                    ? "text-[#EA3A50] font-semibold"
+                    : "text-[#374151]"
+                }`}
+              >
+                한국어 (KO)
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => handleLocaleChange("zh")}
+                className={`h-8 px-2 py-1.5 cursor-pointer text-xs leading-[1.7] hover:bg-gray-50 rounded-sm ${
+                  locale === "zh"
+                    ? "text-[#EA3A50] font-semibold"
+                    : "text-[#374151]"
+                }`}
+              >
+                中文 (CN)
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <a
             href="http://pf.kakao.com/_IRpxhn"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-gray-900 hover:text-red-600"
           >
-            광고문의
+            <Trans>광고문의</Trans>
           </a>
 
           {isLoggedIn ? (
@@ -210,19 +263,19 @@ export function Header() {
                   onClick={() => r.push("/my-campaign")}
                   className="h-8 px-2 py-1.5 cursor-pointer text-xs text-[#374151] leading-[1.7] hover:bg-gray-50 rounded-sm"
                 >
-                  나의 캠페인
+                  <Trans>나의 캠페인</Trans>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => r.push("/profile")}
                   className="h-8 px-2 py-1.5 cursor-pointer text-xs text-[#374151] leading-[1.7] hover:bg-gray-50 rounded-sm"
                 >
-                  계정 정보
+                  <Trans>계정 정보</Trans>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={handleLogout}
                   className="h-8 px-2 py-1.5 cursor-pointer text-xs text-[#374151] leading-[1.7] hover:bg-gray-50 rounded-sm"
                 >
-                  로그아웃
+                  <Trans>로그아웃</Trans>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -235,7 +288,7 @@ export function Header() {
                   : "font-medium text-gray-900"
               } hover:text-red-600`}
             >
-              로그인
+              <Trans>로그인</Trans>
             </LocalizedLink>
           )}
 

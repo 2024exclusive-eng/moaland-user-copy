@@ -1,5 +1,8 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { Trans } from "@lingui/react/macro";
+import { useLingui } from "@lingui/react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -28,36 +31,38 @@ import { ViewSelectedCampaignDialog } from "./_components/ViewSelectedCampaignDi
 
 const ITEMS_PER_PAGE = 10;
 
-// Tab configuration with labels
-const TABS: { key: MyCampaignStatus; label: string }[] = [
-  { key: "applied", label: "신청한 캠페인" },
-  { key: "selected", label: "선정된 캠페인" },
-  { key: "registered", label: "등록한 캠페인" },
-  { key: "ended", label: "종료된 캠페인" },
-];
+// Tab configuration with labels - using function to enable translation
+function getTabs(_: ReturnType<typeof useLingui>["_"]) {
+  return [
+    { key: "applied" as MyCampaignStatus, label: _(msg`신청한 캠페인`) },
+    { key: "selected" as MyCampaignStatus, label: _(msg`선정된 캠페인`) },
+    { key: "registered" as MyCampaignStatus, label: _(msg`등록한 캠페인`) },
+    { key: "ended" as MyCampaignStatus, label: _(msg`종료된 캠페인`) },
+  ];
+}
 
 // Action button configuration based on status
-function getActionButtons(status: MyCampaignStatus) {
+function getActionButtons(status: MyCampaignStatus, _: ReturnType<typeof useLingui>["_"]) {
   switch (status) {
     case "applied":
       return [
-        { label: "신청취소", variant: "cancel" as const },
-        { label: "신청서 보기", variant: "view" as const },
+        { label: _(msg`신청취소`), variant: "cancel" as const, key: "cancel" },
+        { label: _(msg`신청서 보기`), variant: "view" as const, key: "viewApp" },
       ];
     case "selected":
       return [
-        { label: "콘텐츠 등록", variant: "view" as const },
-        { label: "캠페인 보기", variant: "primaryFilled" as const },
+        { label: _(msg`콘텐츠 등록`), variant: "view" as const, key: "submitContent" },
+        { label: _(msg`캠페인 보기`), variant: "primaryFilled" as const, key: "viewCampaign" },
       ];
     case "registered":
       return [
-        { label: "콘텐츠 수정", variant: "view" as const },
-        { label: "캠페인 보기", variant: "primaryFilled" as const },
+        { label: _(msg`콘텐츠 수정`), variant: "view" as const, key: "editContent" },
+        { label: _(msg`캠페인 보기`), variant: "primaryFilled" as const, key: "viewCampaign" },
       ];
     case "ended":
       return [
-        { label: "캠페인 보기", variant: "view" as const },
-        { label: "콘텐츠 보기", variant: "view" as const },
+        { label: _(msg`캠페인 보기`), variant: "view" as const, key: "viewCampaign" },
+        { label: _(msg`콘텐츠 보기`), variant: "view" as const, key: "viewContent" },
       ];
     default:
       return [];
@@ -103,33 +108,34 @@ function CampaignCard({
   onViewContent?: (campaign: MyCampaign) => void;
   onEditContent?: (campaign: MyCampaign) => void;
 }) {
+  const { _ } = useLingui();
   const daysRemaining = calculateDaysRemaining(campaign.enrollEndDate);
   const socialPlatforms = parseSocialPlatforms(campaign.social);
-  const actionButtons = getActionButtons(status);
+  const actionButtons = getActionButtons(status, _);
 
-  const handleButtonClick = (variant: string, label: string) => {
+  const handleButtonClick = (variant: string, key: string) => {
     if (status === "applied") {
-      if (variant === "view" && onViewApplication) {
+      if (key === "viewApp" && onViewApplication) {
         onViewApplication(campaign);
-      } else if (variant === "cancel" && onCancelApplication) {
+      } else if (key === "cancel" && onCancelApplication) {
         onCancelApplication(campaign);
       }
     } else if (status === "selected") {
-      if (variant === "view" && onViewSelectedCampaign) {
+      if (key === "submitContent" && onViewSelectedCampaign) {
         onViewSelectedCampaign(campaign);
-      } else if (variant === "primaryFilled" && onSubmitContent) {
+      } else if (key === "viewCampaign" && onSubmitContent) {
         onSubmitContent(campaign);
       }
     } else if (status === "registered") {
-      if (variant === "view" && onViewContent) {
+      if (key === "editContent" && onViewContent) {
         onViewContent(campaign);
-      } else if (variant === "primaryFilled" && onEditContent) {
+      } else if (key === "viewCampaign" && onEditContent) {
         onEditContent(campaign);
       }
     } else if (status === "ended") {
-      if (label === "캠페인 보기" && onViewSelectedCampaign) {
+      if (key === "viewCampaign" && onViewSelectedCampaign) {
         onViewSelectedCampaign(campaign);
-      } else if (label === "콘텐츠 보기" && onViewContent) {
+      } else if (key === "viewContent" && onViewContent) {
         onViewContent(campaign);
       }
     }
@@ -178,12 +184,12 @@ function CampaignCard({
               })}
               {status !== "ended" && daysRemaining > 0 && (
                 <p className="text-xs font-semibold text-[#111827] leading-[1.7]">
-                  {daysRemaining}일 남음
+                  <Trans>{daysRemaining}일 남음</Trans>
                 </p>
               )}
               {status === "ended" && (
                 <p className="text-xs font-semibold text-[#9ca3af] leading-[1.7]">
-                  종료됨
+                  <Trans>종료됨</Trans>
                 </p>
               )}
             </div>
@@ -192,7 +198,7 @@ function CampaignCard({
           <div className="h-2.5 w-0 border-l border-[#e5e7eb]" />
 
           <p className="text-xs text-[#4b5563] leading-[1.7]">
-            신청 {campaign.enrollCount}/ {campaign.maxEnroll}
+            <Trans>신청</Trans> {campaign.enrollCount}/ {campaign.maxEnroll}
           </p>
         </div>
       </div>
@@ -202,7 +208,7 @@ function CampaignCard({
         {actionButtons.map((button, index) => (
           <button
             key={index}
-            onClick={() => handleButtonClick(button.variant, button.label)}
+            onClick={() => handleButtonClick(button.variant, button.key)}
             className={`flex-1 h-8 px-3 rounded-md flex items-center justify-center ${
               button.variant === "primaryFilled"
                 ? "bg-[#ea3a50] border border-[#ea3a50]"
@@ -228,11 +234,12 @@ function CampaignCard({
 }
 
 function EmptyState({ status }: { status: MyCampaignStatus }) {
+  const { _ } = useLingui();
   const messages: Record<MyCampaignStatus, string> = {
-    applied: "신청한 캠페인이 없습니다.",
-    selected: "선정된 캠페인이 없습니다.",
-    registered: "등록한 캠페인이 없습니다.",
-    ended: "종료된 캠페인이 없습니다.",
+    applied: _(msg`신청한 캠페인이 없습니다.`),
+    selected: _(msg`선정된 캠페인이 없습니다.`),
+    registered: _(msg`등록한 캠페인이 없습니다.`),
+    ended: _(msg`종료된 캠페인이 없습니다.`),
   };
 
   return (
@@ -242,13 +249,14 @@ function EmptyState({ status }: { status: MyCampaignStatus }) {
         href="/campaigns"
         className="mt-4 inline-block text-[#3b82f6] text-sm font-medium hover:underline"
       >
-        캠페인 둘러보기
+        <Trans>캠페인 둘러보기</Trans>
       </LocalizedLink>
     </div>
   );
 }
 
 export default function Page() {
+  const { _ } = useLingui();
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTab, setActiveTab] = useState<MyCampaignStatus>("applied");
 
@@ -348,20 +356,20 @@ export default function Page() {
       <div className="grid md:grid-cols-8">
         {/* Sidebar */}
         <div className="col-span-2 pt-10">
-          <h1 className="text-[#111827] text-2xl font-bold">커뮤니티</h1>
+          <h1 className="text-[#111827] text-2xl font-bold"><Trans>커뮤니티</Trans></h1>
 
           <div className="pl-3 mt-5">
             <LocalizedLink
               href="/my-campaign"
               className="text-lg transition-colors font-semibold text-[#111827] block"
             >
-              나의 캠페인
+              <Trans>나의 캠페인</Trans>
             </LocalizedLink>
             <LocalizedLink
               href="/profile"
               className="text-lg mt-3 block transition-colors text-[#9CA3AF]"
             >
-              계정 정보
+              <Trans>계정 정보</Trans>
             </LocalizedLink>
           </div>
         </div>
@@ -369,13 +377,13 @@ export default function Page() {
         {/* Main Content */}
         <div className="col-span-6 md:border-l min-h-[64vh] border-[#e5e7eb] md:pl-10 py-10 flex flex-col gap-5.75">
           <h2 className="text-xl font-semibold text-[#111827] leading-normal">
-            나의 캠페인
+            <Trans>나의 캠페인</Trans>
           </h2>
 
           <div className="flex flex-col gap-3">
             {/* Tab Menu */}
             <div className="border-b border-[#e5e7eb] flex items-center">
-              {TABS.map((tab) => {
+              {getTabs(_).map((tab) => {
                 const countMap = {
                   applied: counts.applied,
                   selected: counts.selected,

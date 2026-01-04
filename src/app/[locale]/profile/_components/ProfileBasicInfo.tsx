@@ -1,5 +1,8 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -25,6 +28,7 @@ export function ProfileBasicInfo({
 }: {
   profile?: ProfileResponse | null;
 }) {
+  const { _ } = useLingui();
   const { logout } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(
@@ -67,7 +71,7 @@ export function ProfileBasicInfo({
       // Upload image
       const uploadResponse = await uploadProfileImage(file);
       if (!uploadResponse.success) {
-        throw new Error("이미지 업로드에 실패했습니다.");
+        throw new Error(_(msg`이미지 업로드에 실패했습니다.`));
       }
 
       const profileUrl = uploadResponse.data.uri;
@@ -92,7 +96,7 @@ export function ProfileBasicInfo({
       } else if (typeof errorMessage === "string") {
         setError(errorMessage);
       } else {
-        setError("저장에 실패했습니다.");
+        setError(_(msg`저장에 실패했습니다.`));
       }
       // Revert preview on error
       setPreviewUrl(profile?.profile?.profileImg || null);
@@ -126,7 +130,7 @@ export function ProfileBasicInfo({
       } else if (typeof errorMessage === "string") {
         setWithdrawError(errorMessage);
       } else {
-        setWithdrawError("탈퇴 처리에 실패했습니다.");
+        setWithdrawError(_(msg`탈퇴 처리에 실패했습니다.`));
       }
     } finally {
       setIsWithdrawing(false);
@@ -186,7 +190,7 @@ export function ProfileBasicInfo({
       {/* Email Field */}
       <div className="flex flex-col gap-2 w-full">
         <label className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-          가입 이메일
+          <Trans>가입 이메일</Trans>
         </label>
         <p className="text-sm text-[#111827] leading-[1.7]">
           {profile?.my?.email || "-"}
@@ -195,24 +199,23 @@ export function ProfileBasicInfo({
 
       {/* Error/Success Messages */}
       {error && <p className="text-sm text-red-500">{error}</p>}
-      {success && <p className="text-sm text-green-500">저장되었습니다.</p>}
+      {success && <p className="text-sm text-green-500"><Trans>저장되었습니다.</Trans></p>}
 
       {/* Withdraw Link */}
       <button
         onClick={() => setShowWithdrawDialog(true)}
         className="text-sm cursor-pointer font-medium text-[#9ca3af] underline text-left mt-auto pt-3"
       >
-        탈퇴하기
+        <Trans>탈퇴하기</Trans>
       </button>
 
       {/* Withdraw Confirmation Dialog */}
       <Dialog open={showWithdrawDialog} onOpenChange={setShowWithdrawDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>회원 탈퇴</DialogTitle>
+            <DialogTitle><Trans>회원 탈퇴</Trans></DialogTitle>
             <DialogDescription>
-              정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할 수
-              없습니다.
+              <Trans>정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.</Trans>
             </DialogDescription>
           </DialogHeader>
           {withdrawError && (
@@ -225,7 +228,7 @@ export function ProfileBasicInfo({
               disabled={isWithdrawing}
               className="flex-1 sm:flex-none"
             >
-              취소
+              <Trans>취소</Trans>
             </Button>
             <Button
               variant="destructive"
@@ -233,7 +236,7 @@ export function ProfileBasicInfo({
               disabled={isWithdrawing}
               className="flex-1 sm:flex-none bg-[#ea3a50] hover:bg-[#ea3a50]/90"
             >
-              {isWithdrawing ? "처리 중..." : "탈퇴하기"}
+              {isWithdrawing ? _(msg`처리 중...`) : <Trans>탈퇴하기</Trans>}
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -1,5 +1,8 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
 
@@ -22,12 +25,14 @@ const categoryToFaqType: Record<CategoryKey, FaqType> = {
   privacy: "privacy_policy",
 };
 
-const categoryTitles: Record<CategoryKey, string> = {
-  faq: "자주하는 질문",
-  usage: "서비스 이용 가이드",
-  term_of_use: "이용약관",
-  privacy: "개인정보처리방침",
-};
+function getCategoryTitles(_: ReturnType<typeof useLingui>["_"]): Record<CategoryKey, string> {
+  return {
+    faq: _(msg`자주하는 질문`),
+    usage: _(msg`서비스 이용 가이드`),
+    term_of_use: _(msg`이용약관`),
+    privacy: _(msg`개인정보처리방침`),
+  };
+}
 
 const validCategories: CategoryKey[] = [
   "faq",
@@ -82,6 +87,7 @@ export default function Page() {
 }
 
 function SupportPageContent() {
+  const { _ } = useLingui();
   const searchParams = useSearchParams();
   const tabParam = searchParams.get("tab");
 
@@ -111,7 +117,7 @@ function SupportPageContent() {
         {/* Sidebar */}
         <div className="col-span-2 md:border-r border-[#e5e7eb]">
           <div className="sticky top-10 pt-10">
-            <h1 className="text-[#111827] text-2xl font-bold">고객센터</h1>
+            <h1 className="text-[#111827] text-2xl font-bold"><Trans>고객센터</Trans></h1>
 
             <div className="pl-3 mt-5">
               <button
@@ -122,7 +128,7 @@ function SupportPageContent() {
                     : "text-[#9CA3AF]"
                 }`}
               >
-                자주하는 질문
+                <Trans>자주하는 질문</Trans>
               </button>
               <button
                 onClick={() => handleCategoryChange("usage")}
@@ -132,7 +138,7 @@ function SupportPageContent() {
                     : "text-[#9CA3AF]"
                 }`}
               >
-                서비스 이용 가이드
+                <Trans>서비스 이용 가이드</Trans>
               </button>
               <button
                 onClick={() => handleCategoryChange("term_of_use")}
@@ -142,7 +148,7 @@ function SupportPageContent() {
                     : "text-[#9CA3AF]"
                 }`}
               >
-                이용약관
+                <Trans>이용약관</Trans>
               </button>
               <button
                 onClick={() => handleCategoryChange("privacy")}
@@ -152,7 +158,7 @@ function SupportPageContent() {
                     : "text-[#9CA3AF]"
                 }`}
               >
-                개인정보처리방침
+                <Trans>개인정보처리방침</Trans>
               </button>
             </div>
           </div>
@@ -162,7 +168,7 @@ function SupportPageContent() {
         <div className="col-span-6 md:pl-10 py-10 flex min-h-[65vh] flex-col gap-3">
           {activeCategory === "faq" && (
             <h2 className="text-xl font-semibold text-[#111827] leading-normal">
-              {categoryTitles[activeCategory]}
+              {getCategoryTitles(_)[activeCategory]}
             </h2>
           )}
 
@@ -178,7 +184,7 @@ function SupportPageContent() {
             </div>
           ) : faqs.length === 0 ? (
             <div className="text-center py-10 text-[#9CA3AF]">
-              등록된 내용이 없습니다.
+              <Trans>등록된 내용이 없습니다.</Trans>
             </div>
           ) : activeCategory === "faq" ? (
             // FAQ: Use accordion

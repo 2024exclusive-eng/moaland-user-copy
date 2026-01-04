@@ -1,5 +1,7 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import Image from "next/image";
 
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
@@ -24,6 +26,7 @@ export function CategoryIcons({
   selectedCategory,
   onCategoryChange,
 }: CategoryIconsProps = {}) {
+  const { _ } = useLingui();
   const { push } = useLocalizedNavigation();
 
   const categories: Category[] = [
@@ -31,7 +34,7 @@ export function CategoryIcons({
       icon: (
         <Image src="/icons/guide.svg" width={43} height={43} alt="guide" />
       ),
-      label: "이용가이드",
+      label: _(msg`이용가이드`),
       value: undefined,
       type: "guide",
     },
@@ -44,7 +47,7 @@ export function CategoryIcons({
           alt="restaurant"
         />
       ),
-      label: "맛집",
+      label: _(msg`맛집`),
       value: "restaurant",
       type: "filter",
     },
@@ -52,7 +55,7 @@ export function CategoryIcons({
       icon: (
         <Image src="/icons/hospital.svg" width={43} height={43} alt="hospital" />
       ),
-      label: "병원",
+      label: _(msg`병원`),
       value: "Hospital",
       type: "filter",
     },
@@ -60,7 +63,7 @@ export function CategoryIcons({
       icon: (
         <Image src="/icons/beauty.svg" width={43} height={43} alt="beauty" />
       ),
-      label: "뷰티",
+      label: _(msg`뷰티`),
       value: "Beauty",
       type: "filter",
     },
@@ -68,7 +71,7 @@ export function CategoryIcons({
       icon: (
         <Image src="/icons/culture.svg" width={43} height={43} alt="culture" />
       ),
-      label: "문화",
+      label: _(msg`문화`),
       value: "Culture",
       type: "filter",
     },
@@ -76,7 +79,7 @@ export function CategoryIcons({
       icon: (
         <Image src="/icons/stays.svg" width={43} height={43} alt="stays" />
       ),
-      label: "숙박",
+      label: _(msg`숙박`),
       value: "Stay",
       type: "filter",
     },
@@ -84,7 +87,7 @@ export function CategoryIcons({
       icon: (
         <Image src="/icons/massage.svg" width={43} height={43} alt="massage" />
       ),
-      label: "마사지",
+      label: _(msg`마사지`),
       value: "Massage",
       type: "filter",
     },
@@ -92,7 +95,7 @@ export function CategoryIcons({
       icon: (
         <Image src="/icons/inquire.svg" width={43} height={43} alt="inquire" />
       ),
-      label: "광고문의",
+      label: _(msg`광고문의`),
       value: undefined,
       type: "inquiry",
     },

@@ -1,5 +1,7 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import { AlertCircle, ChevronRight } from "lucide-react";
 
 import type { Campaign } from "@/lib/api/campaign";
@@ -31,6 +33,7 @@ export function CampaignSection({
   hideTitle = false,
   skeletonCount = 5,
 }: CampaignSectionProps) {
+  const { _ } = useLingui();
   const r = useLocalizedNavigation();
 
   const handleCardClick = (missionId: number) => {
@@ -60,7 +63,7 @@ export function CampaignSection({
                 onClick={handleViewAllClick}
                 className="flex items-center gap-1 text-sm text-gray-600 hover:text-red-600 transition-colors"
               >
-                더보기
+                {_(msg`더보기`)}
                 <ChevronRight className="w-4 h-4" />
               </button>
             )}
@@ -75,16 +78,16 @@ export function CampaignSection({
           <div className="flex flex-col items-center justify-center py-12 text-gray-500">
             <AlertCircle className="w-12 h-12 mb-4 text-red-400" />
             <p className="text-lg font-medium">
-              캠페인을 불러오는데 실패했습니다
+              {_(msg`캠페인을 불러오는데 실패했습니다`)}
             </p>
-            <p className="text-sm mt-1">잠시 후 다시 시도해주세요</p>
+            <p className="text-sm mt-1">{_(msg`잠시 후 다시 시도해주세요`)}</p>
           </div>
         )}
 
         {/* Empty State */}
         {!isLoading && !isError && campaigns.length === 0 && (
           <div className="flex flex-col items-center justify-center py-12 text-gray-500">
-            <p className="text-lg font-medium">캠페인이 없습니다</p>
+            <p className="text-lg font-medium">{_(msg`캠페인이 없습니다`)}</p>
           </div>
         )}
 

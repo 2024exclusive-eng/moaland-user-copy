@@ -1,5 +1,8 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
 import Image from "next/image";
 
 import {
@@ -34,6 +37,7 @@ export function CampaignCard({
   missionContent,
   onClick,
 }: CampaignCardProps) {
+  const { _ } = useLingui();
   const daysRemaining = calculateDaysRemaining(enrollEndDate);
   const socialPlatforms = parseSocialPlatforms(social);
   const primarySocial = socialPlatforms[0];
@@ -66,12 +70,12 @@ export function CampaignCard({
               />
             )}
             <span className="text-[#111827] font-semibold text-sm">
-              {daysRemaining > 0 ? `${daysRemaining}일 남음` : "마감"}
+              {daysRemaining > 0 ? _(msg`${daysRemaining}일 남음`) : _(msg`마감`)}
             </span>
           </div>
           <div>
             <span className="text-[#4B5563] text-xs font-light">
-              신청 {enrollCount}/{maxEnroll}
+              <Trans>신청</Trans> {enrollCount}/{maxEnroll}
             </span>
           </div>
         </div>

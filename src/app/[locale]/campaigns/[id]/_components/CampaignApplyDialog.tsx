@@ -58,6 +58,7 @@ export function CampaignApplyDialog({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [showTermsPopup, setShowTermsPopup] = useState(false);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -140,168 +141,250 @@ export function CampaignApplyDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        className="max-w-[400px] p-0 gap-0 overflow-hidden"
-        showCloseButton={false}
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 py-5 bg-white">
-          <DialogTitle className="text-base font-semibold text-[#242424]">
-            캠페인 신청서
-          </DialogTitle>
-          <button
-            onClick={() => onOpenChange(false)}
-            className="text-gray-800 hover:text-gray-600 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Content */}
-        <div className="flex flex-col gap-5 px-5 py-4 bg-white">
-          {/* Campaign Info */}
-          <div className="flex flex-col gap-1">
-            <p className="text-base font-medium text-[#111827] leading-[1.5]">
-              {campaignTitle}
-            </p>
-            <p className="text-sm text-[#6b7280] leading-5">
-              {campaignSubtitle}
-            </p>
+    <>
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent
+          className="max-w-[400px] p-0 gap-0 overflow-hidden"
+          showCloseButton={false}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between px-5 py-5 bg-white">
+            <DialogTitle className="text-base font-semibold text-[#242424]">
+              캠페인 신청서
+            </DialogTitle>
+            <button
+              onClick={() => onOpenChange(false)}
+              className="text-gray-800 hover:text-gray-600 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
-          {/* Divider */}
-          <div className="h-px bg-[#e5e7eb]" />
-
-          {/* Form Fields */}
-          <div className="flex flex-col gap-5">
-            {/* Name */}
-            <div className="flex gap-2 items-center">
-              <div className="w-[140px] shrink-0">
-                <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                  이름
-                </span>
-                <span className="text-sm font-semibold text-[#ff614e]">*</span>
-              </div>
-              <input
-                type="text"
-                value={formData.name}
-                onChange={(e) => handleInputChange("name", e.target.value)}
-                placeholder="이름 입력"
-                className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
-              />
-            </div>
-
-            {/* Social Link */}
-            <div className="flex gap-2 items-center">
-              <div className="w-[140px] shrink-0">
-                <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                  {socialLabel} 링크
-                </span>
-                <span className="text-sm font-semibold text-[#ff614e]">*</span>
-              </div>
-              <input
-                type="text"
-                value={formData.instagramLink}
-                onChange={(e) =>
-                  handleInputChange("instagramLink", e.target.value)
-                }
-                placeholder={`${socialLabel} 링크 입력`}
-                className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
-              />
-            </div>
-
-            {/* WeChat ID */}
-            <div className="flex gap-2 items-center">
-              <div className="w-[140px] shrink-0">
-                <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                  위챗 아이디
-                </span>
-                <span className="text-sm font-semibold text-[#ff614e]">*</span>
-              </div>
-              <input
-                type="text"
-                value={formData.wechatId}
-                onChange={(e) => handleInputChange("wechatId", e.target.value)}
-                placeholder="위챗 아이디 입력"
-                className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
-              />
-            </div>
-
-            {/* Visit Date and Time */}
-            <div className="flex gap-2 items-center">
-              <div className="w-[140px] shrink-0">
-                <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                  방문일 및 시간
-                </span>
-                <span className="text-sm font-semibold text-[#ff614e]">*</span>
-              </div>
-              <input
-                type="datetime-local"
-                value={formData.visitDatetime}
-                onChange={(e) =>
-                  handleInputChange("visitDatetime", e.target.value)
-                }
-                className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
-              />
-            </div>
-
-            {/* Memo */}
-            <div className="flex gap-2 items-center">
-              <div className="w-[140px] shrink-0">
-                <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                  메모
-                </span>
-              </div>
-              <input
-                type="text"
-                value={formData.memo}
-                onChange={(e) => handleInputChange("memo", e.target.value)}
-                placeholder="메모"
-                className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
-              />
-            </div>
-
-            {/* Agreement Checkbox */}
-            <div className="flex gap-3 items-start">
-              <Checkbox
-                checked={agreed}
-                onCheckedChange={(checked) => setAgreed(checked === true)}
-                className="mt-0.5 w-5 h-5 rounded-[3px] data-[state=checked]:bg-[#ea3a50] data-[state=checked]:border-[#ea3a50]"
-              />
-              <p className="flex-1 text-sm text-[#4b5563] leading-[1.7]">
-                캠페인 유의사항, 개인정보 및 콘텐츠 제3자 제공, 저작물 이용에
-                동의합니다.{" "}
-                <span className="underline">자세히보기</span>
+          {/* Content */}
+          <div className="flex flex-col gap-5 px-5 py-4 bg-white">
+            {/* Campaign Info */}
+            <div className="flex flex-col gap-1">
+              <p className="text-base font-medium text-[#111827] leading-[1.5]">
+                {campaignTitle}
+              </p>
+              <p className="text-sm text-[#6b7280] leading-5">
+                {campaignSubtitle}
               </p>
             </div>
 
-            {/* Warning Text */}
-            <p className="text-sm text-[#e72b23] leading-[1.7]">
-              *입력한 정보의 수정을 원할 시 신청 취소 후 다시 신청해야 하며,
-              선정 이후에는 정보를 변경할 수 없습니다.
-            </p>
+            {/* Divider */}
+            <div className="h-px bg-[#e5e7eb]" />
 
-            {/* Error Message */}
-            {submitError && (
+            {/* Form Fields */}
+            <div className="flex flex-col gap-5">
+              {/* Name */}
+              <div className="flex gap-2 items-center">
+                <div className="w-[140px] shrink-0">
+                  <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
+                    이름
+                  </span>
+                  <span className="text-sm font-semibold text-[#ff614e]">
+                    *
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => handleInputChange("name", e.target.value)}
+                  placeholder="이름 입력"
+                  className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
+                />
+              </div>
+
+              {/* Social Link */}
+              <div className="flex gap-2 items-center">
+                <div className="w-[140px] shrink-0">
+                  <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
+                    {socialLabel} 링크
+                  </span>
+                  <span className="text-sm font-semibold text-[#ff614e]">
+                    *
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  value={formData.instagramLink}
+                  onChange={(e) =>
+                    handleInputChange("instagramLink", e.target.value)
+                  }
+                  placeholder={`${socialLabel} 링크 입력`}
+                  className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
+                />
+              </div>
+
+              {/* WeChat ID */}
+              <div className="flex gap-2 items-center">
+                <div className="w-[140px] shrink-0">
+                  <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
+                    위챗 아이디
+                  </span>
+                  <span className="text-sm font-semibold text-[#ff614e]">
+                    *
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  value={formData.wechatId}
+                  onChange={(e) =>
+                    handleInputChange("wechatId", e.target.value)
+                  }
+                  placeholder="위챗 아이디 입력"
+                  className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
+                />
+              </div>
+
+              {/* Visit Date and Time */}
+              <div className="flex gap-2 items-center">
+                <div className="w-[140px] shrink-0">
+                  <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
+                    방문일 및 시간
+                  </span>
+                  <span className="text-sm font-semibold text-[#ff614e]">
+                    *
+                  </span>
+                </div>
+                <input
+                  type="datetime-local"
+                  value={formData.visitDatetime}
+                  onChange={(e) =>
+                    handleInputChange("visitDatetime", e.target.value)
+                  }
+                  className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
+                />
+              </div>
+
+              {/* Memo */}
+              <div className="flex gap-2 items-center">
+                <div className="w-[140px] shrink-0">
+                  <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
+                    메모
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  value={formData.memo}
+                  onChange={(e) => handleInputChange("memo", e.target.value)}
+                  placeholder="메모"
+                  className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
+                />
+              </div>
+
+              {/* Agreement Checkbox */}
+              <div className="flex gap-3 items-start">
+                <Checkbox
+                  checked={agreed}
+                  onCheckedChange={(checked) => setAgreed(checked === true)}
+                  className="mt-0.5 w-5 h-5 rounded-[3px] data-[state=checked]:bg-[#ea3a50] data-[state=checked]:border-[#ea3a50]"
+                />
+                <p className="flex-1 text-sm text-[#4b5563] leading-[1.7]">
+                  캠페인 유의사항, 개인정보 및 콘텐츠 제3자 제공, 저작물 이용에
+                  동의합니다.{" "}
+                  <button
+                    type="button"
+                    onClick={() => setShowTermsPopup(true)}
+                    className="underline hover:text-[#ea3a50] transition-colors"
+                  >
+                    자세히보기
+                  </button>
+                </p>
+              </div>
+
+              {/* Warning Text */}
               <p className="text-sm text-[#e72b23] leading-[1.7]">
-                {submitError}
+                *입력한 정보의 수정을 원할 시 신청 취소 후 다시 신청해야 하며,
+                선정 이후에는 정보를 변경할 수 없습니다.
               </p>
-            )}
-          </div>
-        </div>
 
-        {/* Footer */}
-        <div className="px-5 py-4 bg-white">
-          <Button
-            onClick={handleSubmit}
-            disabled={!isFormValid || isSubmitting}
-            className="w-full h-10 bg-[#ea3a50] hover:bg-[#d63447] text-white text-sm font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isSubmitting ? "신청중..." : "캠페인 신청하기"}
-          </Button>
-        </div>
-      </DialogContent>
-    </Dialog>
+              {/* Error Message */}
+              {submitError && (
+                <p className="text-sm text-[#e72b23] leading-[1.7]">
+                  {submitError}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="px-5 py-4 bg-white">
+            <Button
+              onClick={handleSubmit}
+              disabled={!isFormValid || isSubmitting}
+              className="w-full h-10 bg-[#ea3a50] hover:bg-[#d63447] text-white text-sm font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? "신청중..." : "캠페인 신청하기"}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Terms Popup */}
+      <Dialog open={showTermsPopup} onOpenChange={setShowTermsPopup}>
+        <DialogContent
+          className="max-w-[400px] p-0 gap-0 overflow-hidden rounded-lg"
+          showCloseButton={false}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between px-5 py-5 bg-white">
+            <DialogTitle className="text-base font-semibold text-[#242424]">
+              캠페인 유의사항 및 저작물 이용 동의
+            </DialogTitle>
+            <button
+              onClick={() => setShowTermsPopup(false)}
+              className="text-gray-800 hover:text-gray-600 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Content */}
+          <div className="px-5 py-4 bg-white">
+            <ul className="text-sm text-[#6b7280] leading-[1.7] space-y-2 list-disc pl-5">
+              <li>
+                정당한 사유 없이 콘텐츠 등록 기간 내 콘텐츠 및 구매평을 작성하지
+                않을 경우 제공상품 또는 용역의 대가를 환불해야 하며, 관련 법
+                조항(형법 제347조)에 따라 법적 처벌 대상이 될 수 있습니다.
+              </li>
+              <li>
+                등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에
+                대한 비용이 청구될 수 있습니다.
+              </li>
+              <li>
+                등록한 콘텐츠 및 구매평은 홍보나 필요에 의해 사용될 수 있으며,
+                광고주가 판매 사이트에 콘텐츠 활용을 할 수 있습니다. (광고 등
+                2차적 저작물 활용)
+              </li>
+              <li>
+                제공 내역은 타인에게 양도 및 판매, 교환을 허용하지 않습니다.
+              </li>
+              <li>
+                키워드 챌린지 캠페인은 최소 30일 동안 유지되어야 하며, 유지 기간
+                미준수 시 콘텐츠 재개 요청이 있을 수 있습니다.
+              </li>
+              <li>
+                원활한 캠페인 서비스 제공을 위해 최소한의 범주 내에서 아래와
+                같이 개인정보를 제공합니다. 회원님께서는 제3자 제공에 동의하지
+                않으실 수 있으며, 이를 거부할 경우 일부 캠페인 참여가
+                제한됩니다.
+              </li>
+            </ul>
+          </div>
+
+          {/* Footer */}
+          <div className="px-5 py-4 bg-white">
+            <Button
+              onClick={() => setShowTermsPopup(false)}
+              className="w-full h-10 bg-[#ea3a50] hover:bg-[#d63447] text-white text-sm font-medium rounded-lg"
+            >
+              확인
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

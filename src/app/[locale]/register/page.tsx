@@ -1,5 +1,7 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { CheckCircle2, Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
@@ -11,6 +13,7 @@ import { useAuth } from "@/shared/hooks/use-auth";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
 const RegisterPage = () => {
+  const { _ } = useLingui();
   const r = useLocalizedNavigation();
   const {
     sendVerificationCode,
@@ -50,7 +53,7 @@ const RegisterPage = () => {
       if (field === "confirmPassword") {
         if (newData.password && value) {
           if (newData.password !== value) {
-            setPasswordError("비밀번호가 일치하지 않습니다.");
+            setPasswordError(_(msg`비밀번호가 일치하지 않습니다.`));
           } else {
             setPasswordError(null);
           }
@@ -62,7 +65,7 @@ const RegisterPage = () => {
       // Also validate when password changes and confirmPassword already has value
       if (field === "password" && newData.confirmPassword) {
         if (value !== newData.confirmPassword) {
-          setPasswordError("비밀번호가 일치하지 않습니다.");
+          setPasswordError(_(msg`비밀번호가 일치하지 않습니다.`));
         } else {
           setPasswordError(null);
         }
@@ -100,11 +103,11 @@ const RegisterPage = () => {
 
   const handleSendVerificationCode = async () => {
     if (!formData.email) {
-      setEmailError("이메일을 입력해주세요.");
+      setEmailError(_(msg`이메일을 입력해주세요.`));
       return;
     }
     if (!isValidEmail(formData.email)) {
-      setEmailError("잘못된 이메일 주소입니다.");
+      setEmailError(_(msg`잘못된 이메일 주소입니다.`));
       return;
     }
     clearError();
@@ -121,7 +124,7 @@ const RegisterPage = () => {
 
   const handleVerifyCode = async () => {
     if (!formData.verificationCode || !verifyToken) {
-      setVerificationError("인증번호를 입력해주세요.");
+      setVerificationError(_(msg`인증번호를 입력해주세요.`));
       return;
     }
     clearError();
@@ -135,10 +138,10 @@ const RegisterPage = () => {
       if (success) {
         setIsVerified(true);
       } else {
-        setVerificationError("잘못된 인증번호입니다. 다시 확인 후 입력해 주세요.");
+        setVerificationError(_(msg`잘못된 인증번호입니다. 다시 확인 후 입력해 주세요.`));
       }
     } catch {
-      setVerificationError("잘못된 인증번호입니다. 다시 확인 후 입력해 주세요.");
+      setVerificationError(_(msg`잘못된 인증번호입니다. 다시 확인 후 입력해 주세요.`));
     }
   };
 
@@ -149,23 +152,23 @@ const RegisterPage = () => {
 
     // Validation
     if (!formData.email) {
-      setValidationError("이메일을 입력해주세요.");
+      setValidationError(_(msg`이메일을 입력해주세요.`));
       return;
     }
     if (!verifyToken || !formData.verificationCode) {
-      setValidationError("이메일 인증을 완료해주세요.");
+      setValidationError(_(msg`이메일 인증을 완료해주세요.`));
       return;
     }
     if (!formData.password) {
-      setValidationError("비밀번호를 입력해주세요.");
+      setValidationError(_(msg`비밀번호를 입력해주세요.`));
       return;
     }
     if (formData.password !== formData.confirmPassword) {
-      setValidationError("비밀번호가 일치하지 않습니다.");
+      setValidationError(_(msg`비밀번호가 일치하지 않습니다.`));
       return;
     }
     if (!agreements.terms || !agreements.privacy) {
-      setValidationError("필수 약관에 동의해주세요.");
+      setValidationError(_(msg`필수 약관에 동의해주세요.`));
       return;
     }
 
@@ -200,7 +203,7 @@ const RegisterPage = () => {
             type="email"
             value={formData.email}
             onChange={(e) => handleInputChange("email", e.target.value)}
-            placeholder="이메일"
+            placeholder={_(msg`이메일`)}
             className={`h-10 rounded-lg ${!emailError ? "border-[#e5e7eb]" : ""}`}
             disabled={isCodeSent}
             error={!isCodeSent ? emailError ?? undefined : undefined}
@@ -213,7 +216,7 @@ const RegisterPage = () => {
             className="h-10 border-[#e5e7eb] text-[#374151] rounded-lg disabled:opacity-50"
           >
             {isLoading && !isCodeSent ? (
-              "전송 중..."
+              _(msg`전송 중...`)
             ) : isCodeSent ? (
               <Trans>인증번호 재전송</Trans>
             ) : (
@@ -231,7 +234,7 @@ const RegisterPage = () => {
                   onChange={(e) =>
                     handleInputChange("verificationCode", e.target.value)
                   }
-                  placeholder="인증번호를 입력해주세요."
+                  placeholder={_(msg`인증번호를 입력해주세요.`)}
                   className={`h-10 rounded-lg ${
                     isVerified
                       ? "border-[#5ecb55] focus-visible:border-[#5ecb55]"
@@ -251,7 +254,7 @@ const RegisterPage = () => {
                     disabled={isLoading || !formData.verificationCode}
                     className="h-10 border-[#e5e7eb] text-[#374151] rounded-lg disabled:opacity-50"
                   >
-                    확인
+                    <Trans>확인</Trans>
                   </Button>
                 )}
               </div>
@@ -281,7 +284,7 @@ const RegisterPage = () => {
               type={showPassword ? "text" : "password"}
               value={formData.password}
               onChange={(e) => handleInputChange("password", e.target.value)}
-              placeholder="비밀번호를 입력해주세요."
+              placeholder={_(msg`비밀번호를 입력해주세요.`)}
               className="h-10 pr-10 border-[#e5e7eb] rounded-lg disabled:bg-gray-50 disabled:text-gray-400"
               disabled={!isVerified}
             />
@@ -305,7 +308,7 @@ const RegisterPage = () => {
               onChange={(e) =>
                 handleInputChange("confirmPassword", e.target.value)
               }
-              placeholder="비밀번호를 재입력해주세요."
+              placeholder={_(msg`비밀번호를 재입력해주세요.`)}
               className={`h-10 pr-10 rounded-lg disabled:bg-gray-50 disabled:text-gray-400 ${!passwordError ? "border-[#e5e7eb]" : ""}`}
               disabled={!isVerified}
               error={isVerified ? passwordError ?? undefined : undefined}
@@ -418,7 +421,7 @@ const RegisterPage = () => {
           disabled={isLoading || !isVerified}
           className="h-10 bg-[#ea3a50] hover:bg-[#ea3a50]/90 text-white rounded-lg disabled:opacity-50"
         >
-          {isLoading ? "처리 중..." : <Trans>동의하고 회원가입</Trans>}
+          {isLoading ? _(msg`처리 중...`) : <Trans>동의하고 회원가입</Trans>}
         </Button>
       </form>
     </div>

@@ -1,5 +1,8 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 
@@ -50,6 +53,7 @@ export function EditContentDialog({
   campaign,
   onSuccess,
 }: EditContentDialogProps) {
+  const { _ } = useLingui();
   const [links, setLinks] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -92,7 +96,7 @@ export function EditContentDialog({
       const labels = emptyPlatforms
         .map((p) => SOCIAL_LABEL_MAP[p] || p)
         .join(", ");
-      setError(`${labels} URL을 입력해주세요.`);
+      setError(_(msg`${labels} URL을 입력해주세요.`));
       return;
     }
 
@@ -106,10 +110,10 @@ export function EditContentDialog({
         handleClose();
         onSuccess();
       } else {
-        setError(response.error?.message || "저장에 실패했습니다.");
+        setError(response.error?.message || _(msg`저장에 실패했습니다.`));
       }
     } catch {
-      setError("저장 중 오류가 발생했습니다.");
+      setError(_(msg`저장 중 오류가 발생했습니다.`));
     } finally {
       setIsSubmitting(false);
     }
@@ -124,7 +128,7 @@ export function EditContentDialog({
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-5 bg-white">
           <DialogTitle className="text-base font-semibold text-[#242424]">
-            콘텐츠 수정
+            <Trans>콘텐츠 수정</Trans>
           </DialogTitle>
           <button
             onClick={handleClose}
@@ -139,7 +143,7 @@ export function EditContentDialog({
           {/* Campaign Info */}
           <div className="flex flex-col gap-3">
             <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-              신청 캠페인
+              <Trans>신청 캠페인</Trans>
             </p>
             <div className="flex flex-col gap-1">
               <p className="text-base font-medium text-[#111827] leading-[1.5]">
@@ -154,7 +158,7 @@ export function EditContentDialog({
           {/* Content Registration Period */}
           <div className="flex flex-col gap-2">
             <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-              콘텐츠 등록기간
+              <Trans>콘텐츠 등록기간</Trans>
             </p>
             <p className="text-sm text-[#374151] leading-[1.7]">
               {formatDateRange(
@@ -177,7 +181,7 @@ export function EditContentDialog({
                 type="url"
                 value={links[platform] || ""}
                 onChange={(e) => handleLinkChange(platform, e.target.value)}
-                placeholder={`${SOCIAL_LABEL_MAP[platform] || platform} URL을 등록해주세요.`}
+                placeholder={_(msg`${SOCIAL_LABEL_MAP[platform] || platform} URL을 등록해주세요.`)}
                 className="w-full h-10 px-3.5 py-2.5 border border-[#e5e7eb] rounded-lg text-sm text-[#111827] placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50] transition-colors"
               />
             </div>
@@ -187,7 +191,7 @@ export function EditContentDialog({
 
           {/* Warning Text */}
           <p className="text-sm text-[#ea3a50] leading-[1.7]">
-            *콘텐츠 등록기간이 지나면 수정할 수 없습니다.
+            <Trans>*콘텐츠 등록기간이 지나면 수정할 수 없습니다.</Trans>
           </p>
         </div>
 
@@ -198,7 +202,7 @@ export function EditContentDialog({
             disabled={isSubmitting}
             className="w-full h-10 text-sm font-medium bg-[#ea3a50] hover:bg-[#d63447] text-white rounded-lg"
           >
-            {isSubmitting ? "저장 중..." : "저장하기"}
+            {isSubmitting ? _(msg`저장 중...`) : _(msg`저장하기`)}
           </Button>
         </div>
       </DialogContent>

@@ -13,75 +13,632 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: SOCIAL_LABEL_MAP[platform] || platform
+#: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:184
+#: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:177
+msgid "{0} URL을 등록해주세요."
+msgstr "{0} URL을 등록해주세요."
+
+#: src/app/[locale]/_components/CampaignCard.tsx:73
+#: src/app/[locale]/my-campaign/page.tsx:187
+msgid "{daysRemaining}일 남음"
+msgstr "{daysRemaining}일 남음"
+
+#: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:99
+#: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:88
+msgid "{labels} URL을 입력해주세요."
+msgstr "{labels} URL을 입력해주세요."
+
+#: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:164
+msgid "*입력한 정보의 수정을 원할 시 신청 취소 후 다시 신청해야 하며, 선정 이후에는 정보를 변경할 수 없습니다."
+msgstr "*입력한 정보의 수정을 원할 시 신청 취소 후 다시 신청해야 하며, 선정 이후에는 정보를 변경할 수 없습니다."
+
+#: src/app/[locale]/my-campaign/_components/ViewSelectedCampaignDialog.tsx:151
+msgid "*캠페인 선정 이후에는 정보를 변경 할 수 없습니다."
+msgstr "*캠페인 선정 이후에는 정보를 변경 할 수 없습니다."
+
+#: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:194
+#: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:187
+#: src/app/[locale]/my-campaign/_components/ViewContentDialog.tsx:143
+msgid "*콘텐츠 등록기간이 지나면 수정할 수 없습니다."
+msgstr "*콘텐츠 등록기간이 지나면 수정할 수 없습니다."
+
 #: src/app/[locale]/page.tsx:8
 #~ msgid "test"
 #~ msgstr "test"
 
-#: src/app/[locale]/register/page.tsx:315
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:193
+msgid "가입 이메일"
+msgstr "가입 이메일"
+
+#: src/app/[locale]/register/page.tsx:395
 msgid "개인정보 수집/이용"
 msgstr "개인정보 수집/이용"
 
-#: src/app/[locale]/register/page.tsx:327
+#: src/app/[locale]/support/page.tsx:33
+#: src/app/[locale]/support/page.tsx:161
+msgid "개인정보처리방침"
+msgstr "개인정보처리방침"
+
+#: src/components/Header.tsx:133
+msgid "검색어를 입력하세요"
+msgstr "검색어를 입력하세요"
+
+#: src/app/[locale]/my-campaign/page.tsx:372
+#: src/components/Header.tsx:272
+msgid "계정 정보"
+msgstr "계정 정보"
+
+#: src/app/[locale]/support/page.tsx:120
+#: src/components/Header.tsx:188
+msgid "고객센터"
+msgstr "고객센터"
+
+#: src/app/[locale]/_components/CategoryIcons.tsx:98
+#: src/components/Header.tsx:238
+msgid "광고문의"
+msgstr "광고문의"
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:27
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:38
+msgid "기타"
+msgstr "기타"
+
+#: src/app/[locale]/my-campaign/page.tsx:366
+#: src/app/[locale]/my-campaign/page.tsx:380
+#: src/components/Header.tsx:266
+msgid "나의 캠페인"
+msgstr "나의 캠페인"
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:48
+msgid "다중디엔핑"
+msgstr "다중디엔핑"
+
+#: src/app/[locale]/_components/CampaignSection.tsx:66
+msgid "더보기"
+msgstr "더보기"
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:47
+msgid "더우인"
+msgstr "더우인"
+
+#: src/app/[locale]/register/page.tsx:424
 msgid "동의하고 회원가입"
 msgstr "동의하고 회원가입"
 
-#: src/app/[locale]/forgot-password/page.tsx:238
+#: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:105
+msgid "등록 중 오류가 발생했습니다."
+msgstr "등록 중 오류가 발생했습니다."
+
+#: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:198
+msgid "등록 중..."
+msgstr "등록 중..."
+
+#: src/app/[locale]/support/page.tsx:187
+msgid "등록된 내용이 없습니다."
+msgstr "등록된 내용이 없습니다."
+
+#: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:102
+msgid "등록에 실패했습니다."
+msgstr "등록에 실패했습니다."
+
+#: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:198
+msgid "등록하기"
+msgstr "등록하기"
+
+#: src/app/[locale]/my-campaign/page.tsx:39
+msgid "등록한 캠페인"
+msgstr "등록한 캠페인"
+
+#: src/app/[locale]/my-campaign/page.tsx:241
+msgid "등록한 캠페인이 없습니다."
+msgstr "등록한 캠페인이 없습니다."
+
+#: src/components/Header.tsx:278
+msgid "로그아웃"
+msgstr "로그아웃"
+
+#: src/components/Header.tsx:291
+msgid "로그인"
+msgstr "로그인"
+
+#: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:118
+#: src/app/[locale]/my-campaign/_components/ViewSelectedCampaignDialog.tsx:105
+msgid "링크"
+msgstr "링크"
+
+#: src/app/[locale]/_components/CampaignCard.tsx:73
+msgid "마감"
+msgstr "마감"
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:58
+msgid "마감 임박순"
+msgstr "마감 임박순"
+
+#: src/app/[locale]/_components/HomeContent.tsx:68
+msgid "마감임박"
+msgstr "마감임박"
+
+#: src/app/[locale]/_components/CategoryIcons.tsx:90
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:26
+msgid "마사지"
+msgstr "마사지"
+
+#: src/app/[locale]/_components/CategoryIcons.tsx:50
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:21
+msgid "맛집"
+msgstr "맛집"
+
+#: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:154
+#: src/app/[locale]/my-campaign/_components/ViewSelectedCampaignDialog.tsx:141
+msgid "메모"
+msgstr "메모"
+
+#: src/app/[locale]/_components/CategoryIcons.tsx:74
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:24
+msgid "문화"
+msgstr "문화"
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:45
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:155
+msgid "미디어 전체"
+msgstr "미디어 전체"
+
+#: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:140
+#: src/app/[locale]/my-campaign/_components/ViewSelectedCampaignDialog.tsx:127
+msgid "방문일 및 시간"
+msgstr "방문일 및 시간"
+
+#: src/app/[locale]/forgot-password/page.tsx:241
 msgid "변경하기"
 msgstr "변경하기"
 
-#: src/app/[locale]/register/page.tsx:229
+#: src/app/[locale]/_components/CategoryIcons.tsx:58
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:22
+msgid "병원"
+msgstr "병원"
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:36
+msgid "부산"
+msgstr "부산"
+
+#: src/app/[locale]/_components/CategoryIcons.tsx:66
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:23
+msgid "뷰티"
+msgstr "뷰티"
+
+#: src/app/[locale]/register/page.tsx:280
 msgid "비밀번호"
 msgstr "비밀번호"
 
-#: src/app/[locale]/forgot-password/page.tsx:124
-#: src/app/[locale]/forgot-password/page.tsx:210
+#: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:49
+#: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:60
+msgid "비밀번호 변경에 실패했습니다."
+msgstr "비밀번호 변경에 실패했습니다."
+
+#: src/app/[locale]/forgot-password/page.tsx:127
+#: src/app/[locale]/forgot-password/page.tsx:213
 msgid "비밀번호 재설정"
 msgstr "비밀번호 재설정"
 
-#: src/app/[locale]/register/page.tsx:115
-#~ msgid "비밀번호를 입력해주세요."
-#~ msgstr "비밀번호를 입력해주세요."
+#: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:109
+msgid "비밀번호 저장"
+msgstr "비밀번호 저장"
 
-#: src/app/[locale]/register/page.tsx:124
-#~ msgid "비밀번호를 재입력해주세요."
-#~ msgstr "비밀번호를 재입력해주세요."
+#: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:100
+msgid "비밀번호가 변경되었습니다."
+msgstr "비밀번호가 변경되었습니다."
 
-#: src/app/[locale]/register/page.tsx:293
+#: src/app/[locale]/forgot-password/page.tsx:101
+#: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:31
+#: src/app/[locale]/register/page.tsx:56
+#: src/app/[locale]/register/page.tsx:68
+#: src/app/[locale]/register/page.tsx:167
+msgid "비밀번호가 일치하지 않습니다."
+msgstr "비밀번호가 일치하지 않습니다."
+
+#: src/app/[locale]/register/page.tsx:163
+#: src/app/[locale]/register/page.tsx:287
+msgid "비밀번호를 입력해주세요."
+msgstr "비밀번호를 입력해주세요."
+
+#: src/app/[locale]/register/page.tsx:311
+msgid "비밀번호를 재입력해주세요."
+msgstr "비밀번호를 재입력해주세요."
+
+#: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:72
+msgid "새 비밀번호"
+msgstr "새 비밀번호"
+
+#: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:86
+msgid "새 비밀번호 확인"
+msgstr "새 비밀번호 확인"
+
+#: src/app/[locale]/forgot-password/page.tsx:97
+#: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:26
+msgid "새 비밀번호를 입력해주세요."
+msgstr "새 비밀번호를 입력해주세요."
+
+#: src/app/[locale]/_components/HomeContent.tsx:78
+msgid "새로운"
+msgstr "새로운"
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:46
+msgid "샤오홍슈"
+msgstr "샤오홍슈"
+
+#: src/app/[locale]/support/page.tsx:31
+#: src/app/[locale]/support/page.tsx:141
+msgid "서비스 이용 가이드"
+msgstr "서비스 이용 가이드"
+
+#: src/app/[locale]/register/page.tsx:373
 msgid "서비스 이용약관"
 msgstr "서비스 이용약관"
 
-#: src/app/[locale]/register/page.tsx:295
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:35
+msgid "서울"
+msgstr "서울"
+
+#: src/app/[locale]/my-campaign/page.tsx:38
+msgid "선정된 캠페인"
+msgstr "선정된 캠페인"
+
+#: src/app/[locale]/my-campaign/page.tsx:240
+msgid "선정된 캠페인이 없습니다."
+msgstr "선정된 캠페인이 없습니다."
+
+#: src/app/[locale]/_components/CategoryIcons.tsx:82
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:25
+msgid "숙박"
+msgstr "숙박"
+
+#: src/app/[locale]/_components/CampaignCard.tsx:78
+#: src/app/[locale]/my-campaign/page.tsx:201
+msgid "신청"
+msgstr "신청"
+
+#: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:175
+msgid "신청 취소"
+msgstr "신청 취소"
+
+#: src/app/[locale]/my-campaign/_components/CancelSuccessDialog.tsx:33
+msgid "신청 취소 완료"
+msgstr "신청 취소 완료"
+
+#: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:146
+#: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:136
+#: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:87
+#: src/app/[locale]/my-campaign/_components/ViewContentDialog.tsx:83
+#: src/app/[locale]/my-campaign/_components/ViewSelectedCampaignDialog.tsx:74
+msgid "신청 캠페인"
+msgstr "신청 캠페인"
+
+#: src/app/[locale]/my-campaign/page.tsx:50
+msgid "신청서 보기"
+msgstr "신청서 보기"
+
+#: src/app/[locale]/my-campaign/page.tsx:49
+msgid "신청취소"
+msgstr "신청취소"
+
+#: src/app/[locale]/my-campaign/page.tsx:37
+msgid "신청한 캠페인"
+msgstr "신청한 캠페인"
+
+#: src/app/[locale]/my-campaign/page.tsx:239
+msgid "신청한 캠페인이 없습니다."
+msgstr "신청한 캠페인이 없습니다."
+
+#: src/app/[locale]/register/page.tsx:375
 msgid "에 동의합니다 (필수)"
 msgstr "에 동의합니다 (필수)"
 
-#: src/app/[locale]/register/page.tsx:317
+#: src/app/[locale]/register/page.tsx:397
 msgid "에 동의합니다(필수)"
 msgstr "에 동의합니다(필수)"
 
-#: src/app/[locale]/forgot-password/page.tsx:135
-#: src/app/[locale]/register/page.tsx:154
+#: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:129
+#: src/app/[locale]/my-campaign/_components/ViewSelectedCampaignDialog.tsx:116
+msgid "위챗 아이디"
+msgstr "위챗 아이디"
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:50
+msgid "유튜브"
+msgstr "유튜브"
+
+#: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:107
+#: src/app/[locale]/my-campaign/_components/ViewSelectedCampaignDialog.tsx:94
+msgid "이름"
+msgstr "이름"
+
+#: src/app/[locale]/forgot-password/page.tsx:138
+#: src/app/[locale]/register/page.tsx:200
+#: src/app/[locale]/register/page.tsx:206
 msgid "이메일"
 msgstr "이메일"
 
-#: src/app/[locale]/forgot-password/page.tsx:155
-#: src/app/[locale]/register/page.tsx:174
+#: src/app/[locale]/forgot-password/page.tsx:89
+#: src/app/[locale]/register/page.tsx:159
+msgid "이메일 인증을 완료해주세요."
+msgstr "이메일 인증을 완료해주세요."
+
+#: src/app/[locale]/forgot-password/page.tsx:44
+#: src/app/[locale]/forgot-password/page.tsx:85
+#: src/app/[locale]/forgot-password/page.tsx:144
+#: src/app/[locale]/register/page.tsx:106
+#: src/app/[locale]/register/page.tsx:155
+msgid "이메일을 입력해주세요."
+msgstr "이메일을 입력해주세요."
+
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:74
+msgid "이미지 업로드에 실패했습니다."
+msgstr "이미지 업로드에 실패했습니다."
+
+#: src/app/[locale]/_components/CategoryIcons.tsx:37
+msgid "이용가이드"
+msgstr "이용가이드"
+
+#: src/app/[locale]/support/page.tsx:32
+#: src/app/[locale]/support/page.tsx:151
+msgid "이용약관"
+msgstr "이용약관"
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:49
+msgid "인스타그램"
+msgstr "인스타그램"
+
+#: src/app/[locale]/forgot-password/page.tsx:158
+#: src/app/[locale]/register/page.tsx:221
 msgid "인증번호 재전송"
 msgstr "인증번호 재전송"
 
-#: src/app/[locale]/forgot-password/page.tsx:157
-#: src/app/[locale]/register/page.tsx:176
+#: src/app/[locale]/forgot-password/page.tsx:160
+#: src/app/[locale]/register/page.tsx:223
 msgid "인증번호 전송"
 msgstr "인증번호 전송"
 
-#: src/app/[locale]/forgot-password/page.tsx:195
-#: src/app/[locale]/register/page.tsx:214
+#: src/app/[locale]/forgot-password/page.tsx:93
+msgid "인증번호 확인을 완료해주세요."
+msgstr "인증번호 확인을 완료해주세요."
+
+#: src/app/[locale]/forgot-password/page.tsx:60
+#: src/app/[locale]/forgot-password/page.tsx:174
+#: src/app/[locale]/register/page.tsx:127
+#: src/app/[locale]/register/page.tsx:237
+msgid "인증번호를 입력해주세요."
+msgstr "인증번호를 입력해주세요."
+
+#: src/app/[locale]/forgot-password/page.tsx:198
+#: src/app/[locale]/register/page.tsx:265
 msgid "인증완료"
 msgstr "인증완료"
 
-#: src/app/[locale]/register/page.tsx:273
+#: src/app/[locale]/support/page.tsx:30
+#: src/app/[locale]/support/page.tsx:131
+msgid "자주하는 질문"
+msgstr "자주하는 질문"
+
+#: src/app/[locale]/register/page.tsx:110
+msgid "잘못된 이메일 주소입니다."
+msgstr "잘못된 이메일 주소입니다."
+
+#: src/app/[locale]/register/page.tsx:141
+#: src/app/[locale]/register/page.tsx:144
+msgid "잘못된 인증번호입니다. 다시 확인 후 입력해 주세요."
+msgstr "잘못된 인증번호입니다. 다시 확인 후 입력해 주세요."
+
+#: src/app/[locale]/_components/CampaignSection.tsx:83
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:293
+msgid "잠시 후 다시 시도해주세요"
+msgstr "잠시 후 다시 시도해주세요"
+
+#: src/app/[locale]/forgot-password/page.tsx:219
+#: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:78
+msgid "재설정할 비밀번호를 입력해주세요."
+msgstr "재설정할 비밀번호를 입력해주세요."
+
+#: src/app/[locale]/forgot-password/page.tsx:229
+msgid "재설정할 비밀번호를 재입력해주세요."
+msgstr "재설정할 비밀번호를 재입력해주세요."
+
+#: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:92
+msgid "재설정할 비밀번호를 한번 더 입력해주세요."
+msgstr "재설정할 비밀번호를 한번 더 입력해주세요."
+
+#: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:116
+msgid "저장 중 오류가 발생했습니다."
+msgstr "저장 중 오류가 발생했습니다."
+
+#: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:205
+#: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:109
+msgid "저장 중..."
+msgstr "저장 중..."
+
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:202
+msgid "저장되었습니다."
+msgstr "저장되었습니다."
+
+#: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:113
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:99
+msgid "저장에 실패했습니다."
+msgstr "저장에 실패했습니다."
+
+#: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:205
+msgid "저장하기"
+msgstr "저장하기"
+
+#: src/app/[locale]/forgot-password/page.tsx:156
+#: src/app/[locale]/register/page.tsx:219
+msgid "전송 중..."
+msgstr "전송 중..."
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:20
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:34
+msgid "전체"
+msgstr "전체"
+
+#: src/app/[locale]/register/page.tsx:353
 msgid "전체 동의"
 msgstr "전체 동의"
 
-#: src/app/[locale]/register/page.tsx:143
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:218
+msgid "정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다."
+msgstr "정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다."
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:37
+msgid "제주"
+msgstr "제주"
+
+#: src/app/[locale]/my-campaign/page.tsx:40
+msgid "종료된 캠페인"
+msgstr "종료된 캠페인"
+
+#: src/app/[locale]/my-campaign/page.tsx:242
+msgid "종료된 캠페인이 없습니다."
+msgstr "종료된 캠페인이 없습니다."
+
+#: src/app/[locale]/my-campaign/page.tsx:192
+msgid "종료됨"
+msgstr "종료됨"
+
+#: src/app/[locale]/forgot-password/page.tsx:241
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:239
+#: src/app/[locale]/register/page.tsx:424
+msgid "처리 중..."
+msgstr "처리 중..."
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:57
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:160
+msgid "최신 등록순"
+msgstr "최신 등록순"
+
+#: src/app/[locale]/_components/HomeContent.tsx:59
+msgid "추천"
+msgstr "추천"
+
+#: src/app/[locale]/my-campaign/_components/CancelConfirmDialog.tsx:85
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:231
+msgid "취소"
+msgstr "취소"
+
+#: src/app/[locale]/my-campaign/_components/CancelConfirmDialog.tsx:92
+msgid "취소 중..."
+msgstr "취소 중..."
+
+#: src/app/[locale]/_components/HomeContent.tsx:58
+#: src/app/[locale]/_components/HomeContent.tsx:67
+#: src/app/[locale]/_components/HomeContent.tsx:77
+#: src/components/Header.tsx:168
+msgid "캠페인"
+msgstr "캠페인"
+
+#: src/app/[locale]/my-campaign/page.tsx:252
+msgid "캠페인 둘러보기"
+msgstr "캠페인 둘러보기"
+
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:168
+msgid "캠페인 목록"
+msgstr "캠페인 목록"
+
+#: src/app/[locale]/my-campaign/page.tsx:55
+#: src/app/[locale]/my-campaign/page.tsx:60
+#: src/app/[locale]/my-campaign/page.tsx:64
+msgid "캠페인 보기"
+msgstr "캠페인 보기"
+
+#: src/app/[locale]/my-campaign/_components/CancelConfirmDialog.tsx:92
+msgid "캠페인 신청 취소하기"
+msgstr "캠페인 신청 취소하기"
+
+#: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:71
+#: src/app/[locale]/my-campaign/_components/ViewSelectedCampaignDialog.tsx:58
+msgid "캠페인 신청서"
+msgstr "캠페인 신청서"
+
+#: src/app/[locale]/my-campaign/_components/CancelConfirmDialog.tsx:73
+msgid "캠페인 신청을 취소할까요?"
+msgstr "캠페인 신청을 취소할까요?"
+
+#: src/app/[locale]/my-campaign/_components/CancelSuccessDialog.tsx:46
+msgid "캠페인 신청이 취소되었습니다."
+msgstr "캠페인 신청이 취소되었습니다."
+
+#: src/app/[locale]/my-campaign/_components/CancelConfirmDialog.tsx:60
+msgid "캠페인 신청취소"
+msgstr "캠페인 신청취소"
+
+#: src/app/[locale]/my-campaign/_components/CancelConfirmDialog.tsx:74
+msgid "캠페인은 신청기간내 재신청이 가능합니다."
+msgstr "캠페인은 신청기간내 재신청이 가능합니다."
+
+#: src/app/[locale]/_components/CampaignSection.tsx:81
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:291
+msgid "캠페인을 불러오는데 실패했습니다"
+msgstr "캠페인을 불러오는데 실패했습니다"
+
+#: src/app/[locale]/_components/CampaignSection.tsx:90
+#: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:300
+msgid "캠페인이 없습니다"
+msgstr "캠페인이 없습니다"
+
+#: src/app/[locale]/my-campaign/page.tsx:359
+#: src/components/Header.tsx:178
+msgid "커뮤니티"
+msgstr "커뮤니티"
+
+#: src/app/[locale]/my-campaign/_components/ViewContentDialog.tsx:114
+msgid "콘텐츠 URL"
+msgstr "콘텐츠 URL"
+
+#: src/app/[locale]/my-campaign/page.tsx:54
+msgid "콘텐츠 등록"
+msgstr "콘텐츠 등록"
+
+#: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:161
+#: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:153
+#: src/app/[locale]/my-campaign/_components/ViewContentDialog.tsx:98
+msgid "콘텐츠 등록기간"
+msgstr "콘텐츠 등록기간"
+
+#: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:120
+msgid "콘텐츠 등록하기"
+msgstr "콘텐츠 등록하기"
+
+#: src/app/[locale]/my-campaign/page.tsx:65
+msgid "콘텐츠 보기"
+msgstr "콘텐츠 보기"
+
+#: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:131
+#: src/app/[locale]/my-campaign/_components/ViewContentDialog.tsx:68
+#: src/app/[locale]/my-campaign/page.tsx:59
+msgid "콘텐츠 수정"
+msgstr "콘텐츠 수정"
+
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:133
+msgid "탈퇴 처리에 실패했습니다."
+msgstr "탈퇴 처리에 실패했습니다."
+
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:209
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:239
+msgid "탈퇴하기"
+msgstr "탈퇴하기"
+
+#: src/app/[locale]/register/page.tsx:171
+msgid "필수 약관에 동의해주세요."
+msgstr "필수 약관에 동의해주세요."
+
+#: src/app/[locale]/forgot-password/page.tsx:190
+#: src/app/[locale]/my-campaign/_components/CancelSuccessDialog.tsx:56
+#: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:181
+#: src/app/[locale]/register/page.tsx:257
+msgid "확인"
+msgstr "확인"
+
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:216
+msgid "회원 탈퇴"
+msgstr "회원 탈퇴"
+
+#: src/app/[locale]/register/page.tsx:194
 msgid "회원가입"
 msgstr "회원가입"

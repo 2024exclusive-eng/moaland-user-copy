@@ -1,5 +1,7 @@
 "use client";
 
+import { Trans } from "@lingui/react/macro";
+import { t } from "@lingui/macro";
 import { X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -53,7 +55,7 @@ export function ViewSelectedCampaignDialog({
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-5 bg-white">
           <DialogTitle className="text-base font-semibold text-[#242424]">
-            캠페인 신청서
+            <Trans>캠페인 신청서</Trans>
           </DialogTitle>
           <button
             onClick={handleClose}
@@ -69,7 +71,7 @@ export function ViewSelectedCampaignDialog({
           <div className="flex gap-3 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                신청 캠페인
+                <Trans>신청 캠페인</Trans>
               </p>
             </div>
             <div className="flex-1 flex flex-col gap-1">
@@ -89,7 +91,7 @@ export function ViewSelectedCampaignDialog({
           <div className="flex gap-2 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                이름
+                <Trans>이름</Trans>
               </p>
             </div>
             <p className="text-sm text-[#374151] leading-[1.7]">
@@ -100,7 +102,7 @@ export function ViewSelectedCampaignDialog({
           <div className="flex gap-2 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                {getSocialLabel(campaign.social)} 링크
+                {getSocialLabel(campaign.social)} <Trans>링크</Trans>
               </p>
             </div>
             <p className="text-sm text-[#374151] leading-[1.7] break-all">
@@ -111,7 +113,7 @@ export function ViewSelectedCampaignDialog({
           <div className="flex gap-2 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                위챗 아이디
+                <Trans>위챗 아이디</Trans>
               </p>
             </div>
             <p className="text-sm text-[#374151] leading-[1.7]">
@@ -122,7 +124,7 @@ export function ViewSelectedCampaignDialog({
           <div className="flex gap-2 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                방문일 및 시간
+                <Trans>방문일 및 시간</Trans>
               </p>
             </div>
             <p className="text-sm text-[#374151] leading-[1.7]">
@@ -136,7 +138,7 @@ export function ViewSelectedCampaignDialog({
           <div className="flex gap-2 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
-                메모
+                <Trans>메모</Trans>
               </p>
             </div>
             <p className="text-sm text-[#374151] leading-[1.7]">
@@ -146,7 +148,7 @@ export function ViewSelectedCampaignDialog({
 
           {/* Warning Text */}
           <p className="text-sm text-[#ea3a50] leading-[1.7]">
-            *캠페인 선정 이후에는 정보를 변경 할 수 없습니다.
+            <Trans>*캠페인 선정 이후에는 정보를 변경 할 수 없습니다.</Trans>
           </p>
         </div>
       </DialogContent>
