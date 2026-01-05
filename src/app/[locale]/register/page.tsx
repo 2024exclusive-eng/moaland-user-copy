@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/shared/hooks/use-auth";
+import { useFaqs } from "@/shared/hooks/use-content";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
 const RegisterPage = () => {
@@ -18,6 +19,8 @@ const RegisterPage = () => {
   const r = useLocalizedNavigation();
   const { sendVerificationCode, verifyCode, register, isLoading, clearError } =
     useAuth();
+  const { faqs: termsContent } = useFaqs("terms_of_use");
+  const { faqs: privacyContent } = useFaqs("privacy_policy");
 
   const [formData, setFormData] = useState({
     email: "",
@@ -459,7 +462,7 @@ const RegisterPage = () => {
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-5 bg-white">
             <DialogTitle className="text-base font-semibold text-[#242424]">
-              {_(msg`캠페인 유의사항 및 저작물 이용 동의`)}
+              {_(msg`서비스 이용약관`)}
             </DialogTitle>
             <button
               onClick={() => setShowTermsPopup(false)}
@@ -470,39 +473,24 @@ const RegisterPage = () => {
           </div>
 
           {/* Content */}
-          <div className="px-5 py-4 bg-white">
-            <ul className="text-sm text-[#6b7280] leading-[1.7] space-y-2 list-disc pl-5">
-              <li>
+          <div className="px-5 py-4 bg-white max-h-[400px] overflow-y-auto">
+            {termsContent.length > 0 ? (
+              <div className="space-y-6">
+                {termsContent.map((item) => (
+                  <div
+                    key={item.id}
+                    className="text-sm text-[#6b7280] ck-content leading-[1.7] ck-content"
+                    dangerouslySetInnerHTML={{ __html: item.answer }}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-[#6b7280] leading-[1.7]">
                 {_(
-                  msg`정당한 사유 없이 콘텐츠 등록 기간 내 콘텐츠 및 구매평을 작성하지 않을 경우 제공상품 또는 용역의 대가를 환불해야 하며, 관련 법 조항(형법 제347조)에 따라 법적 처벌 대상이 될 수 있습니다.`
+                  msg`서비스 이용약관의 전체 내용은 지원 페이지(/support)에서 확인하실 수 있습니다.`
                 )}
-              </li>
-              <li>
-                {_(
-                  msg`등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에 대한 비용이 청구될 수 있습니다.`
-                )}
-              </li>
-              <li>
-                {_(
-                  msg`등록한 콘텐츠 및 구매평은 홍보나 필요에 의해 사용될 수 있으며, 광고주가 판매 사이트에 콘텐츠 활용을 할 수 있습니다. (광고 등 2차적 저작물 활용)`
-                )}
-              </li>
-              <li>
-                {_(
-                  msg`제공 내역은 타인에게 양도 및 판매, 교환을 허용하지 않습니다.`
-                )}
-              </li>
-              <li>
-                {_(
-                  msg`키워드 챌린지 캠페인은 최소 30일 동안 유지되어야 하며, 유지 기간 미준수 시 콘텐츠 재개 요청이 있을 수 있습니다.`
-                )}
-              </li>
-              <li>
-                {_(
-                  msg`원활한 캠페인 서비스 제공을 위해 최소한의 범주 내에서 아래와 같이 개인정보를 제공합니다. 회원님께서는 제3자 제공에 동의하지 않으실 수 있으며, 이를 거부할 경우 일부 캠페인 참여가 제한됩니다.`
-                )}
-              </li>
-            </ul>
+              </p>
+            )}
           </div>
 
           {/* Footer */}
@@ -526,7 +514,7 @@ const RegisterPage = () => {
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-5 bg-white">
             <DialogTitle className="text-base font-semibold text-[#242424]">
-              {_(msg`캠페인 유의사항 및 저작물 이용 동의`)}
+              {_(msg`개인정보 수집/이용`)}
             </DialogTitle>
             <button
               onClick={() => setShowPrivacyPopup(false)}
@@ -537,39 +525,24 @@ const RegisterPage = () => {
           </div>
 
           {/* Content */}
-          <div className="px-5 py-4 bg-white">
-            <ul className="text-sm text-[#6b7280] leading-[1.7] space-y-2 list-disc pl-5">
-              <li>
+          <div className="px-5 py-4 bg-white max-h-[400px] ck-content overflow-y-auto">
+            {privacyContent.length > 0 ? (
+              <div className="space-y-6">
+                {privacyContent.map((item) => (
+                  <div
+                    key={item.id}
+                    className="text-sm text-[#6b7280] leading-[1.7] ck-content"
+                    dangerouslySetInnerHTML={{ __html: item.answer }}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-[#6b7280] leading-[1.7]">
                 {_(
-                  msg`정당한 사유 없이 콘텐츠 등록 기간 내 콘텐츠 및 구매평을 작성하지 않을 경우 제공상품 또는 용역의 대가를 환불해야 하며, 관련 법 조항(형법 제347조)에 따라 법적 처벌 대상이 될 수 있습니다.`
+                  msg`개인정보 수집 및 이용에 대한 전체 내용은 지원 페이지(/support)에서 확인하실 수 있습니다.`
                 )}
-              </li>
-              <li>
-                {_(
-                  msg`등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에 대한 비용이 청구될 수 있습니다.`
-                )}
-              </li>
-              <li>
-                {_(
-                  msg`등록한 콘텐츠 및 구매평은 홍보나 필요에 의해 사용될 수 있으며, 광고주가 판매 사이트에 콘텐츠 활용을 할 수 있습니다. (광고 등 2차적 저작물 활용)`
-                )}
-              </li>
-              <li>
-                {_(
-                  msg`제공 내역은 타인에게 양도 및 판매, 교환을 허용하지 않습니다.`
-                )}
-              </li>
-              <li>
-                {_(
-                  msg`키워드 챌린지 캠페인은 최소 30일 동안 유지되어야 하며, 유지 기간 미준수 시 콘텐츠 재개 요청이 있을 수 있습니다.`
-                )}
-              </li>
-              <li>
-                {_(
-                  msg`원활한 캠페인 서비스 제공을 위해 최소한의 범주 내에서 아래와 같이 개인정보를 제공합니다. 회원님께서는 제3자 제공에 동의하지 않으실 수 있으며, 이를 거부할 경우 일부 캠페인 참여가 제한됩니다.`
-                )}
-              </li>
-            </ul>
+              </p>
+            )}
           </div>
 
           {/* Footer */}

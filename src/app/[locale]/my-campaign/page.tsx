@@ -346,7 +346,7 @@ function CampaignCard({
                   : "h-8 whitespace-nowrap bg-transparent border border-[#e5e7eb]"
               } ${
                 !isDisabled && button.variant === "primaryFilled"
-                  ? "bg-[#ea3a50] border-[#ea3a50]"
+                  ? "bg-[#ea3a50]! border-[#ea3a50]!"
                   : ""
               }`}
             >
