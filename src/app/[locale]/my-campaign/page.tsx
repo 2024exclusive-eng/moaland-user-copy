@@ -124,7 +124,7 @@ function getActionButtons(
     case "registered":
       return [
         {
-          label: _(msg`캠페인 보기`),
+          label: _(msg`신청서 보기`),
           variant: "view" as const,
           key: "viewCampaign",
         },
@@ -229,9 +229,9 @@ function CampaignCard({
         onSubmitContent(campaign);
       }
     } else if (status === "registered") {
-      if (key === "editContent" && onViewContent) {
+      if (key === "viewCampaign" && onViewContent) {
         onViewContent(campaign);
-      } else if (key === "viewCampaign" && onEditContent) {
+      } else if (key === "editContent" && onEditContent) {
         onEditContent(campaign);
       }
     } else if (status === "ended") {

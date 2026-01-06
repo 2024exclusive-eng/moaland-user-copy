@@ -110,12 +110,12 @@ msgstr "Forgot your registered email?"
 #~ msgid "개인정보 수집 및 이용 목적: 회원 식별 및 관리, 서비스 제공, 캠페인 참여 관리, 고객 문의 응대"
 #~ msgstr "Purpose of personal information collection and use: Member identification and management, service provision, campaign participation management, customer inquiry response"
 
-#: src/app/[locale]/register/page.tsx:563
+#: src/app/[locale]/register/page.tsx:555
 msgid "개인정보 수집 및 이용에 대한 전체 내용은 지원 페이지(/support)에서 확인하실 수 있습니다."
 msgstr "You can view the full details of personal information collection and use on the support page (/support)."
 
-#: src/app/[locale]/register/page.tsx:444
-#: src/app/[locale]/register/page.tsx:538
+#: src/app/[locale]/register/page.tsx:436
+#: src/app/[locale]/register/page.tsx:530
 msgid "개인정보 수집/이용"
 msgstr "Privacy Policy"
 
@@ -244,7 +244,7 @@ msgstr "Douyin"
 msgid "도우인"
 msgstr "Douyin"
 
-#: src/app/[locale]/register/page.tsx:473
+#: src/app/[locale]/register/page.tsx:465
 msgid "동의하고 회원가입"
 msgstr "Agree and Sign Up"
 
@@ -456,7 +456,7 @@ msgid "뷰티"
 msgstr "Beauty"
 
 #: src/app/[locale]/login/page.tsx:91
-#: src/app/[locale]/register/page.tsx:307
+#: src/app/[locale]/register/page.tsx:299
 msgid "비밀번호"
 msgstr "Password"
 
@@ -488,16 +488,16 @@ msgstr "Password has been changed."
 #: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:31
 #: src/app/[locale]/register/page.tsx:58
 #: src/app/[locale]/register/page.tsx:70
-#: src/app/[locale]/register/page.tsx:203
+#: src/app/[locale]/register/page.tsx:195
 msgid "비밀번호가 일치하지 않습니다."
 msgstr "Passwords do not match."
 
-#: src/app/[locale]/register/page.tsx:199
-#: src/app/[locale]/register/page.tsx:314
+#: src/app/[locale]/register/page.tsx:191
+#: src/app/[locale]/register/page.tsx:306
 msgid "비밀번호를 입력해주세요."
 msgstr "Please enter your password."
 
-#: src/app/[locale]/register/page.tsx:338
+#: src/app/[locale]/register/page.tsx:330
 msgid "비밀번호를 재입력해주세요."
 msgstr "Please re-enter your password."
 
@@ -546,12 +546,12 @@ msgstr "Xiaohongshu"
 msgid "서비스 이용 가이드"
 msgstr "Service Guide"
 
-#: src/app/[locale]/register/page.tsx:414
-#: src/app/[locale]/register/page.tsx:486
+#: src/app/[locale]/register/page.tsx:406
+#: src/app/[locale]/register/page.tsx:478
 msgid "서비스 이용약관"
 msgstr "Terms of Service"
 
-#: src/app/[locale]/register/page.tsx:511
+#: src/app/[locale]/register/page.tsx:503
 msgid "서비스 이용약관의 전체 내용은 지원 페이지(/support)에서 확인하실 수 있습니다."
 msgstr "You can view the full terms of service on the support page (/support)."
 
@@ -638,6 +638,7 @@ msgstr "View Application History"
 
 #: src/app/[locale]/my-campaign/page.tsx:106
 #: src/app/[locale]/my-campaign/page.tsx:114
+#: src/app/[locale]/my-campaign/page.tsx:127
 #: src/app/[locale]/my-campaign/page.tsx:484
 #: src/app/[locale]/my-campaign/page.tsx:492
 msgid "신청서 보기"
@@ -673,11 +674,11 @@ msgstr "You can check your applied campaigns in the My Page application history.
 msgid "신청한 캠페인이 없습니다."
 msgstr "No applied campaigns."
 
-#: src/app/[locale]/register/page.tsx:416
+#: src/app/[locale]/register/page.tsx:408
 msgid "에 동의합니다 (필수)"
 msgstr " (Required)"
 
-#: src/app/[locale]/register/page.tsx:446
+#: src/app/[locale]/register/page.tsx:438
 msgid "에 동의합니다(필수)"
 msgstr "(Required)"
 
@@ -741,8 +742,8 @@ msgstr "Please enter your name"
 
 #: src/app/[locale]/forgot-password/page.tsx:161
 #: src/app/[locale]/login/page.tsx:82
-#: src/app/[locale]/register/page.tsx:238
-#: src/app/[locale]/register/page.tsx:244
+#: src/app/[locale]/register/page.tsx:230
+#: src/app/[locale]/register/page.tsx:236
 msgid "이메일"
 msgstr "Email"
 
@@ -755,7 +756,7 @@ msgstr "Invalid email or password."
 #~ msgstr "Re-authentication is required when modifying email."
 
 #: src/app/[locale]/forgot-password/page.tsx:109
-#: src/app/[locale]/register/page.tsx:195
+#: src/app/[locale]/register/page.tsx:187
 msgid "이메일 인증을 완료해주세요."
 msgstr "Please complete email verification."
 
@@ -763,7 +764,7 @@ msgstr "Please complete email verification."
 #: src/app/[locale]/forgot-password/page.tsx:105
 #: src/app/[locale]/forgot-password/page.tsx:167
 #: src/app/[locale]/register/page.tsx:108
-#: src/app/[locale]/register/page.tsx:191
+#: src/app/[locale]/register/page.tsx:183
 msgid "이메일을 입력해주세요."
 msgstr "Please enter your email."
 
@@ -813,16 +814,16 @@ msgid "인증 정보가 올바르지 않습니다."
 msgstr "Invalid credentials."
 
 #: src/app/[locale]/forgot-password/page.tsx:181
-#: src/app/[locale]/register/page.tsx:261
+#: src/app/[locale]/register/page.tsx:253
 msgid "인증번호 재전송"
 msgstr "Resend Verification Code"
 
 #: src/app/[locale]/forgot-password/page.tsx:183
-#: src/app/[locale]/register/page.tsx:263
+#: src/app/[locale]/register/page.tsx:255
 msgid "인증번호 전송"
 msgstr "Send Verification Code"
 
-#: src/app/[locale]/register/page.tsx:133
+#: src/app/[locale]/register/page.tsx:125
 msgid "인증번호 전송에 실패했습니다."
 msgstr "Failed to send verification code."
 
@@ -832,13 +833,13 @@ msgstr "Please complete verification code confirmation."
 
 #: src/app/[locale]/forgot-password/page.tsx:61
 #: src/app/[locale]/forgot-password/page.tsx:196
-#: src/app/[locale]/register/page.tsx:140
-#: src/app/[locale]/register/page.tsx:276
+#: src/app/[locale]/register/page.tsx:132
+#: src/app/[locale]/register/page.tsx:268
 msgid "인증번호를 입력해주세요."
 msgstr "Please enter the verification code."
 
 #: src/app/[locale]/forgot-password/page.tsx:209
-#: src/app/[locale]/register/page.tsx:292
+#: src/app/[locale]/register/page.tsx:284
 msgid "인증완료"
 msgstr "Verified"
 
@@ -862,8 +863,8 @@ msgstr "FAQ"
 msgid "잘못된 이메일 주소입니다."
 msgstr "Invalid email address."
 
-#: src/app/[locale]/register/page.tsx:160
-#: src/app/[locale]/register/page.tsx:165
+#: src/app/[locale]/register/page.tsx:152
+#: src/app/[locale]/register/page.tsx:157
 msgid "잘못된 인증번호입니다. 다시 확인 후 입력해 주세요."
 msgstr "Invalid verification code. Please check and enter again."
 
@@ -909,7 +910,7 @@ msgid "저장하기"
 msgstr "Save"
 
 #: src/app/[locale]/forgot-password/page.tsx:179
-#: src/app/[locale]/register/page.tsx:259
+#: src/app/[locale]/register/page.tsx:251
 msgid "전송 중..."
 msgstr "Sending..."
 
@@ -919,7 +920,7 @@ msgstr "Sending..."
 msgid "전체"
 msgstr "All"
 
-#: src/app/[locale]/register/page.tsx:386
+#: src/app/[locale]/register/page.tsx:378
 msgid "전체 동의"
 msgstr "Agree to All"
 
@@ -978,7 +979,7 @@ msgstr "No events in progress."
 #: src/app/[locale]/forgot-password/page.tsx:252
 #: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:187
 #: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:375
-#: src/app/[locale]/register/page.tsx:473
+#: src/app/[locale]/register/page.tsx:465
 msgid "처리 중..."
 msgstr "Processing..."
 
@@ -1026,7 +1027,6 @@ msgstr "Browse Campaigns"
 msgid "캠페인 목록"
 msgstr "Campaign List"
 
-#: src/app/[locale]/my-campaign/page.tsx:127
 #: src/app/[locale]/my-campaign/page.tsx:140
 #: src/app/[locale]/my-campaign/page.tsx:500
 msgid "캠페인 보기"
@@ -1169,7 +1169,7 @@ msgstr "Account deletion failed."
 msgid "탈퇴하기"
 msgstr "Delete Account"
 
-#: src/app/[locale]/register/page.tsx:207
+#: src/app/[locale]/register/page.tsx:199
 msgid "필수 약관에 동의해주세요."
 msgstr "Please agree to the required terms."
 
@@ -1185,8 +1185,8 @@ msgstr "Home"
 #: src/app/[locale]/campaigns/[id]/_components/CampaignApplyDialog.tsx:391
 #: src/app/[locale]/my-campaign/_components/CancelSuccessDialog.tsx:55
 #: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:185
-#: src/app/[locale]/register/page.tsx:523
-#: src/app/[locale]/register/page.tsx:575
+#: src/app/[locale]/register/page.tsx:515
+#: src/app/[locale]/register/page.tsx:567
 msgid "확인"
 msgstr "Confirm"
 
@@ -1205,7 +1205,7 @@ msgid "회원 탈퇴"
 msgstr "Delete Account"
 
 #: src/app/[locale]/login/page.tsx:147
-#: src/app/[locale]/register/page.tsx:232
+#: src/app/[locale]/register/page.tsx:224
 msgid "회원가입"
 msgstr "Sign Up"
 
