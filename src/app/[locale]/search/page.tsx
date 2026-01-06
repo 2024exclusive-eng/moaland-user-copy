@@ -32,14 +32,15 @@ function SearchContent() {
     r.push(`/campaigns/${missionId}`);
   };
 
+  const k = `'${keyword}'`;
+
   return (
-    <div className="container mx-auto px-4 py-10 min-h-[65vh]">
+    <div className="container mx-auto px-4 py-10 md:min-h-[65vh]">
       {/* Search Result Title */}
-      <h1 className="text-2xl font-bold text-[#111827] leading-[1.7] mb-10">
+      <h1 className="text-xl md:text-2xl font-bold text-[#111827] leading-[1.7] mb-5 md:mb-10">
         {keyword && (
           <Trans>
-            <span className="text-[#EA3A50]">&apos;{keyword}&apos;</span>{" "}
-            검색결과
+            <span className="text-[#EA3A50]">{k}</span> 검색결과
           </Trans>
         )}
         {!keyword && <Trans>검색</Trans>}
@@ -47,7 +48,7 @@ function SearchContent() {
 
       {/* Campaign Grid */}
       {isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
           {Array.from({ length: 8 }).map((_, i) => (
             <CampaignCardSkeleton key={i} />
           ))}
@@ -57,7 +58,7 @@ function SearchContent() {
           {keyword ? (
             <>
               <p className="text-lg mb-2">
-                <Trans>&apos;{keyword}&apos;에 대한 검색결과가 없습니다.</Trans>
+                <Trans>{k}에 대한 검색결과가 없습니다.</Trans>
               </p>
               <p className="text-sm">
                 <Trans>다른 검색어로 다시 검색해 보세요.</Trans>
@@ -71,7 +72,7 @@ function SearchContent() {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
             {campaigns.map((campaign) => (
               <CampaignCard
                 key={campaign.missionId}
@@ -87,6 +88,7 @@ function SearchContent() {
                 point={campaign.point}
                 category={campaign.category}
                 onClick={() => handleCampaignClick(campaign.missionId)}
+                variant="vertical"
               />
             ))}
           </div>
@@ -111,7 +113,7 @@ function SearchLoading() {
   return (
     <div className="container mx-auto px-4 py-10 min-h-[65vh]">
       <div className="h-8 w-48 bg-gray-200 rounded mb-10 animate-pulse" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
         {Array.from({ length: 8 }).map((_, i) => (
           <CampaignCardSkeleton key={i} />
         ))}

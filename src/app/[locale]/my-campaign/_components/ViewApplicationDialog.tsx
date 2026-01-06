@@ -63,24 +63,24 @@ export function ViewApplicationDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="max-w-[400px] p-0 gap-0 overflow-hidden"
+        className="max-w-[400px] h-full max-h-screen p-0 gap-0 overflow-hidden flex flex-col rounded-none sm:rounded-lg"
         showCloseButton={false}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-5 bg-white">
+        <div className="flex items-center justify-between px-[21px] py-5 bg-white shrink-0">
           <DialogTitle className="text-base font-semibold text-[#242424]">
             <Trans>캠페인 신청서</Trans>
           </DialogTitle>
           <button
             onClick={handleClose}
-            className="text-gray-800 hover:text-gray-600 transition-colors"
+            className="text-[#0a0a0a] hover:text-gray-600 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="flex flex-col gap-5 px-5 py-4 bg-white">
+        <div className="flex flex-col gap-5 px-[21px] py-4 bg-white flex-1 overflow-y-auto">
           {/* Campaign Info */}
           <div className="flex gap-3 items-start">
             <div className="w-[100px] shrink-0">
@@ -89,7 +89,7 @@ export function ViewApplicationDialog({
               </p>
             </div>
             <div className="flex-1 flex flex-col gap-1">
-              <p className="text-base font-medium text-[#111827] leading-[1.5]">
+              <p className="text-base font-medium text-black leading-[1.5]">
                 {campaign.title}
               </p>
               <p className="text-sm text-[#6b7280] leading-5">
@@ -162,12 +162,15 @@ export function ViewApplicationDialog({
 
           {/* Warning Text */}
           <p className="text-sm text-[#e72b23] leading-[1.7]">
-            <Trans>*입력한 정보의 수정을 원할 시 신청 취소 후 다시 신청해야 하며, 선정 이후에는 정보를 변경할 수 없습니다.</Trans>
+            <Trans>
+              *입력한 정보의 수정을 원할 시 신청 취소 후 다시 신청해야 하며,
+              선정 이후에는 정보를 변경할 수 없습니다.
+            </Trans>
           </p>
         </div>
 
         {/* Footer */}
-        <div className="flex gap-2.5 px-5 py-4 bg-white">
+        <div className="flex gap-2.5 px-[21px] py-4 bg-white shrink-0 mt-auto">
           <Button
             variant="outline"
             onClick={handleCancel}

@@ -27,7 +27,7 @@ interface ApiErrorResponse {
   };
 }
 
-function extractErrorMessage(err: unknown, fallback: string): string {
+export function extractErrorMessage(err: unknown, fallback: string): string {
   const apiError = err as ApiErrorResponse;
   const errorData = apiError?.response?.data?.error;
   if (typeof errorData === "object" && errorData?.msg) {
@@ -35,6 +35,10 @@ function extractErrorMessage(err: unknown, fallback: string): string {
   }
   if (typeof errorData === "string") {
     return errorData;
+  }
+  // Check for Error object message
+  if (err instanceof Error && err.message) {
+    return err.message;
   }
   return fallback;
 }
@@ -142,11 +146,23 @@ export function useAuth(): UseAuthReturn {
   const sendVerificationCode = useCallback(async (email: string) => {
     setIsLoading(true);
     setError(null);
+    let apiErrorMsg: string | null = null;
     try {
       const response = await sendVerificationCodeApi(email);
+      if (!response.success || !response.verify) {
+        apiErrorMsg =
+          typeof response.error === "object"
+            ? response.error?.msg || null
+            : response.error || null;
+        throw new Error(apiErrorMsg || "Failed to send verification code");
+      }
       return { verify: response.verify };
     } catch (err) {
-      setError(extractErrorMessage(err, "Failed to send verification code"));
+      // Use API error message if available, otherwise extract from axios response
+      const msg =
+        apiErrorMsg ||
+        extractErrorMessage(err, "Failed to send verification code");
+      setError(msg);
       throw err;
     } finally {
       setIsLoading(false);

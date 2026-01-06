@@ -3,11 +3,18 @@
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
+import { MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
 import LocalizedLink from "@/components/LocalizedLink";
 import { Pagination } from "@/components/Pagination";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   calculateDaysRemaining,
@@ -20,6 +27,7 @@ import {
   useMyCampaigns,
   useMyCampaignsCounts,
 } from "@/shared/hooks/use-campaigns";
+import { useProfile } from "@/shared/hooks/use-profile";
 
 import { CancelConfirmDialog } from "./_components/CancelConfirmDialog";
 import { CancelSuccessDialog } from "./_components/CancelSuccessDialog";
@@ -28,6 +36,7 @@ import { SubmitContentDialog } from "./_components/SubmitContentDialog";
 import { ViewApplicationDialog } from "./_components/ViewApplicationDialog";
 import { ViewContentDialog } from "./_components/ViewContentDialog";
 import { ViewSelectedCampaignDialog } from "./_components/ViewSelectedCampaignDialog";
+import { MOCK_CAMPAIGNS, MOCK_COUNTS, USE_MOCK_DATA } from "./_mock/campaigns";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -74,6 +83,16 @@ function getTabs(_: ReturnType<typeof useLingui>["_"]) {
   ];
 }
 
+// Mobile tab configuration with shorter labels
+function getMobileTabs(_: ReturnType<typeof useLingui>["_"]) {
+  return [
+    { key: "applied" as MyCampaignStatus, label: _(msg`신청`) },
+    { key: "selected" as MyCampaignStatus, label: _(msg`선정`) },
+    { key: "registered" as MyCampaignStatus, label: _(msg`등록`) },
+    { key: "ended" as MyCampaignStatus, label: _(msg`종료`) },
+  ];
+}
+
 // Action button configuration based on status
 function getActionButtons(
   status: MyCampaignStatus,
@@ -105,14 +124,14 @@ function getActionButtons(
     case "registered":
       return [
         {
-          label: _(msg`콘텐츠 수정`),
+          label: _(msg`캠페인 보기`),
           variant: "view" as const,
-          key: "editContent",
+          key: "viewCampaign",
         },
         {
-          label: _(msg`캠페인 보기`),
+          label: _(msg`콘텐츠 수정`),
           variant: "primaryFilled" as const,
-          key: "viewCampaign",
+          key: "editContent",
         },
       ];
     case "ended":
@@ -153,6 +172,25 @@ function CampaignCardSkeleton() {
   );
 }
 
+function MobileCampaignCardSkeleton() {
+  return (
+    <div className="border-b border-[#e5e7eb] px-3 py-5 flex items-start justify-between">
+      <div className="flex-1 flex flex-col gap-2 min-w-0">
+        <div className="flex flex-col gap-1">
+          <Skeleton className="h-5 w-48" />
+          <Skeleton className="h-4 w-full max-w-[280px]" />
+        </div>
+        <div className="flex gap-3 items-center">
+          <Skeleton className="h-3.5 w-3.5 rounded" />
+          <Skeleton className="h-4 w-16" />
+          <Skeleton className="h-4 w-20" />
+        </div>
+      </div>
+      <Skeleton className="h-6 w-6 rounded shrink-0" />
+    </div>
+  );
+}
+
 function CampaignCard({
   campaign,
   status,
@@ -177,7 +215,7 @@ function CampaignCard({
   const socialPlatforms = parseSocialPlatforms(campaign.social);
   const actionButtons = getActionButtons(status, _);
 
-  const handleButtonClick = (variant: string, key: string) => {
+  const handleButtonClick = (_variant: string, key: string) => {
     if (status === "applied") {
       if (key === "viewApp" && onViewApplication) {
         onViewApplication(campaign);
@@ -321,19 +359,56 @@ function CampaignCard({
       {/* Action Buttons */}
       <div className="flex items-center gap-2 w-50 shrink-0">
         {actionButtons.map((button, index) => {
-          // Check if this is the content registration button and if we're before the content start date
           const isContentRegistrationButton =
             status === "selected" && button.key === "viewCampaign";
-          const isBeforeContentStartDate =
-            isContentRegistrationButton &&
-            !!campaign.contentStartDate &&
-            new Date() < new Date(campaign.contentStartDate);
 
-          const buttonLabel = isBeforeContentStartDate
-            ? _(msg`컨텐츠 등록 기간이 아닙니다.`)
+          const now = new Date();
+          const missionStartDate = campaign.missionStartDate
+            ? new Date(campaign.missionStartDate)
+            : null;
+          const missionEndDate = campaign.missionEndDate
+            ? new Date(campaign.missionEndDate)
+            : null;
+          const contentStartDate = campaign.contentStartDate
+            ? new Date(campaign.contentStartDate)
+            : null;
+          const contentEndDate = campaign.contentEndDate
+            ? new Date(campaign.contentEndDate)
+            : null;
+
+          const effectiveStartDate =
+            missionStartDate && contentStartDate
+              ? missionStartDate < contentStartDate
+                ? missionStartDate
+                : contentStartDate
+              : missionStartDate || contentStartDate;
+
+          const effectiveEndDate =
+            missionEndDate && contentEndDate
+              ? missionEndDate > contentEndDate
+                ? missionEndDate
+                : contentEndDate
+              : missionEndDate || contentEndDate;
+
+          const isBeforeActivePeriod =
+            isContentRegistrationButton &&
+            !!effectiveStartDate &&
+            now < effectiveStartDate;
+
+          const isAfterActivePeriod =
+            isContentRegistrationButton &&
+            !!effectiveEndDate &&
+            now > effectiveEndDate;
+
+          const isOutsideActivePeriod = Boolean(
+            isBeforeActivePeriod || isAfterActivePeriod
+          );
+
+          const buttonLabel = isBeforeActivePeriod
+            ? _(msg`컨텐츠 등록`)
             : button.label;
 
-          const isDisabled = isBeforeContentStartDate;
+          const isDisabled = isOutsideActivePeriod;
 
           return (
             <button
@@ -371,6 +446,299 @@ function CampaignCard({
   );
 }
 
+// Mobile Campaign Card Component
+function MobileCampaignCard({
+  campaign,
+  status,
+  onViewApplication,
+  onCancelApplication,
+  onViewSelectedCampaign,
+  onSubmitContent,
+  onViewContent,
+  onEditContent,
+}: {
+  campaign: MyCampaign;
+  status: MyCampaignStatus;
+  onViewApplication?: (campaign: MyCampaign) => void;
+  onCancelApplication?: (campaign: MyCampaign) => void;
+  onViewSelectedCampaign?: (campaign: MyCampaign) => void;
+  onSubmitContent?: (campaign: MyCampaign) => void;
+  onViewContent?: (campaign: MyCampaign) => void;
+  onEditContent?: (campaign: MyCampaign) => void;
+}) {
+  const { _ } = useLingui();
+  const daysRemaining = calculateDaysRemaining(campaign.enrollEndDate);
+  const socialPlatforms = parseSocialPlatforms(campaign.social);
+
+  // Get menu items based on status
+  const getMenuItems = () => {
+    switch (status) {
+      case "applied":
+        return [
+          {
+            label: _(msg`신청 취소`),
+            onClick: () => onCancelApplication?.(campaign),
+            variant: "cancel" as const,
+          },
+          {
+            label: _(msg`신청서 보기`),
+            onClick: () => onViewApplication?.(campaign),
+            variant: "default" as const,
+          },
+        ];
+      case "selected":
+        return [
+          {
+            label: _(msg`신청서 보기`),
+            onClick: () => onViewSelectedCampaign?.(campaign),
+            variant: "default" as const,
+          },
+        ];
+      case "registered":
+        return [
+          {
+            label: _(msg`캠페인 보기`),
+            onClick: () => onViewSelectedCampaign?.(campaign),
+            variant: "default" as const,
+          },
+        ];
+      case "ended":
+        return [
+          {
+            label: _(msg`내역 삭제`),
+            onClick: () => onViewSelectedCampaign?.(campaign),
+            variant: "default" as const,
+          },
+          {
+            label: _(msg`콘텐츠 보기`),
+            onClick: () => onViewContent?.(campaign),
+            variant: "default" as const,
+          },
+        ];
+      default:
+        return [];
+    }
+  };
+
+  const menuItems = getMenuItems();
+
+  // Get action button config for selected/registered/ended tabs
+  const getActionButton = () => {
+    const now = new Date();
+    const missionStartDate = campaign.missionStartDate
+      ? new Date(campaign.missionStartDate)
+      : null;
+    const missionEndDate = campaign.missionEndDate
+      ? new Date(campaign.missionEndDate)
+      : null;
+    const contentStartDate = campaign.contentStartDate
+      ? new Date(campaign.contentStartDate)
+      : null;
+    const contentEndDate = campaign.contentEndDate
+      ? new Date(campaign.contentEndDate)
+      : null;
+
+    const effectiveStartDate =
+      missionStartDate && contentStartDate
+        ? missionStartDate < contentStartDate
+          ? missionStartDate
+          : contentStartDate
+        : missionStartDate || contentStartDate;
+
+    const effectiveEndDate =
+      missionEndDate && contentEndDate
+        ? missionEndDate > contentEndDate
+          ? missionEndDate
+          : contentEndDate
+        : missionEndDate || contentEndDate;
+
+    const isBeforeActivePeriod =
+      !!effectiveStartDate && now < effectiveStartDate;
+    const isAfterActivePeriod = !!effectiveEndDate && now > effectiveEndDate;
+
+    switch (status) {
+      case "selected":
+        return {
+          label: isBeforeActivePeriod
+            ? _(msg`컨텐츠 등록`)
+            : _(msg`콘텐츠 등록하기`),
+          onClick: () => onSubmitContent?.(campaign),
+          variant: "primary" as const,
+          disabled: isBeforeActivePeriod || isAfterActivePeriod,
+        };
+      case "registered":
+        return {
+          label: _(msg`콘텐츠 수정`),
+          onClick: () => onEditContent?.(campaign),
+          variant: "primary" as const,
+          disabled: false,
+        };
+      case "ended":
+        return {
+          label: _(msg`콘텐츠 보기`),
+          onClick: () => onViewContent?.(campaign),
+          variant: "primary" as const,
+          disabled: false,
+        };
+      default:
+        return null;
+    }
+  };
+
+  const actionButton = getActionButton();
+
+  return (
+    <div className="border-b border-[#e5e7eb] px-3 py-5 flex flex-col gap-4">
+      <div className="flex items-start justify-between gap-3">
+        {/* Campaign Info */}
+        <LocalizedLink
+          href={`/campaigns/${campaign.missionId}`}
+          className="flex-1 flex flex-col gap-2 min-w-0"
+        >
+          <div className="flex flex-col">
+            <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
+              {campaign.title}
+            </h3>
+            <p className="text-sm text-[#6b7280] leading-[1.7] line-clamp-2">
+              {campaign.missionContent}
+            </p>
+          </div>
+
+          {/* Status info */}
+          {status === "selected" ? (
+            <div className="flex gap-3 items-center">
+              {/* Visit datetime */}
+              <div className="flex gap-1.5 items-center">
+                <Image
+                  src="/icons/calendar-check.svg"
+                  width={15}
+                  height={15}
+                  alt="calendar"
+                />
+                <p className="text-xs font-semibold text-[#111827] leading-[1.7]">
+                  {formatVisitDateTime(campaign.visitDatetimeStart, _)}
+                </p>
+              </div>
+
+              <div className="h-2.5 w-0 border-l border-[#e5e7eb]" />
+
+              {/* Content registration period */}
+              <div className="flex gap-1.5 items-center">
+                {socialPlatforms.slice(0, 1).map((platform) => {
+                  const logoConfig = SOCIAL_LOGO_MAP[platform];
+                  if (!logoConfig) return null;
+                  return (
+                    <Image
+                      key={platform}
+                      src={logoConfig.src}
+                      width={13}
+                      height={13}
+                      alt={platform}
+                      className="object-cover"
+                    />
+                  );
+                })}
+                <p className="text-xs font-semibold text-[#111827] leading-[1.7]">
+                  {formatContentDateRange(
+                    campaign.contentStartDate,
+                    campaign.contentEndDate,
+                    _
+                  )}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="flex gap-3 items-center">
+              {socialPlatforms.length > 0 && (
+                <div className="flex gap-1.5 items-center">
+                  {socialPlatforms.slice(0, 1).map((platform) => {
+                    const logoConfig = SOCIAL_LOGO_MAP[platform];
+                    if (!logoConfig) return null;
+                    return (
+                      <Image
+                        key={platform}
+                        src={logoConfig.src}
+                        width={13}
+                        height={13}
+                        alt={platform}
+                        className="object-cover"
+                      />
+                    );
+                  })}
+                  {status !== "ended" && daysRemaining > 0 && (
+                    <p className="text-xs font-semibold text-[#111827] leading-[1.7]">
+                      <Trans>{daysRemaining}일 남음</Trans>
+                    </p>
+                  )}
+                  {status === "ended" && (
+                    <p className="text-xs font-semibold text-[#9ca3af] leading-[1.7]">
+                      <Trans>종료됨</Trans>
+                    </p>
+                  )}
+                </div>
+              )}
+
+              <div className="h-2.5 w-0 border-l border-[#e5e7eb]" />
+
+              <p className="text-xs text-[#4b5563] leading-[1.7]">
+                <Trans>신청</Trans> {campaign.enrollCount}/ {campaign.maxEnroll}
+              </p>
+            </div>
+          )}
+        </LocalizedLink>
+
+        {/* More Menu Dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="shrink-0 p-1 hover:bg-gray-100 rounded">
+              <MoreHorizontal className="w-6 h-6 text-[#111827]" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="end"
+            className="bg-white border border-[#e5e7eb] rounded-[6px] p-1 min-w-[120px]"
+          >
+            {menuItems.map((item, index) => (
+              <DropdownMenuItem
+                key={index}
+                onClick={item.onClick}
+                className={`h-10 px-2.5 py-2 cursor-pointer text-sm leading-[1.7] hover:bg-gray-50 rounded-sm ${
+                  item.variant === "cancel"
+                    ? "text-[#ff614e]"
+                    : "text-[#374151]"
+                }`}
+              >
+                {item.label}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
+      {/* Action Button for selected/registered/ended tabs */}
+      {actionButton && (
+        <button
+          onClick={actionButton.onClick}
+          disabled={actionButton.disabled}
+          className={`w-full h-10 rounded-lg flex items-center justify-center ${
+            actionButton.disabled
+              ? "bg-[#e5e7eb] cursor-not-allowed"
+              : "bg-[#ea3a50] hover:bg-[#d63347]"
+          }`}
+        >
+          <span
+            className={`text-sm font-medium leading-[1.5] ${
+              actionButton.disabled ? "text-[#9ca3af]" : "text-white"
+            }`}
+          >
+            {actionButton.label}
+          </span>
+        </button>
+      )}
+    </div>
+  );
+}
+
 function EmptyState({ status }: { status: MyCampaignStatus }) {
   const { _ } = useLingui();
   const messages: Record<MyCampaignStatus, string> = {
@@ -397,6 +765,7 @@ export default function Page() {
   const { _ } = useLingui();
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTab, setActiveTab] = useState<MyCampaignStatus>("applied");
+  const { profile } = useProfile();
 
   // Dialog states
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
@@ -410,15 +779,27 @@ export default function Page() {
     null
   );
 
-  // Fetch campaigns for active tab
-  const { campaigns, paging, isLoading, mutate } = useMyCampaigns(
-    activeTab,
-    currentPage,
-    ITEMS_PER_PAGE
-  );
+  // Fetch campaigns for active tab (use mock data if enabled)
+  const apiData = useMyCampaigns(activeTab, currentPage, ITEMS_PER_PAGE);
+  const apiCounts = useMyCampaignsCounts();
 
-  // Fetch counts for all tabs
-  const counts = useMyCampaignsCounts();
+  // Use mock data or real API data
+  const campaigns = USE_MOCK_DATA
+    ? MOCK_CAMPAIGNS[activeTab]
+    : apiData.campaigns;
+  const paging = USE_MOCK_DATA
+    ? {
+        totalPages: 1,
+        currentPage: 1,
+        totalItems: MOCK_CAMPAIGNS[activeTab].length,
+      }
+    : apiData.paging;
+  const isLoading = USE_MOCK_DATA ? false : apiData.isLoading;
+  const mutate = apiData.mutate;
+
+  const counts = USE_MOCK_DATA
+    ? { ...MOCK_COUNTS, isLoading: false, mutate: apiCounts.mutate }
+    : apiCounts;
 
   // Reset page when tab changes
   const handleTabChange = (tab: MyCampaignStatus) => {
@@ -490,40 +871,48 @@ export default function Page() {
   };
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="grid md:grid-cols-8">
-        {/* Sidebar */}
-        <div className="col-span-2 pt-10">
-          <h1 className="text-[#111827] text-2xl font-bold">
+    <>
+      {/* Mobile Layout */}
+      <div className="md:hidden flex flex-col min-h-screen">
+        {/* Mobile Header */}
+        <div className="h-[60px] flex items-center px-[21px] border-b border-[#e5e7eb] bg-white">
+          <h1 className="text-black text-[18px] font-bold flex-1">
             <Trans>마이페이지</Trans>
           </h1>
-
-          <div className="pl-3 mt-5">
-            <LocalizedLink
-              href="/my-campaign"
-              className="text-lg transition-colors font-semibold text-[#111827] block"
-            >
-              <Trans>나의 캠페인</Trans>
-            </LocalizedLink>
-            <LocalizedLink
-              href="/profile"
-              className="text-lg mt-3 block transition-colors text-[#9CA3AF]"
-            >
-              <Trans>계정 정보</Trans>
-            </LocalizedLink>
-          </div>
         </div>
 
-        {/* Main Content */}
-        <div className="col-span-6 md:border-l min-h-[64vh] border-[#e5e7eb] md:pl-10 py-10 flex flex-col gap-5.75">
-          <h2 className="text-xl font-semibold text-[#111827] leading-normal">
-            <Trans>나의 캠페인</Trans>
-          </h2>
+        {/* Mobile Content */}
+        <div className="flex-1 bg-white px-[21px] pt-5 pb-20">
+          {/* User Profile Section */}
+          <div className="flex gap-3 items-center mb-5">
+            <div className="flex-1 flex gap-3 items-center min-w-0">
+              <Image
+                src={
+                  profile?.profile?.profileImg || "/images/default-avatar.svg"
+                }
+                width={39}
+                height={39}
+                alt="profile"
+                className="w-[39px] h-[39px] rounded-full object-cover shrink-0"
+              />
+              <p className="text-sm text-black leading-[1.7] truncate">
+                {profile?.my?.email || ""}
+              </p>
+            </div>
+            <LocalizedLink
+              href="/profile"
+              className="bg-[#f3f4f6] h-10 px-3 rounded-lg flex items-center justify-center shrink-0"
+            >
+              <span className="text-sm font-medium text-[#374151]">
+                <Trans>계정 정보</Trans>
+              </span>
+            </LocalizedLink>
+          </div>
 
+          {/* Mobile Tabs */}
           <div className="flex flex-col gap-3">
-            {/* Tab Menu */}
             <div className="border-b border-[#e5e7eb] flex items-center">
-              {getTabs(_).map((tab) => {
+              {getMobileTabs(_).map((tab) => {
                 const countMap = {
                   applied: counts.applied,
                   selected: counts.selected,
@@ -537,10 +926,10 @@ export default function Page() {
                   <button
                     key={tab.key}
                     onClick={() => handleTabChange(tab.key)}
-                    className={`px-5 py-2.5 cursor-pointer text-base text-center ${
+                    className={`flex-1 px-5 py-2.5 cursor-pointer text-base text-center ${
                       isActive
-                        ? "border-b border-black font-bold text-[#111827]"
-                        : "font-medium text-[#9ca3af]"
+                        ? "border-b border-black font-bold text-black"
+                        : "font-medium text-[#9da0a8]"
                     }`}
                   >
                     {tab.label}{" "}
@@ -552,20 +941,17 @@ export default function Page() {
               })}
             </div>
 
-            {/* Campaign List */}
+            {/* Mobile Campaign List */}
             <div className="flex flex-col">
               {isLoading ? (
-                // Loading skeletons
                 Array.from({ length: 4 }).map((_, index) => (
-                  <CampaignCardSkeleton key={index} />
+                  <MobileCampaignCardSkeleton key={index} />
                 ))
               ) : campaigns.length === 0 ? (
-                // Empty state
                 <EmptyState status={activeTab} />
               ) : (
-                // Campaign list
                 campaigns.map((campaign) => (
-                  <CampaignCard
+                  <MobileCampaignCard
                     key={campaign.missionId}
                     campaign={campaign}
                     status={activeTab}
@@ -582,7 +968,7 @@ export default function Page() {
 
             {/* Pagination */}
             {!isLoading && campaigns.length > 0 && paging && (
-              <div className="flex justify-center">
+              <div className="flex justify-center py-4">
                 <Pagination
                   currentPage={currentPage}
                   totalPages={paging.totalPages}
@@ -590,6 +976,112 @@ export default function Page() {
                 />
               </div>
             )}
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden md:block container mx-auto px-4">
+        <div className="grid md:grid-cols-8">
+          {/* Sidebar */}
+          <div className="col-span-2 pt-10">
+            <h1 className="text-[#111827] text-2xl font-bold">
+              <Trans>마이페이지</Trans>
+            </h1>
+
+            <div className="pl-3 mt-5">
+              <LocalizedLink
+                href="/my-campaign"
+                className="text-lg transition-colors font-semibold text-[#111827] block"
+              >
+                <Trans>나의 캠페인</Trans>
+              </LocalizedLink>
+              <LocalizedLink
+                href="/profile"
+                className="text-lg mt-3 block transition-colors text-[#9CA3AF]"
+              >
+                <Trans>계정 정보</Trans>
+              </LocalizedLink>
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <div className="col-span-6 md:border-l min-h-[64vh] border-[#e5e7eb] md:pl-10 py-10 flex flex-col gap-5.75">
+            <h2 className="text-xl font-semibold text-[#111827] leading-normal">
+              <Trans>나의 캠페인</Trans>
+            </h2>
+
+            <div className="flex flex-col gap-3">
+              {/* Tab Menu */}
+              <div className="border-b border-[#e5e7eb] flex items-center">
+                {getTabs(_).map((tab) => {
+                  const countMap = {
+                    applied: counts.applied,
+                    selected: counts.selected,
+                    registered: counts.registered,
+                    ended: counts.ended,
+                  };
+                  const count = countMap[tab.key] ?? 0;
+                  const isActive = activeTab === tab.key;
+
+                  return (
+                    <button
+                      key={tab.key}
+                      onClick={() => handleTabChange(tab.key)}
+                      className={`px-5 py-2.5 cursor-pointer text-base text-center ${
+                        isActive
+                          ? "border-b border-black font-bold text-[#111827]"
+                          : "font-medium text-[#9ca3af]"
+                      }`}
+                    >
+                      {tab.label}{" "}
+                      <span className={isActive ? "text-[#ea3a50]" : ""}>
+                        {counts.isLoading ? "-" : count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Campaign List */}
+              <div className="flex flex-col">
+                {isLoading ? (
+                  // Loading skeletons
+                  Array.from({ length: 4 }).map((_, index) => (
+                    <CampaignCardSkeleton key={index} />
+                  ))
+                ) : campaigns.length === 0 ? (
+                  // Empty state
+                  <EmptyState status={activeTab} />
+                ) : (
+                  // Campaign list
+                  campaigns.map((campaign) => (
+                    <CampaignCard
+                      key={campaign.missionId}
+                      campaign={campaign}
+                      status={activeTab}
+                      onViewApplication={handleViewApplication}
+                      onCancelApplication={handleCancelApplication}
+                      onViewSelectedCampaign={handleViewSelectedCampaign}
+                      onSubmitContent={handleSubmitContent}
+                      onViewContent={handleViewContent}
+                      onEditContent={handleEditContent}
+                    />
+                  ))
+                )}
+              </div>
+
+              {/* Pagination */}
+              {!isLoading && campaigns.length > 0 && paging && (
+                <div className="flex justify-center">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={paging.totalPages}
+                    onPageChange={setCurrentPage}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -639,6 +1131,6 @@ export default function Page() {
         campaign={selectedCampaign}
         onSuccess={handleContentEditSuccess}
       />
-    </div>
+    </>
   );
 }

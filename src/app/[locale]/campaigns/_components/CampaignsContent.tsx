@@ -3,7 +3,7 @@
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
 import { useState } from "react";
 
 import { Pagination } from "@/components/Pagination";
@@ -88,6 +88,7 @@ export function CampaignsContent({
   const [currentPage, setCurrentPage] = useState(initialPage);
 
   // Dropdown states
+  const [showRegionDropdown, setShowRegionDropdown] = useState(false);
   const [showSocialDropdown, setShowSocialDropdown] = useState(false);
   const [showSortDropdown, setShowSortDropdown] = useState(false);
 
@@ -126,6 +127,7 @@ export function CampaignsContent({
 
   const handleRegionChange = (region: string | undefined) => {
     setCurrentRegion(region);
+    setShowRegionDropdown(false);
     setCurrentPage(1);
   };
 
@@ -150,6 +152,11 @@ export function CampaignsContent({
     r.push(`/campaigns/${missionId}`);
   };
 
+  const getRegionLabel = () => {
+    const option = getRegionPills(_).find((o) => o.value === currentRegion);
+    return option?.label || _(msg`전체`);
+  };
+
   const getSocialLabel = () => {
     const option = getSocialOptions(_).find((o) => o.value === currentSocial);
     return option?.label || _(msg`미디어 전체`);
@@ -162,17 +169,32 @@ export function CampaignsContent({
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="container mx-auto px-4 py-8">
-        {/* Page Title */}
-        <h1 className="text-2xl font-bold text-[#111827] leading-[1.7] mb-5">
+      {/* Mobile Header */}
+      <div className="md:hidden">
+        <div className="h-[60px] flex items-center justify-between px-[21px] border-b border-[#e5e7eb]">
+          <h1 className="text-black text-[18px] font-bold">
+            <Trans>캠페인 목록</Trans>
+          </h1>
+          <button
+            onClick={() => r.push("/search")}
+            className="p-2 hover:bg-gray-100 rounded-full -mr-2"
+          >
+            <Search className="w-5 h-5 text-[#111827]" />
+          </button>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 md:py-8 py-0">
+        {/* Page Title - Desktop Only */}
+        <h1 className="hidden md:block text-2xl font-bold text-[#111827] leading-[1.7] mb-5">
           <Trans>캠페인 목록</Trans>
         </h1>
 
         {/* Filters Section */}
-        <div className="flex flex-col gap-3 mb-8">
+        <div className="flex flex-col gap-3 md:mb-8 mb-4">
           {/* Category Tabs */}
-          <div className="border-b border-[#E5E7EB]">
-            <div className="flex items-center overflow-x-auto">
+          <div className="border-b border-[#E5E7EB] md:mt-0 mt-0">
+            <div className="flex items-center overflow-x-auto scrollbar-hide">
               {getCategoryTabs(_).map((tab) => {
                 const isSelected = currentCategory === tab.value;
                 return (
@@ -193,9 +215,41 @@ export function CampaignsContent({
           </div>
 
           {/* Region Pills & Dropdowns */}
-          <div className="flex items-center gap-3">
-            {/* Region Pills */}
-            <div className="flex flex-1 gap-3 items-center overflow-x-auto">
+          <div className="flex items-center gap-2">
+            {/* Region Dropdown (Mobile) */}
+            <div className="md:hidden relative ">
+              <button
+                onClick={() => {
+                  setShowRegionDropdown(!showRegionDropdown);
+                  setShowSocialDropdown(false);
+                  setShowSortDropdown(false);
+                }}
+                className="flex items-center gap-1 px-4 py-2 bg-white border border-[#E5E7EB] rounded-full text-sm font-medium text-[#111827]"
+              >
+                {getRegionLabel()}
+                <ChevronDown className="w-4 h-4" />
+              </button>
+              {showRegionDropdown && (
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-[#E5E7EB] rounded-lg shadow-lg z-20 max-h-[250px] overflow-y-auto">
+                  {getRegionPills(_).map((option) => (
+                    <button
+                      key={option.label}
+                      onClick={() => handleRegionChange(option.value)}
+                      className={`w-full px-4 py-2 text-left text-sm hover:bg-[#F3F4F6] first:rounded-t-lg last:rounded-b-lg ${
+                        currentRegion === option.value
+                          ? "font-medium text-[#111827]"
+                          : "text-[#6B7280]"
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Region Pills (Desktop) */}
+            <div className="hidden md:flex flex-1 gap-3 items-center overflow-x-auto">
               {getRegionPills(_).map((pill) => {
                 const isSelected = currentRegion === pill.value;
                 return (
@@ -204,8 +258,8 @@ export function CampaignsContent({
                     onClick={() => handleRegionChange(pill.value)}
                     className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
                       isSelected
-                        ? "bg-[#F3F4F6] border border-black text-[#111827]"
-                        : "bg-[#F3F4F6] text-[#111827] hover:bg-[#E5E7EB]"
+                        ? "bg-white border border-black text-[#111827]"
+                        : "bg-white border border-[#E5E7EB] text-[#111827] hover:bg-[#F3F4F6]"
                     }`}
                   >
                     {pill.label}
@@ -222,6 +276,7 @@ export function CampaignsContent({
                   onClick={() => {
                     setShowSocialDropdown(!showSocialDropdown);
                     setShowSortDropdown(false);
+                    setShowRegionDropdown(false);
                   }}
                   className="flex items-center gap-1 px-4 py-2 bg-white border border-[#E5E7EB] rounded-full text-sm font-medium text-[#111827]"
                 >
@@ -253,6 +308,7 @@ export function CampaignsContent({
                   onClick={() => {
                     setShowSortDropdown(!showSortDropdown);
                     setShowSocialDropdown(false);
+                    setShowRegionDropdown(false);
                   }}
                   className="flex items-center gap-1 px-4 py-2 bg-white border border-[#E5E7EB] rounded-full text-sm font-medium text-[#111827]"
                 >
@@ -290,22 +346,27 @@ export function CampaignsContent({
             <p className="text-lg font-medium">
               <Trans>캠페인을 불러오는데 실패했습니다</Trans>
             </p>
-            <p className="text-sm mt-1"><Trans>잠시 후 다시 시도해주세요</Trans></p>
+            <p className="text-sm mt-1">
+              <Trans>잠시 후 다시 시도해주세요</Trans>
+            </p>
           </div>
         )}
 
         {/* Empty State */}
         {!isLoading && !isError && campaigns.length === 0 && (
           <div className="flex flex-col items-center justify-center py-12 text-gray-500">
-            <p className="text-lg font-medium"><Trans>캠페인이 없습니다</Trans></p>
+            <p className="text-lg font-medium">
+              <Trans>캠페인이 없습니다</Trans>
+            </p>
           </div>
         )}
 
         {/* Campaign Grid */}
         {!isLoading && !isError && campaigns.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {campaigns.map((campaign) => (
               <CampaignCard
+                variant="vertical"
                 key={campaign.missionId}
                 missionId={campaign.missionId}
                 title={campaign.title}

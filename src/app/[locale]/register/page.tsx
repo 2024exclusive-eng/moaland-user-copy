@@ -4,13 +4,13 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { CheckCircle2, Eye, EyeOff, X } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "@/shared/hooks/use-auth";
+import { extractErrorMessage, useAuth } from "@/shared/hooks/use-auth";
 import { useFaqs } from "@/shared/hooks/use-content";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
@@ -46,6 +46,7 @@ const RegisterPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showTermsPopup, setShowTermsPopup] = useState(false);
   const [showPrivacyPopup, setShowPrivacyPopup] = useState(false);
+  const isVerifyingRef = useRef(false);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => {
@@ -118,8 +119,11 @@ const RegisterPage = () => {
       setVerifyToken(verify);
       setIsCodeSent(true);
       setIsVerified(false);
-    } catch {
-      // Error is handled by useAuth hook
+    } catch (err) {
+      // Display API error message
+      setEmailError(
+        extractErrorMessage(err, _(msg`인증번호 전송에 실패했습니다.`))
+      );
     }
   };
 
@@ -128,6 +132,11 @@ const RegisterPage = () => {
       setVerificationError(_(msg`인증번호를 입력해주세요.`));
       return;
     }
+    if (isVerifyingRef.current || isVerified) {
+      return;
+    }
+
+    isVerifyingRef.current = true;
     clearError();
     setVerificationError(null);
     try {
@@ -147,8 +156,22 @@ const RegisterPage = () => {
       setVerificationError(
         _(msg`잘못된 인증번호입니다. 다시 확인 후 입력해 주세요.`)
       );
+    } finally {
+      isVerifyingRef.current = false;
     }
   };
+
+  // Auto-trigger verification when code reaches 6 characters
+  useEffect(() => {
+    if (
+      formData.verificationCode.length === 6 &&
+      verifyToken &&
+      !isVerified &&
+      !isVerifyingRef.current
+    ) {
+      handleVerifyCode();
+    }
+  }, [formData.verificationCode, verifyToken, isVerified]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -191,15 +214,18 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-md">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+    <div className="container mx-auto px-4 md:h-auto h-dvh py-8 w-full sm:max-w-md">
+      <form
+        onSubmit={handleSubmit}
+        className="flex h-full items-center justify-center w-full flex-col gap-6"
+      >
         {/* Title */}
         <h1 className="text-2xl font-bold text-[#242424] text-center">
           <Trans>회원가입</Trans>
         </h1>
 
         {/* Email Section */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 w-full">
           <label className="text-sm font-semibold text-[#4b5563]">
             <Trans>이메일</Trans>
           </label>
@@ -233,39 +259,24 @@ const RegisterPage = () => {
           {/* Verification Code */}
           {isCodeSent && (
             <div className="flex flex-col gap-2">
-              <div className="flex gap-2">
-                <Input
-                  type="text"
-                  value={formData.verificationCode}
-                  onChange={(e) =>
-                    handleInputChange("verificationCode", e.target.value)
-                  }
-                  placeholder={_(msg`인증번호를 입력해주세요.`)}
-                  className={`h-10 rounded-lg ${
-                    isVerified
-                      ? "border-[#5ecb55] focus-visible:border-[#5ecb55]"
-                      : !verificationError
-                      ? "border-[#e5e7eb]"
-                      : ""
-                  }`}
-                  wrapperClassName="flex-1"
-                  disabled={isVerified}
-                  error={
-                    !isVerified ? verificationError ?? undefined : undefined
-                  }
-                />
-                {!isVerified && (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleVerifyCode}
-                    disabled={isLoading || !formData.verificationCode}
-                    className="h-10 border-[#e5e7eb] text-[#374151] rounded-lg disabled:opacity-50"
-                  >
-                    <Trans>확인</Trans>
-                  </Button>
-                )}
-              </div>
+              <Input
+                type="text"
+                value={formData.verificationCode}
+                onChange={(e) =>
+                  handleInputChange("verificationCode", e.target.value)
+                }
+                placeholder={_(msg`인증번호를 입력해주세요.`)}
+                className={`h-10 rounded-lg ${
+                  isVerified
+                    ? "border-[#5ecb55] focus-visible:border-[#5ecb55]"
+                    : !verificationError
+                    ? "border-[#e5e7eb]"
+                    : ""
+                }`}
+                disabled={isVerified}
+                maxLength={6}
+                error={!isVerified ? verificationError ?? undefined : undefined}
+              />
               {isVerified && (
                 <div className="flex items-center gap-1 text-[#5ecb55]">
                   <CheckCircle2 className="size-4" />
@@ -279,7 +290,7 @@ const RegisterPage = () => {
         </div>
 
         {/* Password Section */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 w-full">
           <label
             className={`text-sm font-semibold ${
               isVerified ? "text-[#4b5563]" : "text-[#9ca3af]"
@@ -345,7 +356,9 @@ const RegisterPage = () => {
 
         {/* Agreement Section */}
         <div
-          className={`flex flex-col gap-4 ${!isVerified ? "opacity-50" : ""}`}
+          className={`flex flex-col w-full gap-4 ${
+            !isVerified ? "opacity-50" : ""
+          }`}
         >
           {/* All Agreement */}
           <div className="flex items-center gap-2">
@@ -447,7 +460,7 @@ const RegisterPage = () => {
         <Button
           type="submit"
           disabled={isLoading || !isVerified}
-          className="h-10 bg-[#ea3a50] hover:bg-[#ea3a50]/90 text-white rounded-lg disabled:opacity-50"
+          className="h-10 w-full bg-[#ea3a50] hover:bg-[#ea3a50]/90 text-white rounded-lg disabled:opacity-50"
         >
           {isLoading ? _(msg`처리 중...`) : <Trans>동의하고 회원가입</Trans>}
         </Button>

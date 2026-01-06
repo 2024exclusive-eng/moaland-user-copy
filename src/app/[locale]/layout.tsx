@@ -1,12 +1,9 @@
 import { PropsWithChildren } from "react";
 
-import { FloatingInquiryButton } from "@/components/FloatingInquiryButton";
+import { ConditionalLayout } from "@/components/ConditionalLayout";
 import { LinguiClientProvider } from "@/components/LinguiProvider";
 import { allMessages, locales } from "@/lib/i18n";
 import { initLingui, PageLangParam } from "@/lib/i18n.server";
-
-import { Footer } from "../../components/Footer";
-import { Header } from "../../components/Header";
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -25,10 +22,7 @@ export default async function LocaleLayout({
         initialLocale={lang}
         initialMessages={allMessages[lang]!}
       >
-        <Header />
-        {children}
-        <Footer />
-        <FloatingInquiryButton />
+        <ConditionalLayout>{children}</ConditionalLayout>
       </LinguiClientProvider>
     </main>
   );

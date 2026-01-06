@@ -125,9 +125,7 @@ export function CampaignApplyDialog({
         });
         setAgreed(false);
       } else {
-        setSubmitError(
-          response.error?.message || _(msg`신청에 실패했습니다`)
-        );
+        setSubmitError(response.error?.message || _(msg`신청에 실패했습니다`));
       }
     } catch (error) {
       console.error("Failed to apply:", error);
@@ -149,11 +147,11 @@ export function CampaignApplyDialog({
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent
-          className="max-w-[400px] p-0 gap-0 overflow-hidden"
+          className="md:max-w-[400px] md:h-auto h-full w-full max-w-full md:rounded-lg rounded-none p-0 gap-0 overflow-hidden flex flex-col"
           showCloseButton={false}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-5 py-5 bg-white">
+          <div className="flex items-center justify-between px-[21px] py-4 bg-white h-[60px] shrink-0">
             <DialogTitle className="text-base font-semibold text-[#242424]">
               {_(msg`캠페인 신청서`)}
             </DialogTitle>
@@ -165,8 +163,8 @@ export function CampaignApplyDialog({
             </button>
           </div>
 
-          {/* Content */}
-          <div className="flex flex-col gap-5 px-5 py-4 bg-white">
+          {/* Content - Scrollable */}
+          <div className="flex-1 flex flex-col gap-5 px-[21px] py-4 bg-white overflow-y-auto min-h-0">
             {/* Campaign Info */}
             <div className="flex flex-col gap-1">
               <p className="text-base font-medium text-[#111827] leading-[1.5]">
@@ -184,7 +182,7 @@ export function CampaignApplyDialog({
             <div className="flex flex-col gap-5">
               {/* Name */}
               <div className="flex gap-2 items-center">
-                <div className="w-[140px] shrink-0">
+                <div className="w-[100px] shrink-0">
                   <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
                     {_(msg`이름`)}
                   </span>
@@ -203,7 +201,7 @@ export function CampaignApplyDialog({
 
               {/* Social Link */}
               <div className="flex gap-2 items-center">
-                <div className="w-[140px] shrink-0">
+                <div className="w-[100px] shrink-0">
                   <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
                     {_(msg`${socialLabel} 링크`)}
                   </span>
@@ -224,7 +222,7 @@ export function CampaignApplyDialog({
 
               {/* WeChat ID */}
               <div className="flex gap-2 items-center">
-                <div className="w-[140px] shrink-0">
+                <div className="w-[100px] shrink-0">
                   <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
                     {_(msg`위챗 아이디`)}
                   </span>
@@ -245,7 +243,7 @@ export function CampaignApplyDialog({
 
               {/* Visit Date and Time */}
               <div className="flex gap-2 items-center">
-                <div className="w-[140px] shrink-0">
+                <div className="w-[100px] shrink-0">
                   <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
                     {_(msg`방문일 및 시간`)}
                   </span>
@@ -265,7 +263,7 @@ export function CampaignApplyDialog({
 
               {/* Memo */}
               <div className="flex gap-2 items-center">
-                <div className="w-[140px] shrink-0">
+                <div className="w-[100px] shrink-0">
                   <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
                     {_(msg`메모`)}
                   </span>
@@ -316,8 +314,8 @@ export function CampaignApplyDialog({
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="px-5 py-4 bg-white">
+          {/* Footer - Sticky at bottom */}
+          <div className="px-[21px] py-4 bg-white shrink-0">
             <Button
               onClick={handleSubmit}
               disabled={!isFormValid || isSubmitting}

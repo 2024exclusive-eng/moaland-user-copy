@@ -40,7 +40,11 @@ function useIsLoggedIn() {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
-export function Header() {
+interface HeaderProps {
+  shouldHideMobile?: boolean;
+}
+
+export function Header({ shouldHideMobile = false }: HeaderProps = {}) {
   const { _ } = useLingui();
   const pn = usePathname();
   const router = useRouter();
@@ -145,9 +149,29 @@ export function Header() {
     );
   }
 
-  // Normal Header
-  return (
-    <header className="border-b bg-white sticky top-0 z-10">
+  // Mobile Header
+  const mobileHeader = !shouldHideMobile && (
+    <header className="md:hidden block border-b border-[#e5e7eb] bg-white sticky top-0 z-10">
+      <div className="flex h-14 items-center justify-between px-4">
+        {/* Logo */}
+        <LocalizedLink href="/" className="flex items-center">
+          <Image src="/logo.png" width={78} height={16} alt="logo" />
+        </LocalizedLink>
+
+        {/* Search Icon */}
+        <button
+          onClick={() => setIsSearchMode(true)}
+          className="p-2 hover:bg-gray-100 rounded-full"
+        >
+          <Search className="w-5 h-5 text-[#111827]" />
+        </button>
+      </div>
+    </header>
+  );
+
+  // Desktop Header
+  const desktopHeader = (
+    <header className="hidden md:block border-b bg-white sticky top-0 z-10">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-10">
           {/* Logo */}
@@ -301,5 +325,12 @@ export function Header() {
         </div>
       </div>
     </header>
+  );
+
+  return (
+    <>
+      {mobileHeader}
+      {desktopHeader}
+    </>
   );
 }

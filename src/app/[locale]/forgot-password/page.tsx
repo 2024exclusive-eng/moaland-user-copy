@@ -4,7 +4,7 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { CheckCircle2 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +33,7 @@ export default function ForgotPasswordPage() {
   const [isCodeSent, setIsCodeSent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
+  const isVerifyingRef = useRef(false);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -60,6 +61,11 @@ export default function ForgotPasswordPage() {
       setValidationError(_(msg`인증번호를 입력해주세요.`));
       return;
     }
+    if (isVerifyingRef.current || isVerified) {
+      return;
+    }
+
+    isVerifyingRef.current = true;
     clearError();
     try {
       const success = await verifyForgotPasswordCode(
@@ -72,8 +78,22 @@ export default function ForgotPasswordPage() {
       }
     } catch {
       // Error is handled by useAuth hook
+    } finally {
+      isVerifyingRef.current = false;
     }
   };
+
+  // Auto-trigger verification when code reaches 6 characters
+  useEffect(() => {
+    if (
+      formData.verificationCode.length === 6 &&
+      verifyToken &&
+      !isVerified &&
+      !isVerifyingRef.current
+    ) {
+      handleVerifyCode();
+    }
+  }, [formData.verificationCode, verifyToken, isVerified]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -120,8 +140,11 @@ export default function ForgotPasswordPage() {
   const displayError = validationError || error;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-md">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+    <div className="container mx-auto px-4 py-8 md:h-[65vh] h-dvh w-full sm:max-w-md">
+      <form
+        onSubmit={handleSubmit}
+        className="flex justify-center items-center h-full flex-col gap-6"
+      >
         {/* Title */}
         <h1 className="text-2xl font-bold text-[#242424] text-center leading-[1.7]">
           <Trans>비밀번호 재설정</Trans>
@@ -133,7 +156,7 @@ export default function ForgotPasswordPage() {
         )}
 
         {/* Email Section */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 w-full">
           <label className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
             <Trans>이메일</Trans>
           </label>
@@ -164,33 +187,21 @@ export default function ForgotPasswordPage() {
           {/* Verification Code */}
           {isCodeSent && (
             <div className="flex flex-col gap-2">
-              <div className="flex gap-2">
-                <Input
-                  type="text"
-                  value={formData.verificationCode}
-                  onChange={(e) =>
-                    handleInputChange("verificationCode", e.target.value)
-                  }
-                  placeholder={_(msg`인증번호를 입력해주세요.`)}
-                  className={`h-10 rounded-lg text-sm flex-1 ${
-                    isVerified
-                      ? "border-[#5ecb55] focus-visible:border-[#5ecb55]"
-                      : "border-[#e5e7eb]"
-                  }`}
-                  disabled={isVerified}
-                />
-                {!isVerified && (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleVerifyCode}
-                    disabled={isLoading || !formData.verificationCode}
-                    className="h-10 border-[#e5e7eb] text-[#374151] rounded-lg disabled:opacity-50"
-                  >
-                    <Trans>확인</Trans>
-                  </Button>
-                )}
-              </div>
+              <Input
+                type="text"
+                value={formData.verificationCode}
+                onChange={(e) =>
+                  handleInputChange("verificationCode", e.target.value)
+                }
+                placeholder={_(msg`인증번호를 입력해주세요.`)}
+                className={`h-10 rounded-lg text-sm ${
+                  isVerified
+                    ? "border-[#5ecb55] focus-visible:border-[#5ecb55]"
+                    : "border-[#e5e7eb]"
+                }`}
+                disabled={isVerified}
+                maxLength={6}
+              />
               {isVerified && (
                 <div className="flex items-center gap-1 text-[#5ecb55]">
                   <CheckCircle2 className="size-4" />
@@ -204,7 +215,7 @@ export default function ForgotPasswordPage() {
         </div>
 
         {/* Password Reset Section */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 w-full">
           <label
             className={`text-sm font-semibold leading-[1.7] ${
               isVerified ? "text-[#4b5563]" : "text-[#9ca3af]"
@@ -236,7 +247,7 @@ export default function ForgotPasswordPage() {
         <Button
           type="submit"
           disabled={isLoading || !isVerified}
-          className="h-10 bg-[#ea3a50] hover:bg-[#ea3a50]/90 text-white rounded-lg text-sm font-medium disabled:opacity-50"
+          className="h-10 w-full bg-[#ea3a50] hover:bg-[#ea3a50]/90 text-white rounded-lg text-sm font-medium disabled:opacity-50"
         >
           {isLoading ? _(msg`처리 중...`) : <Trans>변경하기</Trans>}
         </Button>

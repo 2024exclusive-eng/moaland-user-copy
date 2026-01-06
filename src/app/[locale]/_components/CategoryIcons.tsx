@@ -31,9 +31,7 @@ export function CategoryIcons({
 
   const categories: Category[] = [
     {
-      icon: (
-        <Image src="/icons/guide.svg" width={43} height={43} alt="guide" />
-      ),
+      icon: <Image src="/icons/guide.svg" width={40} height={40} alt="guide" />,
       label: _(msg`이용가이드`),
       value: undefined,
       type: "guide",
@@ -42,8 +40,8 @@ export function CategoryIcons({
       icon: (
         <Image
           src="/icons/restaurant.svg"
-          width={43}
-          height={43}
+          width={40}
+          height={40}
           alt="restaurant"
         />
       ),
@@ -53,7 +51,12 @@ export function CategoryIcons({
     },
     {
       icon: (
-        <Image src="/icons/hospital.svg" width={43} height={43} alt="hospital" />
+        <Image
+          src="/icons/hospital.svg"
+          width={40}
+          height={40}
+          alt="hospital"
+        />
       ),
       label: _(msg`병원`),
       value: "Hospital",
@@ -61,7 +64,7 @@ export function CategoryIcons({
     },
     {
       icon: (
-        <Image src="/icons/beauty.svg" width={43} height={43} alt="beauty" />
+        <Image src="/icons/beauty.svg" width={40} height={40} alt="beauty" />
       ),
       label: _(msg`뷰티`),
       value: "Beauty",
@@ -69,23 +72,21 @@ export function CategoryIcons({
     },
     {
       icon: (
-        <Image src="/icons/culture.svg" width={43} height={43} alt="culture" />
+        <Image src="/icons/culture.svg" width={40} height={40} alt="culture" />
       ),
       label: _(msg`문화`),
       value: "Culture",
       type: "filter",
     },
     {
-      icon: (
-        <Image src="/icons/stays.svg" width={43} height={43} alt="stays" />
-      ),
+      icon: <Image src="/icons/stays.svg" width={40} height={40} alt="stays" />,
       label: _(msg`숙박`),
       value: "Stay",
       type: "filter",
     },
     {
       icon: (
-        <Image src="/icons/massage.svg" width={43} height={43} alt="massage" />
+        <Image src="/icons/massage.svg" width={40} height={40} alt="massage" />
       ),
       label: _(msg`마사지`),
       value: "Massage",
@@ -93,7 +94,7 @@ export function CategoryIcons({
     },
     {
       icon: (
-        <Image src="/icons/inquire.svg" width={43} height={43} alt="inquire" />
+        <Image src="/icons/inquire.svg" width={40} height={40} alt="inquire" />
       ),
       label: _(msg`광고문의`),
       value: undefined,
@@ -130,7 +131,47 @@ export function CategoryIcons({
   return (
     <section className="bg-white pb-16">
       <div className="container mx-auto px-4">
-        <div className="flex justify-center items-center gap-6.5 overflow-x-auto flex-wrap">
+        {/* Mobile: Grid layout */}
+        <div className="md:hidden grid grid-cols-4 gap-x-4 gap-y-6">
+          {categories.map((category, index) => {
+            const isSelected =
+              category.type === "filter" &&
+              category.value &&
+              selectedCategory === category.value;
+
+            return (
+              <button
+                key={index}
+                onClick={() => handleCategoryClick(category)}
+                className="flex flex-col items-center gap-3 transition-opacity cursor-pointer hover:opacity-80"
+              >
+                <div
+                  className={`w-16 h-16 border rounded-full flex items-center justify-center shrink-0 transition-colors ${
+                    isSelected
+                      ? "border-red-600 bg-red-50"
+                      : "border-[#E5E7EB] bg-[#F9FAFB]"
+                  }`}
+                >
+                  <div className="w-10 h-10 flex items-center justify-center">
+                    {category.icon}
+                  </div>
+                </div>
+                <span
+                  className={`text-xs text-center leading-tight ${
+                    isSelected
+                      ? "text-red-600 font-semibold"
+                      : "text-[#374151] font-medium"
+                  }`}
+                >
+                  {category.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Desktop: Horizontal scrolling */}
+        <div className="hidden md:flex justify-center items-center gap-4 flex-wrap">
           {categories.map((category, index) => {
             const isSelected =
               category.type === "filter" &&
@@ -144,7 +185,7 @@ export function CategoryIcons({
                 className="flex flex-col items-center gap-2 min-w-20 transition-opacity cursor-pointer hover:opacity-80"
               >
                 <div
-                  className={`w-20 h-20 border rounded-full flex items-center justify-center transition-colors ${
+                  className={`w-20 h-20 border rounded-full flex items-center justify-center shrink-0 transition-colors ${
                     isSelected
                       ? "border-red-600 bg-red-50"
                       : "border-[#E5E7EB] bg-[#F9FAFB]"

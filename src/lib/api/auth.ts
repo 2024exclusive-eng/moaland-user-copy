@@ -17,6 +17,7 @@ export interface AuthResponse {
 export interface VerifyEmailResponse {
   success: boolean;
   verify: string;
+  error?: ApiErrorDetail | string;
 }
 
 export interface ApiErrorDetail {

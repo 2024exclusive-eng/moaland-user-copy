@@ -20,6 +20,7 @@ interface CampaignSectionProps {
   viewAllHref?: string;
   hideTitle?: boolean;
   skeletonCount?: number;
+  cardVariant?: "horizontal" | "vertical";
 }
 
 export function CampaignSection({
@@ -32,6 +33,7 @@ export function CampaignSection({
   viewAllHref,
   hideTitle = false,
   skeletonCount = 5,
+  cardVariant = "horizontal",
 }: CampaignSectionProps) {
   const { _ } = useLingui();
   const r = useLocalizedNavigation();
@@ -93,7 +95,11 @@ export function CampaignSection({
 
         {/* Cards Grid */}
         {!isLoading && !isError && campaigns.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div
+            className={`grid ${
+              cardVariant === "vertical" ? "grid-cols-2" : "grid-cols-1"
+            } md:grid-cols-3 lg:grid-cols-4 gap-6`}
+          >
             {campaigns.map((campaign) => (
               <CampaignCard
                 key={campaign.missionId}
@@ -109,6 +115,7 @@ export function CampaignSection({
                 point={campaign.point}
                 category={campaign.category}
                 onClick={() => handleCardClick(campaign.missionId)}
+                variant={cardVariant}
               />
             ))}
           </div>

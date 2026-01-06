@@ -2,6 +2,7 @@
 
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
+import { Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { use, useState } from "react";
@@ -10,6 +11,7 @@ import { Pagination } from "@/components/Pagination";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatDate } from "@/lib/api/content";
 import { useEvents, useNotices } from "@/shared/hooks/use-content";
+import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
 interface PageProps {
   params: Promise<{
@@ -20,6 +22,7 @@ interface PageProps {
 export default function Page(props: PageProps) {
   const { _ } = useLingui();
   const params = use(props.params);
+  const router = useLocalizedNavigation();
   const [currentPage, setCurrentPage] = useState(1);
   const [eventPage, setEventPage] = useState(1);
   const [activeCategory, setActiveCategory] = useState<"notice" | "event">(
@@ -51,9 +54,54 @@ export default function Page(props: PageProps) {
 
   return (
     <div className="container mx-auto px-4">
+      {/* Mobile Header */}
+      <div className="md:hidden">
+        <div className="h-[60px] flex items-center justify-between px-[21px] border-b border-[#e5e7eb]">
+          <h1 className="text-black text-[18px] font-bold">
+            {_(msg`커뮤니티`)}
+          </h1>
+          <button
+            onClick={() => router.push("/search")}
+            className="p-2 hover:bg-gray-100 rounded-full -mr-2"
+          >
+            <Search className="w-5 h-5 text-[#111827]" />
+          </button>
+        </div>
+
+        {/* Mobile Tabs */}
+        <div className="flex h-[44px] border-b border-[#e5e7eb]">
+          <button
+            onClick={() => handleCategoryChange("notice")}
+            className={`flex-1 flex items-center justify-center text-[16px] transition-colors relative ${
+              activeCategory === "notice"
+                ? "text-black font-bold"
+                : "text-[#9da0a8] font-medium"
+            }`}
+          >
+            {_(msg`공지사항`)}
+            {activeCategory === "notice" && (
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-black" />
+            )}
+          </button>
+          <button
+            onClick={() => handleCategoryChange("event")}
+            className={`flex-1 flex items-center justify-center text-[16px] transition-colors relative ${
+              activeCategory === "event"
+                ? "text-black font-bold"
+                : "text-[#9da0a8] font-medium"
+            }`}
+          >
+            {_(msg`이벤트`)}
+            {activeCategory === "event" && (
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-black" />
+            )}
+          </button>
+        </div>
+      </div>
+
       <div className="grid md:grid-cols-8">
-        {/* Sidebar */}
-        <div className="col-span-2 md:border-r border-[#e5e7eb]">
+        {/* Sidebar - Desktop Only */}
+        <div className="hidden md:block col-span-2 md:border-r border-[#e5e7eb]">
           <div className="sticky top-0 pt-10">
             <h1 className="text-[#111827] text-2xl font-bold">
               {_(msg`커뮤니티`)}
@@ -85,11 +133,9 @@ export default function Page(props: PageProps) {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-6 md:pl-10 py-10 min-h-[65vh] flex flex-col gap-5">
-          <h2 className="text-xl font-bold text-[#111827]">
-            {activeCategory === "notice"
-              ? _(msg`공지사항`)
-              : _(msg`이벤트`)}
+        <div className="col-span-6 md:pl-10 pt-[20px] md:py-10 px-[21px] md:px-0 min-h-[65vh] flex flex-col gap-[20px] md:gap-5">
+          <h2 className="hidden md:block text-xl font-bold text-[#111827]">
+            {activeCategory === "notice" ? _(msg`공지사항`) : _(msg`이벤트`)}
           </h2>
 
           {/* Notice List */}
@@ -100,7 +146,7 @@ export default function Page(props: PageProps) {
                   Array.from({ length: 5 }).map((_, i) => (
                     <div
                       key={i}
-                      className="border-b border-[#e5e7eb] px-3 py-4 flex items-center"
+                      className="border-b border-[#e5e7eb] px-[12px] md:px-3 py-4 md:py-4 flex items-center"
                     >
                       <div className="flex-1 flex items-center gap-4">
                         <Skeleton className="h-5 flex-1" />
@@ -109,7 +155,7 @@ export default function Page(props: PageProps) {
                     </div>
                   ))
                 ) : notices.length === 0 ? (
-                  <div className="text-center py-10 text-[#9CA3AF]">
+                  <div className="text-center py-10 text-[#9CA3AF] text-sm">
                     {_(msg`등록된 공지사항이 없습니다.`)}
                   </div>
                 ) : (
@@ -117,13 +163,13 @@ export default function Page(props: PageProps) {
                     <Link
                       key={notice.id}
                       href={`/${params.locale}/community/${notice.id}`}
-                      className="border-b border-[#e5e7eb] px-3 py-4 flex items-center hover:bg-gray-50 transition-colors"
+                      className="border-b border-[#e5e7eb] px-[12px] md:px-3 py-[16px] md:py-4 flex items-center hover:bg-gray-50 transition-colors"
                     >
-                      <div className="flex-1 flex items-center text-sm">
-                        <p className="flex-1 font-semibold text-[#111827] leading-[1.7]">
+                      <div className="flex-1 flex items-center justify-between gap-4">
+                        <p className="flex-1 font-semibold text-[#111827] text-[14px] leading-[1.7]">
                           {notice.title}
                         </p>
-                        <p className="text-[#4b5563] leading-[1.7]">
+                        <p className="text-[#4b5563] text-[14px] leading-[1.7] whitespace-nowrap">
                           {formatDate(notice.created)}
                         </p>
                       </div>
@@ -134,7 +180,7 @@ export default function Page(props: PageProps) {
 
               {/* Pagination */}
               {noticePaging && noticePaging.totalPages > 1 && (
-                <div className="flex justify-center">
+                <div className="flex justify-center pb-4 md:pb-0">
                   <Pagination
                     currentPage={currentPage}
                     totalPages={noticePaging.totalPages}
@@ -148,13 +194,13 @@ export default function Page(props: PageProps) {
           {/* Event List */}
           {activeCategory === "event" && (
             <>
-              <div className="grid md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                 {isEventsLoading ? (
                   Array.from({ length: 4 }).map((_, i) => (
                     <Skeleton key={i} className="rounded-lg min-h-45" />
                   ))
                 ) : events.length === 0 ? (
-                  <div className="col-span-2 text-center py-10 text-[#9CA3AF]">
+                  <div className="col-span-full text-center py-10 text-[#9CA3AF] text-sm">
                     {_(msg`진행 중인 이벤트가 없습니다.`)}
                   </div>
                 ) : (
@@ -176,7 +222,7 @@ export default function Page(props: PageProps) {
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                       <div className="relative z-10 p-5">
-                        <h3 className="text-white text-xl font-bold truncate">
+                        <h3 className="text-white text-lg md:text-xl font-bold truncate">
                           {event.name}
                         </h3>
                         <p className="text-white/80 text-sm">
@@ -190,7 +236,7 @@ export default function Page(props: PageProps) {
 
               {/* Pagination */}
               {eventPaging && eventPaging.totalPages > 1 && (
-                <div className="flex justify-center">
+                <div className="flex justify-center pb-4 md:pb-0">
                   <Pagination
                     currentPage={eventPage}
                     totalPages={eventPaging.totalPages}

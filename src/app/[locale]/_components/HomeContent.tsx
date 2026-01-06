@@ -79,12 +79,13 @@ export function HomeContent() {
             campaigns={newCampaigns}
             isLoading={newLoading}
             isError={newError}
+            cardVariant="vertical"
             viewAllHref="/campaigns"
           />
         </div>
       </div>
 
-      <div className="pt-10 pb-25">
+      <div className="pt-10 sm:pb-25">
         <Pagination
           currentPage={currentPage}
           totalPages={paging?.totalPages ?? 1}

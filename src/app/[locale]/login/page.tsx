@@ -19,17 +19,24 @@ import { useAuth } from "@/shared/hooks/use-auth";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
 // Helper function to translate common error messages
-function useTranslatedError(error: string | null, _: ReturnType<typeof useLingui>["_"]): string | null {
+function useTranslatedError(
+  error: string | null,
+  _: ReturnType<typeof useLingui>["_"]
+): string | null {
   if (!error) return null;
 
   // Map common error messages to translations
   const errorMap: Record<string, string> = {
     "Login failed": _(msg`로그인에 실패했습니다.`),
-    "Invalid email or password": _(msg`이메일 또는 비밀번호가 올바르지 않습니다.`),
+    "Invalid email or password": _(
+      msg`이메일 또는 비밀번호가 올바르지 않습니다.`
+    ),
     "User not found": _(msg`사용자를 찾을 수 없습니다.`),
     "Invalid credentials": _(msg`인증 정보가 올바르지 않습니다.`),
     "Account is disabled": _(msg`계정이 비활성화되었습니다.`),
-    "Too many attempts": _(msg`너무 많은 시도가 있었습니다. 잠시 후 다시 시도해주세요.`),
+    "Too many attempts": _(
+      msg`너무 많은 시도가 있었습니다. 잠시 후 다시 시도해주세요.`
+    ),
   };
 
   return errorMap[error] || error;
@@ -63,7 +70,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 h-[64vh] flex items-center justify-center">
+    <div className="container mx-auto px-4 h-dvh md:h-[64vh] flex items-center justify-center">
       <div className="w-full max-w-sm">
         <div className="flex justify-center mb-12">
           <Image src="/logo.png" width={108} height={22} alt="logo" />
@@ -117,7 +124,9 @@ export default function LoginPage() {
             </div>
 
             {translatedError && (
-              <p className="text-sm text-red-500 text-center">{translatedError}</p>
+              <p className="text-sm text-red-500 text-center">
+                {translatedError}
+              </p>
             )}
           </div>
 
