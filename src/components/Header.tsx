@@ -278,7 +278,7 @@ export function Header({ shouldHideMobile = false }: HeaderProps = {}) {
               <Trans>커뮤니티</Trans>
             </LocalizedLink>
             <LocalizedLink
-              href="/support"
+              href="/support/faq"
               className={`text-sm ${
                 pn.includes("support")
                   ? "font-semibold text-[#EA3A50]"
