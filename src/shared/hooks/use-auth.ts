@@ -25,16 +25,30 @@ interface ApiErrorResponse {
       } | string;
     };
   };
+  error?: {
+    code?: string;
+    message?: string;
+    msg?: string;
+  };
 }
 
 export function extractErrorMessage(err: unknown, fallback: string): string {
   const apiError = err as ApiErrorResponse;
+  // Check axios error response structure
   const errorData = apiError?.response?.data?.error;
   if (typeof errorData === "object" && errorData?.msg) {
     return errorData.msg;
   }
   if (typeof errorData === "string") {
     return errorData;
+  }
+  // Check direct error object (for API response with success: false)
+  const directError = apiError?.error;
+  if (directError?.msg) {
+    return directError.msg;
+  }
+  if (directError?.message) {
+    return directError.message;
   }
   // Check for Error object message
   if (err instanceof Error && err.message) {

@@ -2,14 +2,23 @@
 
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { Search } from "lucide-react";
+import { Trans } from "@lingui/react/macro";
+import { Globe, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { use, useState } from "react";
 
 import { Pagination } from "@/components/Pagination";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatDate } from "@/lib/api/content";
+import { getLocalizedContent } from "@/lib/localized-content";
 import { useEvents, useNotices } from "@/shared/hooks/use-content";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
@@ -23,6 +32,24 @@ export default function Page(props: PageProps) {
   const { _ } = useLingui();
   const params = use(props.params);
   const router = useLocalizedNavigation();
+  const pn = usePathname();
+  const nextRouter = useRouter();
+
+  // Get locale from pathname
+  const locale = pn.split("/")[1] || "ko";
+
+  const localeLabels: Record<string, string> = {
+    ko: "KO",
+    zh: "CN",
+    en: "EN",
+  };
+
+  const handleLocaleChange = (newLocale: string) => {
+    // Replace the locale in the current path
+    const pathWithoutLocale = pn.replace(/^\/[a-z]{2}/, "");
+    nextRouter.push(`/${newLocale}${pathWithoutLocale || "/"}`);
+  };
+
   const [currentPage, setCurrentPage] = useState(1);
   const [eventPage, setEventPage] = useState(1);
   const [activeCategory, setActiveCategory] = useState<"notice" | "event">(
@@ -53,23 +80,61 @@ export default function Page(props: PageProps) {
   };
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="min-h-screen container mx-auto">
       {/* Mobile Header */}
       <div className="md:hidden">
         <div className="h-[60px] flex items-center justify-between px-[21px] border-b border-[#e5e7eb]">
           <h1 className="text-black text-[18px] font-bold">
             {_(msg`커뮤니티`)}
           </h1>
-          <button
-            onClick={() => router.push("/search")}
-            className="p-2 hover:bg-gray-100 rounded-full -mr-2"
-          >
-            <Search className="w-5 h-5 text-[#111827]" />
-          </button>
+          <div className="flex items-center gap-2">
+            {/* Language Switcher */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-1.5 text-[#4b5563] hover:text-gray-900 transition-colors">
+                  <Globe className="w-4 h-4" />
+                  <span className="text-sm font-semibold">
+                    {localeLabels[locale] || "KO"}
+                  </span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="bg-white border border-[#e5e7eb] rounded-[6px] p-1 min-w-[80px]"
+              >
+                <DropdownMenuItem
+                  onClick={() => handleLocaleChange("ko")}
+                  className={`h-8 px-2 py-1.5 cursor-pointer text-xs leading-[1.7] hover:bg-gray-50 rounded-sm ${
+                    locale === "ko"
+                      ? "text-[#EA3A50] font-semibold"
+                      : "text-[#374151]"
+                  }`}
+                >
+                  <Trans>한국어 (KO)</Trans>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleLocaleChange("zh")}
+                  className={`h-8 px-2 py-1.5 cursor-pointer text-xs leading-[1.7] hover:bg-gray-50 rounded-sm ${
+                    locale === "zh"
+                      ? "text-[#EA3A50] font-semibold"
+                      : "text-[#374151]"
+                  }`}
+                >
+                  <Trans>中文 (CN)</Trans>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <button
+              onClick={() => router.push("/search")}
+              className="p-2 hover:bg-gray-100 rounded-full -mr-2"
+            >
+              <Search className="w-5 h-5 text-[#111827]" />
+            </button>
+          </div>
         </div>
 
         {/* Mobile Tabs */}
-        <div className="flex h-[44px] border-b border-[#e5e7eb]">
+        <div className="flex h-[44px] border-b px-4 border-[#e5e7eb]">
           <button
             onClick={() => handleCategoryChange("notice")}
             className={`flex-1 flex items-center justify-center text-[16px] transition-colors relative ${
@@ -167,7 +232,7 @@ export default function Page(props: PageProps) {
                     >
                       <div className="flex-1 flex items-center justify-between gap-4">
                         <p className="flex-1 font-semibold text-[#111827] text-[14px] leading-[1.7]">
-                          {notice.title}
+                          {getLocalizedContent(notice.title, notice.titleCn, locale)}
                         </p>
                         <p className="text-[#4b5563] text-[14px] leading-[1.7] whitespace-nowrap">
                           {formatDate(notice.created)}

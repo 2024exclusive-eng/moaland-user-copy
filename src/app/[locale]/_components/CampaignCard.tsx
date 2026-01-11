@@ -4,22 +4,26 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 import {
   calculateDaysRemaining,
   parseSocialPlatforms,
   SOCIAL_LOGO_MAP,
 } from "@/lib/api/campaign";
+import { getLocalizedContent } from "@/lib/localized-content";
 
 export interface CampaignCardProps {
   missionId: number;
   title: string;
+  titleCn?: string | null;
   brand: string;
   thumbnailImg: string;
   enrollEndDate: string;
   enrollCount: number;
   maxEnroll: number;
   missionContent: string;
+  missionContentCn?: string | null;
   social: string;
   point: number;
   category: string;
@@ -29,6 +33,7 @@ export interface CampaignCardProps {
 
 export function CampaignCard({
   title,
+  titleCn,
   brand,
   thumbnailImg,
   enrollEndDate,
@@ -36,14 +41,21 @@ export function CampaignCard({
   maxEnroll,
   social,
   missionContent,
+  missionContentCn,
   onClick,
   variant = "horizontal",
 }: CampaignCardProps) {
   const { _ } = useLingui();
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1] || "ko";
   const daysRemaining = calculateDaysRemaining(enrollEndDate);
   const socialPlatforms = parseSocialPlatforms(social);
   const primarySocial = socialPlatforms[0];
   const socialLogo = primarySocial ? SOCIAL_LOGO_MAP[primarySocial] : null;
+
+  // Get localized content
+  const displayTitle = getLocalizedContent(title, titleCn, locale);
+  const displayMissionContent = getLocalizedContent(missionContent, missionContentCn, locale);
 
   // Vertical variant (for search page)
   if (variant === "vertical") {
@@ -53,7 +65,7 @@ export function CampaignCard({
         <div className="relative w-full aspect-square overflow-hidden rounded-sm mb-3">
           <Image
             src={thumbnailImg}
-            alt={title}
+            alt={displayTitle}
             width={256}
             height={256}
             className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -87,12 +99,12 @@ export function CampaignCard({
 
           {/* Title */}
           <h3 className="text-[#111827] font-semibold text-base leading-tight line-clamp-1">
-            {title}
+            {displayTitle}
           </h3>
 
           {/* Description */}
           <p className="text-[#6B7280] text-sm leading-tight line-clamp-2">
-            <span dangerouslySetInnerHTML={{ __html: missionContent }} />
+            <span dangerouslySetInnerHTML={{ __html: displayMissionContent }} />
           </p>
         </div>
       </div>
@@ -108,7 +120,7 @@ export function CampaignCard({
         <div className="relative w-24 h-24 overflow-hidden rounded-sm shrink-0">
           <Image
             src={thumbnailImg}
-            alt={title}
+            alt={displayTitle}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
@@ -136,12 +148,12 @@ export function CampaignCard({
 
           {/* Title */}
           <h3 className="text-[#111827] font-semibold text-[16px] md:text-sm leading-tight line-clamp-1 mt-1">
-            {title}
+            {displayTitle}
           </h3>
 
           {/* Description */}
           <p className="text-[#6B7280] text-sm md:text-xs leading-tight line-clamp-2 mt-1">
-            <span dangerouslySetInnerHTML={{ __html: missionContent }} />
+            <span dangerouslySetInnerHTML={{ __html: displayMissionContent }} />
           </p>
         </div>
 
@@ -156,7 +168,7 @@ export function CampaignCard({
         <div className="relative w-full aspect-square overflow-hidden rounded-lg mb-3">
           <Image
             src={thumbnailImg}
-            alt={title}
+            alt={displayTitle}
             width={280}
             height={280}
             className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -192,9 +204,9 @@ export function CampaignCard({
 
           {/* Title & Brand */}
           <div className="text-[#111827] font-semibold text-[16px] mt-2">
-            <h3>{title}</h3>
+            <h3>{displayTitle}</h3>
             <p className="text-[#6B7280] font-light text-sm mt-1 line-clamp-2">
-              <span dangerouslySetInnerHTML={{ __html: missionContent }} />
+              <span dangerouslySetInnerHTML={{ __html: displayMissionContent }} />
             </p>
           </div>
 

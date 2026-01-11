@@ -78,12 +78,14 @@ function SearchContent() {
                 key={campaign.missionId}
                 missionId={campaign.missionId}
                 title={campaign.title}
+                titleCn={campaign.titleCn}
                 brand={campaign.brand}
                 thumbnailImg={campaign.thumbnailImg}
                 enrollEndDate={campaign.enrollEndDate}
                 enrollCount={campaign.enrollCount}
                 maxEnroll={campaign.maxEnroll}
                 missionContent={campaign.missionContent}
+                missionContentCn={campaign.missionContentCn}
                 social={campaign.social}
                 point={campaign.point}
                 category={campaign.category}

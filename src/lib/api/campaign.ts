@@ -18,6 +18,7 @@ export interface Campaign {
   missionId: number;
   category: string;
   missionContent: string;
+  missionContentCn: string | null;
   enrollStartDate: string;
   enrollEndDate: string;
   social: string;
@@ -25,6 +26,7 @@ export interface Campaign {
   maxEnroll: number;
   brand: string;
   title: string;
+  titleCn: string | null;
   thumbnailImg: string;
   isRecommended: number;
   enrollCount: number;
@@ -51,12 +53,17 @@ export interface CampaignDetail {
   maxEnroll: number;
   brand: string;
   title: string;
+  titleCn: string | null;
   thumbnailImg: string;
   detailImg: string;
   goodsContents: string;
+  goodsContentsCn: string | null;
   missionContents: string;
+  missionContentsCn: string | null;
   additionalInfo: string;
+  additionalInfoCn: string | null;
   guideline: string;
+  guidelineCn: string | null;
   isRecommended: boolean;
   enrollCount: number;
 }
@@ -326,8 +333,9 @@ export interface CampaignApplyRequest {
 export interface CampaignApplyResponse {
   success: boolean;
   error?: {
-    code: string;
-    message: string;
+    code?: string;
+    message?: string;
+    msg?: string;
   };
 }
 

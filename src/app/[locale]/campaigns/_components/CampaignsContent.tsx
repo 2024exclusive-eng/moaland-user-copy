@@ -3,10 +3,17 @@
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { ChevronDown, Search } from "lucide-react";
+import { ChevronDown, Globe, Search } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { Pagination } from "@/components/Pagination";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import type { CampaignParams } from "@/lib/api/campaign";
 import { useCampaigns } from "@/shared/hooks/use-campaigns";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
@@ -72,6 +79,23 @@ export function CampaignsContent({
 }: CampaignsContentProps) {
   const { _ } = useLingui();
   const r = useLocalizedNavigation();
+  const pn = usePathname();
+  const router = useRouter();
+
+  // Get locale from pathname
+  const locale = pn.split("/")[1] || "ko";
+
+  const localeLabels: Record<string, string> = {
+    ko: "KO",
+    zh: "CN",
+    en: "EN",
+  };
+
+  const handleLocaleChange = (newLocale: string) => {
+    // Replace the locale in the current path
+    const pathWithoutLocale = pn.replace(/^\/[a-z]{2}/, "");
+    router.push(`/${newLocale}${pathWithoutLocale || "/"}`);
+  };
 
   const [currentCategory, setCurrentCategory] = useState<string | undefined>(
     initialCategory
@@ -175,12 +199,50 @@ export function CampaignsContent({
           <h1 className="text-black text-[18px] font-bold">
             <Trans>캠페인 목록</Trans>
           </h1>
-          <button
-            onClick={() => r.push("/search")}
-            className="p-2 hover:bg-gray-100 rounded-full -mr-2"
-          >
-            <Search className="w-5 h-5 text-[#111827]" />
-          </button>
+          <div className="flex items-center gap-2">
+            {/* Language Switcher */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-1.5 text-[#4b5563] hover:text-gray-900 transition-colors">
+                  <Globe className="w-4 h-4" />
+                  <span className="text-sm font-semibold">
+                    {localeLabels[locale] || "KO"}
+                  </span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="bg-white border border-[#e5e7eb] rounded-[6px] p-1 min-w-[80px]"
+              >
+                <DropdownMenuItem
+                  onClick={() => handleLocaleChange("ko")}
+                  className={`h-8 px-2 py-1.5 cursor-pointer text-xs leading-[1.7] hover:bg-gray-50 rounded-sm ${
+                    locale === "ko"
+                      ? "text-[#EA3A50] font-semibold"
+                      : "text-[#374151]"
+                  }`}
+                >
+                  <Trans>한국어 (KO)</Trans>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleLocaleChange("zh")}
+                  className={`h-8 px-2 py-1.5 cursor-pointer text-xs leading-[1.7] hover:bg-gray-50 rounded-sm ${
+                    locale === "zh"
+                      ? "text-[#EA3A50] font-semibold"
+                      : "text-[#374151]"
+                  }`}
+                >
+                  <Trans>中文 (CN)</Trans>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <button
+              onClick={() => r.push("/search")}
+              className="p-2 hover:bg-gray-100 rounded-full -mr-2"
+            >
+              <Search className="w-5 h-5 text-[#111827]" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -215,16 +277,16 @@ export function CampaignsContent({
           </div>
 
           {/* Region Pills & Dropdowns */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 overflow-x-auto md:overflow-visible">
             {/* Region Dropdown (Mobile) */}
-            <div className="md:hidden relative ">
+            <div className="md:hidden relative shrink-0">
               <button
                 onClick={() => {
                   setShowRegionDropdown(!showRegionDropdown);
                   setShowSocialDropdown(false);
                   setShowSortDropdown(false);
                 }}
-                className="flex items-center gap-1 px-4 py-2 bg-white border border-[#E5E7EB] rounded-full text-sm font-medium text-[#111827]"
+                className="flex items-center gap-1 px-4 py-2 bg-white border border-[#E5E7EB] rounded-full text-xs md:text-sm font-medium text-[#111827] whitespace-nowrap"
               >
                 {getRegionLabel()}
                 <ChevronDown className="w-4 h-4" />
@@ -235,7 +297,7 @@ export function CampaignsContent({
                     <button
                       key={option.label}
                       onClick={() => handleRegionChange(option.value)}
-                      className={`w-full px-4 py-2 text-left text-sm hover:bg-[#F3F4F6] first:rounded-t-lg last:rounded-b-lg ${
+                      className={`w-full px-4 py-2 text-left text-xs md:text-sm hover:bg-[#F3F4F6] first:rounded-t-lg last:rounded-b-lg ${
                         currentRegion === option.value
                           ? "font-medium text-[#111827]"
                           : "text-[#6B7280]"
@@ -256,7 +318,7 @@ export function CampaignsContent({
                   <button
                     key={pill.label}
                     onClick={() => handleRegionChange(pill.value)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                    className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium whitespace-nowrap transition-colors ${
                       isSelected
                         ? "bg-white border border-black text-[#111827]"
                         : "bg-white border border-[#E5E7EB] text-[#111827] hover:bg-[#F3F4F6]"
@@ -278,18 +340,18 @@ export function CampaignsContent({
                     setShowSortDropdown(false);
                     setShowRegionDropdown(false);
                   }}
-                  className="flex items-center gap-1 px-4 py-2 bg-white border border-[#E5E7EB] rounded-full text-sm font-medium text-[#111827]"
+                  className="flex items-center gap-1 px-4 py-2 bg-white border border-[#E5E7EB] rounded-full text-xs md:text-sm font-medium text-[#111827] whitespace-nowrap"
                 >
                   {getSocialLabel()}
                   <ChevronDown className="w-4 h-4" />
                 </button>
                 {showSocialDropdown && (
-                  <div className="absolute top-full right-0 mt-1 bg-white border border-[#E5E7EB] rounded-lg shadow-lg z-10 min-w-[150px]">
+                  <div className="absolute top-full right-0 mt-1 bg-white border border-[#E5E7EB] rounded-lg shadow-lg z-10 min-w-[150px] max-h-[250px] overflow-y-auto">
                     {getSocialOptions(_).map((option) => (
                       <button
                         key={option.label}
                         onClick={() => handleSocialChange(option.value)}
-                        className={`w-full px-4 py-2 text-left text-sm hover:bg-[#F3F4F6] first:rounded-t-lg last:rounded-b-lg ${
+                        className={`w-full px-4 py-2 text-left text-xs md:text-sm hover:bg-[#F3F4F6] first:rounded-t-lg last:rounded-b-lg ${
                           currentSocial === option.value
                             ? "font-medium text-[#111827]"
                             : "text-[#6B7280]"
@@ -310,18 +372,18 @@ export function CampaignsContent({
                     setShowSocialDropdown(false);
                     setShowRegionDropdown(false);
                   }}
-                  className="flex items-center gap-1 px-4 py-2 bg-white border border-[#E5E7EB] rounded-full text-sm font-medium text-[#111827]"
+                  className="flex items-center gap-1 px-4 py-2 bg-white border border-[#E5E7EB] rounded-full text-xs md:text-sm font-medium text-[#111827] whitespace-nowrap"
                 >
                   {getSortLabel()}
                   <ChevronDown className="w-4 h-4" />
                 </button>
                 {showSortDropdown && (
-                  <div className="absolute top-full right-0 mt-1 bg-white border border-[#E5E7EB] rounded-lg shadow-lg z-10 min-w-[180px]">
+                  <div className="absolute top-full right-0 mt-1 bg-white border border-[#E5E7EB] rounded-lg shadow-lg z-10 min-w-[180px] max-h-[250px] overflow-y-auto">
                     {getSortOptions(_).map((option) => (
                       <button
                         key={option.label}
                         onClick={() => handleSortChange(option.value)}
-                        className={`w-full px-4 py-2 text-left text-sm hover:bg-[#F3F4F6] first:rounded-t-lg last:rounded-b-lg ${
+                        className={`w-full px-4 py-2 text-left text-xs md:text-sm hover:bg-[#F3F4F6] first:rounded-t-lg last:rounded-b-lg ${
                           currentSort === option.value
                             ? "font-medium text-[#111827]"
                             : "text-[#6B7280]"
@@ -370,8 +432,10 @@ export function CampaignsContent({
                 key={campaign.missionId}
                 missionId={campaign.missionId}
                 title={campaign.title}
+                titleCn={campaign.titleCn}
                 brand={campaign.brand}
                 missionContent={campaign.missionContent}
+                missionContentCn={campaign.missionContentCn}
                 thumbnailImg={campaign.thumbnailImg}
                 enrollEndDate={campaign.enrollEndDate}
                 enrollCount={campaign.enrollCount}

@@ -6,7 +6,7 @@ import { Trans } from "@lingui/react/macro";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { FloatingInquiryButton } from "@/components/FloatingInquiryButton";
@@ -20,6 +20,7 @@ import {
   SOCIAL_LOGO_MAP,
 } from "@/lib/api/campaign";
 import { tokenStorage } from "@/lib/axios";
+import { getLocalizedContent } from "@/lib/localized-content";
 import { useCampaignDetail } from "@/shared/hooks/use-campaigns";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
@@ -128,7 +129,13 @@ export function CampaignDetailContent({
 }: CampaignDetailContentProps) {
   const { _ } = useLingui();
   const { push } = useLocalizedNavigation();
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1] || "ko";
   const { mission, isLoading, isError } = useCampaignDetail(missionId);
+
+  // Helper to get localized content
+  const getContent = (ko: string, cn: string | null | undefined) =>
+    getLocalizedContent(ko, cn, locale);
 
   const [isApplyDialogOpen, setIsApplyDialogOpen] = useState(false);
   const [alertType, setAlertType] = useState<
@@ -248,9 +255,9 @@ export function CampaignDetailContent({
           {/* Main Content - Left Side */}
           <div className="md:col-span-3 col-span-1 md:border-r border-r-0 md:pt-10 pt-5 border-[#e5e7eb] md:pr-10 md:px-0 px-[21px]">
             {/* Header Section */}
-            <div className="flex flex-col gap-2 mb-6">
-              <div className="flex flex-col items-start gap-1.5">
-                <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-2 mb-6 w-full overflow-hidden">
+              <div className="flex flex-col items-start gap-1.5 w-full">
+                <div className="flex items-center gap-2 flex-wrap">
                   {/* Social Platform Tags */}
                   {socialPlatforms.map((platform) => {
                     const logo = SOCIAL_LOGO_MAP[platform];
@@ -286,13 +293,13 @@ export function CampaignDetailContent({
                   )}
                 </div>
 
-                <div>
-                  <h1 className="text-2xl font-bold text-[#111827] leading-[1.7]">
-                    {mission.title}
+                <div className="w-full min-w-0">
+                  <h1 className="text-xl md:text-2xl font-bold text-[#111827] leading-[1.7] line-clamp-2 md:line-clamp-none break-words">
+                    {getContent(mission.title, mission.titleCn)}
                   </h1>
 
-                  <p className="text-sm text-[#6b7280] leading-5">
-                    {mission.goodsContents}
+                  <p className="text-sm text-[#6b7280] leading-5 line-clamp-3 md:line-clamp-none break-words">
+                    {getContent(mission.goodsContents, mission.goodsContentsCn)}
                   </p>
                 </div>
               </div>
@@ -385,7 +392,7 @@ export function CampaignDetailContent({
                 </div>
                 <div className="flex-1">
                   <p className="text-base text-[#111827] leading-[1.7]">
-                    {mission.goodsContents}
+                    {getContent(mission.goodsContents, mission.goodsContentsCn)}
                   </p>
                 </div>
               </div>
@@ -393,17 +400,40 @@ export function CampaignDetailContent({
               <div className="h-px bg-[#e5e7eb] my-6" />
 
               {/* Store Location */}
-              <div className="flex gap-4 py-4">
-                <div className="w-[118px] shrink-0">
-                  <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
-                    {_(msg`매장 위치`)}
-                  </h3>
+              <div className="py-4">
+                {/* Desktop layout */}
+                <div className="hidden md:flex gap-4">
+                  <div className="w-[118px] shrink-0">
+                    <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
+                      {_(msg`매장 위치`)}
+                    </h3>
+                  </div>
+                  <div className="flex-1 flex flex-col gap-3">
+                    <p className="text-base text-[#111827] leading-[1.7]">
+                      {mission.address}
+                    </p>
+                    <div className="relative h-[347px] w-full bg-gray-100 rounded-lg overflow-hidden">
+                      <GoogleMapView
+                        latitude={mission.latitude}
+                        longitude={mission.longitude}
+                        address={mission.address}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="flex-1 flex flex-col gap-3">
-                  <p className="text-base text-[#111827] leading-[1.7]">
-                    {mission.address}
-                  </p>
-                  <div className="relative h-[347px] w-full bg-gray-100 rounded-lg overflow-hidden">
+                {/* Mobile layout */}
+                <div className="md:hidden flex flex-col gap-3">
+                  <div className="flex gap-4">
+                    <div className="w-[118px] shrink-0">
+                      <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
+                        {_(msg`매장 위치`)}
+                      </h3>
+                    </div>
+                    <p className="flex-1 text-base text-[#111827] leading-[1.7]">
+                      {mission.address}
+                    </p>
+                  </div>
+                  <div className="relative w-[calc(100%+42px)] -mx-[21px] aspect-4/3 bg-gray-100 overflow-hidden">
                     <GoogleMapView
                       latitude={mission.latitude}
                       longitude={mission.longitude}
@@ -427,7 +457,7 @@ export function CampaignDetailContent({
                     <div className="flex-1">
                       <div
                         className="text-base text-[#111827] leading-[1.7] prose prose-sm max-w-none ck-content"
-                        dangerouslySetInnerHTML={{ __html: mission.guideline }}
+                        dangerouslySetInnerHTML={{ __html: getContent(mission.guideline, mission.guidelineCn) }}
                       />
                     </div>
                   </div>
@@ -448,7 +478,7 @@ export function CampaignDetailContent({
                       <div
                         className="text-base text-[#111827] leading-[1.7] prose prose-sm max-w-none ck-content"
                         dangerouslySetInnerHTML={{
-                          __html: mission.missionContents,
+                          __html: getContent(mission.missionContents, mission.missionContentsCn),
                         }}
                       />
                     </div>
@@ -469,7 +499,7 @@ export function CampaignDetailContent({
                     <div
                       className="text-base text-[#111827] leading-[1.7] prose prose-sm max-w-none ck-content"
                       dangerouslySetInnerHTML={{
-                        __html: mission.additionalInfo,
+                        __html: getContent(mission.additionalInfo, mission.additionalInfoCn),
                       }}
                     />
                   </div>
@@ -481,8 +511,8 @@ export function CampaignDetailContent({
           <div className="hidden md:block md:col-span-1 pt-10">
             <CampaignSidebar
               missionId={missionId}
-              campaignTitle={mission.title}
-              campaignSubtitle={mission.goodsContents}
+              campaignTitle={getContent(mission.title, mission.titleCn)}
+              campaignSubtitle={getContent(mission.goodsContents, mission.goodsContentsCn)}
               applicationPeriod={applicationPeriod}
               announcementDate={announcementDate}
               visitPeriod={visitPeriod}
@@ -520,8 +550,8 @@ export function CampaignDetailContent({
       {isApplyDialogOpen && (
         <CampaignApplyDialog
           missionId={missionId}
-          campaignTitle={mission.title}
-          campaignSubtitle={mission.goodsContents}
+          campaignTitle={getContent(mission.title, mission.titleCn)}
+          campaignSubtitle={getContent(mission.goodsContents, mission.goodsContentsCn)}
           social={mission.social}
           open={isApplyDialogOpen}
           onOpenChange={setIsApplyDialogOpen}

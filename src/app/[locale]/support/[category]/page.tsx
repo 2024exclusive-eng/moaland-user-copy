@@ -4,7 +4,7 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { ArrowLeft, ChevronDown, ChevronUp } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { Suspense, useState } from "react";
 
 import LocalizedLink from "@/components/LocalizedLink";
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/accordion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { type FaqType, formatDate } from "@/lib/api/content";
+import { getLocalizedContent } from "@/lib/localized-content";
 import { useFaqs } from "@/shared/hooks/use-content";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
@@ -111,6 +112,8 @@ export default function Page() {
 function SupportDetailContent() {
   const { _ } = useLingui();
   const params = useParams();
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1] || "ko";
   const r = useLocalizedNavigation();
   const categoryParam = params.category as string;
   const category = categoryParam;
@@ -166,9 +169,9 @@ function SupportDetailContent() {
             <Trans>등록된 내용이 없습니다.</Trans>
           </div>
         ) : category === "faq" ? (
-          <FaqAccordionMobile faqs={faqs} />
+          <FaqAccordionMobile faqs={faqs} locale={locale} />
         ) : (
-          <ContentListMobile faqs={faqs} />
+          <ContentListMobile faqs={faqs} locale={locale} />
         )}
       </div>
 
@@ -230,7 +233,7 @@ function SupportDetailContent() {
                     <AccordionTrigger className="px-3 py-4 hover:no-underline items-center">
                       <div className="flex flex-col items-start text-sm text-left">
                         <span className="font-semibold text-[#111827] leading-[1.7]">
-                          {faq.title}
+                          {getLocalizedContent(faq.title, faq.titleCn, locale)}
                         </span>
                         <span className="text-[#4b5563] leading-[1.7]">
                           {formatDate(faq.created)}
@@ -240,7 +243,7 @@ function SupportDetailContent() {
                     <AccordionContent className="bg-[#f3f4f6] border-b border-[#e5e7eb] px-3 py-4">
                       <div
                         className="text-sm text-[#4b5563] leading-[1.7] ck-content"
-                        dangerouslySetInnerHTML={{ __html: faq.answer }}
+                        dangerouslySetInnerHTML={{ __html: getLocalizedContent(faq.answer, faq.answerCn, locale) }}
                       />
                     </AccordionContent>
                   </AccordionItem>
@@ -252,7 +255,7 @@ function SupportDetailContent() {
                   <div key={faq.id}>
                     <div
                       className="text-sm text-[#4b5563] leading-[1.7] ck-content"
-                      dangerouslySetInnerHTML={{ __html: faq.answer }}
+                      dangerouslySetInnerHTML={{ __html: getLocalizedContent(faq.answer, faq.answerCn, locale) }}
                     />
                   </div>
                 ))}
@@ -268,11 +271,13 @@ function SupportDetailContent() {
 interface Faq {
   id: number;
   title: string;
+  titleCn: string | null;
   answer: string;
+  answerCn: string | null;
   created: string;
 }
 
-function FaqAccordionMobile({ faqs }: { faqs: Faq[] }) {
+function FaqAccordionMobile({ faqs, locale }: { faqs: Faq[]; locale: string }) {
   const [openId, setOpenId] = useState<number | null>(null);
 
   const toggleItem = (id: number) => {
@@ -291,7 +296,7 @@ function FaqAccordionMobile({ faqs }: { faqs: Faq[] }) {
             >
               <div className="flex-1 flex flex-col">
                 <span className="text-sm font-semibold text-[#111827] leading-[1.7]">
-                  {faq.title}
+                  {getLocalizedContent(faq.title, faq.titleCn, locale)}
                 </span>
                 <span className="text-sm text-[#4b5563] leading-[1.7]">
                   {formatDate(faq.created)}
@@ -307,7 +312,7 @@ function FaqAccordionMobile({ faqs }: { faqs: Faq[] }) {
               <div className="bg-[#f3f4f6] border-b border-[#e5e7eb] p-3">
                 <div
                   className="text-sm text-[#4b5563] leading-[1.7] ck-content"
-                  dangerouslySetInnerHTML={{ __html: faq.answer }}
+                  dangerouslySetInnerHTML={{ __html: getLocalizedContent(faq.answer, faq.answerCn, locale) }}
                 />
               </div>
             )}
@@ -318,14 +323,14 @@ function FaqAccordionMobile({ faqs }: { faqs: Faq[] }) {
   );
 }
 
-function ContentListMobile({ faqs }: { faqs: Faq[] }) {
+function ContentListMobile({ faqs, locale }: { faqs: Faq[]; locale: string }) {
   return (
     <div className="px-[21px] space-y-6">
       {faqs.map((faq) => (
         <div key={faq.id}>
           <div
             className="text-sm text-[#4b5563] leading-[1.7] ck-content"
-            dangerouslySetInnerHTML={{ __html: faq.answer }}
+            dangerouslySetInnerHTML={{ __html: getLocalizedContent(faq.answer, faq.answerCn, locale) }}
           />
         </div>
       ))}

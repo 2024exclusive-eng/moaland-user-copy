@@ -13,6 +13,7 @@ import {
   type CampaignApplyRequest,
   getSocialLabel,
 } from "@/lib/api/campaign";
+import { extractErrorMessage } from "@/shared/hooks/use-auth";
 
 interface CampaignApplyDialogProps {
   open: boolean;
@@ -125,11 +126,15 @@ export function CampaignApplyDialog({
         });
         setAgreed(false);
       } else {
-        setSubmitError(response.error?.message || _(msg`신청에 실패했습니다`));
+        setSubmitError(
+          extractErrorMessage(response, _(msg`신청에 실패했습니다`))
+        );
       }
     } catch (error) {
       console.error("Failed to apply:", error);
-      setSubmitError(_(msg`오류가 발생했습니다. 다시 시도해주세요.`));
+      setSubmitError(
+        extractErrorMessage(error, _(msg`오류가 발생했습니다. 다시 시도해주세요.`))
+      );
     } finally {
       setIsSubmitting(false);
     }

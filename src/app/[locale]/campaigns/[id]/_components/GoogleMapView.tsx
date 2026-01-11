@@ -3,6 +3,8 @@
 import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
 import { useCallback, useMemo, useState } from "react";
 
+import { useMql } from "@/shared/hooks/use-mql";
+
 interface GoogleMapViewProps {
   latitude: number;
   longitude: number;
@@ -22,6 +24,7 @@ export function GoogleMapView({
   address,
 }: GoogleMapViewProps) {
   const [loadError, setLoadError] = useState<Error | null>(null);
+  const isMobile = useMql();
 
   const center = useMemo(
     () => ({
@@ -72,7 +75,11 @@ export function GoogleMapView({
           zoomControl: true,
           streetViewControl: false,
           mapTypeControl: false,
-          fullscreenControl: true,
+          fullscreenControl: !isMobile,
+          controlSize: isMobile ? 28 : 40,
+          zoomControlOptions: isMobile
+            ? { position: 6 } // LEFT_BOTTOM on mobile
+            : undefined,
         }}
       >
         <MarkerF position={center} title={address} />

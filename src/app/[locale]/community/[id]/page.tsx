@@ -7,6 +7,7 @@ import { use } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatDate } from "@/lib/api/content";
+import { getLocalizedContent } from "@/lib/localized-content";
 import { useNotice } from "@/shared/hooks/use-content";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
@@ -104,7 +105,7 @@ export default function CommunityDetailPage(props: PageProps) {
               {/* Title and Date */}
               <div className="flex flex-col gap-[2px]">
                 <h1 className="text-[18px] md:text-lg font-semibold text-[#111827] leading-[1.5]">
-                  {notice.title}
+                  {getLocalizedContent(notice.title, notice.titleCn, params.locale)}
                 </h1>
                 <p className="text-[14px] text-[#4b5563] leading-[1.7]">
                   {formatDate(notice.created)}
@@ -117,7 +118,7 @@ export default function CommunityDetailPage(props: PageProps) {
               {/* Content */}
               <div
                 className="text-[14px] text-[#4b5563] leading-[1.7] prose prose-sm max-w-none"
-                dangerouslySetInnerHTML={{ __html: notice.contents }}
+                dangerouslySetInnerHTML={{ __html: getLocalizedContent(notice.contents, notice.contentsCn, params.locale) }}
               />
             </>
           )}

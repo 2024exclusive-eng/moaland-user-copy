@@ -4,7 +4,9 @@ import api from "@/lib/axios";
 export interface Notice {
   id: number;
   title: string;
+  titleCn: string | null;
   contents: string;
+  contentsCn: string | null;
   created: string;
 }
 
@@ -24,7 +26,9 @@ export interface Faq {
   id: number;
   type: FaqType;
   title: string;
+  titleCn: string | null;
   answer: string;
+  answerCn: string | null;
   displayOrder: number;
   isActive: string;
   created: string;

@@ -137,6 +137,42 @@ export function Header({ shouldHideMobile = false }: HeaderProps = {}) {
             placeholder={_(msg`검색어를 입력하세요`)}
             className="flex-1 h-full text-sm text-black outline-none placeholder:text-gray-400"
           />
+          {/* Language Switcher */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="flex items-center gap-1.5 text-[#4b5563] hover:text-gray-900 transition-colors shrink-0">
+                <Globe className="w-4 h-4" />
+                <span className="text-sm font-semibold">
+                  {localeLabels[locale] || "KO"}
+                </span>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="bg-white border border-[#e5e7eb] rounded-[6px] p-1 min-w-[80px]"
+            >
+              <DropdownMenuItem
+                onClick={() => handleLocaleChange("ko")}
+                className={`h-8 px-2 py-1.5 cursor-pointer text-xs leading-[1.7] hover:bg-gray-50 rounded-sm ${
+                  locale === "ko"
+                    ? "text-[#EA3A50] font-semibold"
+                    : "text-[#374151]"
+                }`}
+              >
+                한국어 (KO)
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => handleLocaleChange("zh")}
+                className={`h-8 px-2 py-1.5 cursor-pointer text-xs leading-[1.7] hover:bg-gray-50 rounded-sm ${
+                  locale === "zh"
+                    ? "text-[#EA3A50] font-semibold"
+                    : "text-[#374151]"
+                }`}
+              >
+                中文 (CN)
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <button
             type="button"
             onClick={handleCloseSearch}
@@ -158,13 +194,53 @@ export function Header({ shouldHideMobile = false }: HeaderProps = {}) {
           <Image src="/logo.png" width={78} height={16} alt="logo" />
         </LocalizedLink>
 
-        {/* Search Icon */}
-        <button
-          onClick={() => setIsSearchMode(true)}
-          className="p-2 hover:bg-gray-100 rounded-full"
-        >
-          <Search className="w-5 h-5 text-[#111827]" />
-        </button>
+        {/* Right side - Language Switcher & Search */}
+        <div className="flex items-center gap-2">
+          {/* Language Switcher */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="flex items-center gap-1.5 text-[#4b5563] hover:text-gray-900 transition-colors">
+                <Globe className="w-4 h-4" />
+                <span className="text-sm font-semibold">
+                  {localeLabels[locale] || "KO"}
+                </span>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="bg-white border border-[#e5e7eb] rounded-[6px] p-1 min-w-[80px]"
+            >
+              <DropdownMenuItem
+                onClick={() => handleLocaleChange("ko")}
+                className={`h-8 px-2 py-1.5 cursor-pointer text-xs leading-[1.7] hover:bg-gray-50 rounded-sm ${
+                  locale === "ko"
+                    ? "text-[#EA3A50] font-semibold"
+                    : "text-[#374151]"
+                }`}
+              >
+                한국어 (KO)
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => handleLocaleChange("zh")}
+                className={`h-8 px-2 py-1.5 cursor-pointer text-xs leading-[1.7] hover:bg-gray-50 rounded-sm ${
+                  locale === "zh"
+                    ? "text-[#EA3A50] font-semibold"
+                    : "text-[#374151]"
+                }`}
+              >
+                中文 (CN)
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Search Icon */}
+          <button
+            onClick={() => setIsSearchMode(true)}
+            className="p-2 hover:bg-gray-100 rounded-full"
+          >
+            <Search className="w-5 h-5 text-[#111827]" />
+          </button>
+        </div>
       </div>
     </header>
   );
@@ -238,7 +314,7 @@ export function Header({ shouldHideMobile = false }: HeaderProps = {}) {
                     : "text-[#374151]"
                 }`}
               >
-                <Trans>한국어 (KO)</Trans>
+                한국어 (KO)
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => handleLocaleChange("zh")}
@@ -248,7 +324,7 @@ export function Header({ shouldHideMobile = false }: HeaderProps = {}) {
                     : "text-[#374151]"
                 }`}
               >
-                <Trans>中文 (CN)</Trans>
+                中文 (CN)
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

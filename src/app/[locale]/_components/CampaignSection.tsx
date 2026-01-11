@@ -105,7 +105,9 @@ export function CampaignSection({
                 key={campaign.missionId}
                 missionId={campaign.missionId}
                 title={campaign.title}
+                titleCn={campaign.titleCn}
                 missionContent={campaign.missionContent}
+                missionContentCn={campaign.missionContentCn}
                 brand={campaign.brand}
                 thumbnailImg={campaign.thumbnailImg}
                 enrollEndDate={campaign.enrollEndDate}
