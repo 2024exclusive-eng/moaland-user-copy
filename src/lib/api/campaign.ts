@@ -9,6 +9,7 @@ export interface Banner {
   name: string;
   thumbnailPath: string;
   link: string;
+  order: number;
   isActive: string;
   created: string;
   updated: string;

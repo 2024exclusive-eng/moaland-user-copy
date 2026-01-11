@@ -5,11 +5,11 @@ import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { FloatingInquiryButton } from "@/components/FloatingInquiryButton";
+import LocalizedLink from "@/components/LocalizedLink";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -238,12 +238,12 @@ export function CampaignDetailContent({
       {/* Mobile Header */}
       <div className="md:hidden">
         <div className="h-[60px] flex items-center justify-center px-[21px] py-[16px] border-b border-[#e5e7eb] relative">
-          <Link
+          <LocalizedLink
             href="/campaigns"
             className="absolute left-[21px] flex items-center hover:opacity-70 transition-opacity"
           >
             <ChevronLeft className="size-6" />
-          </Link>
+          </LocalizedLink>
           <span className="text-[16px] font-semibold text-black">
             <Trans>캠페인 상세</Trans>
           </span>
@@ -457,7 +457,12 @@ export function CampaignDetailContent({
                     <div className="flex-1">
                       <div
                         className="text-base text-[#111827] leading-[1.7] prose prose-sm max-w-none ck-content"
-                        dangerouslySetInnerHTML={{ __html: getContent(mission.guideline, mission.guidelineCn) }}
+                        dangerouslySetInnerHTML={{
+                          __html: getContent(
+                            mission.guideline,
+                            mission.guidelineCn
+                          ),
+                        }}
                       />
                     </div>
                   </div>
@@ -478,7 +483,10 @@ export function CampaignDetailContent({
                       <div
                         className="text-base text-[#111827] leading-[1.7] prose prose-sm max-w-none ck-content"
                         dangerouslySetInnerHTML={{
-                          __html: getContent(mission.missionContents, mission.missionContentsCn),
+                          __html: getContent(
+                            mission.missionContents,
+                            mission.missionContentsCn
+                          ),
                         }}
                       />
                     </div>
@@ -499,7 +507,10 @@ export function CampaignDetailContent({
                     <div
                       className="text-base text-[#111827] leading-[1.7] prose prose-sm max-w-none ck-content"
                       dangerouslySetInnerHTML={{
-                        __html: getContent(mission.additionalInfo, mission.additionalInfoCn),
+                        __html: getContent(
+                          mission.additionalInfo,
+                          mission.additionalInfoCn
+                        ),
                       }}
                     />
                   </div>
@@ -512,7 +523,10 @@ export function CampaignDetailContent({
             <CampaignSidebar
               missionId={missionId}
               campaignTitle={getContent(mission.title, mission.titleCn)}
-              campaignSubtitle={getContent(mission.goodsContents, mission.goodsContentsCn)}
+              campaignSubtitle={getContent(
+                mission.goodsContents,
+                mission.goodsContentsCn
+              )}
               applicationPeriod={applicationPeriod}
               announcementDate={announcementDate}
               visitPeriod={visitPeriod}
@@ -551,7 +565,10 @@ export function CampaignDetailContent({
         <CampaignApplyDialog
           missionId={missionId}
           campaignTitle={getContent(mission.title, mission.titleCn)}
-          campaignSubtitle={getContent(mission.goodsContents, mission.goodsContentsCn)}
+          campaignSubtitle={getContent(
+            mission.goodsContents,
+            mission.goodsContentsCn
+          )}
           social={mission.social}
           open={isApplyDialogOpen}
           onOpenChange={setIsApplyDialogOpen}

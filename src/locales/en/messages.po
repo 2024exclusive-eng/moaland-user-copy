@@ -85,9 +85,41 @@ msgstr "<0>{k}</0> Search Results"
 msgid "3 일 남음"
 msgstr "3 days left"
 
+#: src/lib/error-codes.ts:152
+msgid "block id가 필요합니다."
+msgstr "Block ID is required."
+
+#: src/lib/error-codes.ts:156
+msgid "block title이 필요합니다."
+msgstr "Block title is required."
+
+#: src/lib/error-codes.ts:254
+msgid "Instagram 링크를 입력해주세요."
+msgstr "Please enter your Instagram link."
+
 #: src/app/[locale]/support/page.tsx:64
 msgid "K-VIEWO 사용 가이드"
 msgstr "K-VIEWO User Guide"
+
+#: src/lib/error-codes.ts:214
+msgid "SNS 블록의 SNS 리스트가 필요합니다."
+msgstr "SNS list for SNS block is required."
+
+#: src/lib/error-codes.ts:221
+msgid "SNS 블록의 레이아웃이 필요합니다."
+msgstr "Layout for SNS block is required."
+
+#: src/lib/error-codes.ts:216
+msgid "SNS 블록의 링크가 필요합니다."
+msgstr "Link for SNS block is required."
+
+#: src/lib/error-codes.ts:218
+msgid "SNS 블록의 제목이 필요합니다."
+msgstr "Title for SNS block is required."
+
+#: src/lib/error-codes.ts:256
+msgid "WeChat ID를 입력해주세요."
+msgstr "Please enter your WeChat ID."
 
 #: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:454
 msgid "가이드라인"
@@ -98,9 +130,13 @@ msgstr "Guidelines"
 msgid "가입 이메일"
 msgstr "Registered Email"
 
-#: src/app/[locale]/login/page.tsx:171
+#: src/app/[locale]/login/page.tsx:148
 msgid "가입 이메일을 잊으셨나요?"
 msgstr "Forgot your registered email?"
+
+#: src/lib/error-codes.ts:111
+msgid "가입된 이메일이 없습니다."
+msgstr "This email is not registered."
 
 #: src/app/[locale]/register/page.tsx:548
 #~ msgid "개인정보 보유 및 이용 기간: 회원 탈퇴 시까지 (단, 관계 법령에 따라 보존할 필요가 있는 경우 해당 기간까지)"
@@ -110,12 +146,12 @@ msgstr "Forgot your registered email?"
 #~ msgid "개인정보 수집 및 이용 목적: 회원 식별 및 관리, 서비스 제공, 캠페인 참여 관리, 고객 문의 응대"
 #~ msgstr "Purpose of personal information collection and use: Member identification and management, service provision, campaign participation management, customer inquiry response"
 
-#: src/app/[locale]/register/page.tsx:555
+#: src/app/[locale]/register/page.tsx:559
 msgid "개인정보 수집 및 이용에 대한 전체 내용은 지원 페이지(/support)에서 확인하실 수 있습니다."
 msgstr "You can view the full details of personal information collection and use on the support page (/support)."
 
-#: src/app/[locale]/register/page.tsx:436
-#: src/app/[locale]/register/page.tsx:530
+#: src/app/[locale]/register/page.tsx:440
+#: src/app/[locale]/register/page.tsx:534
 msgid "개인정보 수집/이용"
 msgstr "Privacy Policy"
 
@@ -129,13 +165,13 @@ msgstr "Privacy Policy"
 #~ msgid "개인정보는 수집 및 이용 목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다."
 #~ msgstr "Personal information will be destroyed without delay after the purpose of collection and use has been achieved."
 
-#: src/components/Footer.tsx:103
-#: src/components/Footer.tsx:201
-#: src/components/Footer.tsx:288
+#: src/components/Footer.tsx:107
+#: src/components/Footer.tsx:205
+#: src/components/Footer.tsx:298
 msgid "개인정보처리방침"
 msgstr "Privacy Policy"
 
-#: src/components/Footer.tsx:313
+#: src/components/Footer.tsx:329
 msgid "개인정보처리방침의 전체 내용은 지원 페이지(/support)에서 확인하실 수 있습니다."
 msgstr "The full privacy policy can be found on the support page (/support)."
 
@@ -160,9 +196,13 @@ msgstr "Please enter a search term."
 msgid "계정 정보"
 msgstr "Account Info"
 
-#: src/app/[locale]/login/page.tsx:36
+#: src/shared/hooks/use-auth.ts:99
 msgid "계정이 비활성화되었습니다."
 msgstr "Your account has been deactivated."
+
+#: src/lib/error-codes.ts:120
+msgid "계좌번호를 입력해주세요."
+msgstr "Please enter your account number."
 
 #: src/app/[locale]/support/[category]/page.tsx:185
 #: src/app/[locale]/support/page.tsx:47
@@ -192,10 +232,18 @@ msgstr "Advertisement"
 msgid "광고문의"
 msgstr "Advertising"
 
-#: src/components/Footer.tsx:37
-#: src/components/Footer.tsx:130
+#: src/components/Footer.tsx:41
+#: src/components/Footer.tsx:134
 msgid "광고주 이신가요?"
 msgstr "Are you an advertiser?"
+
+#: src/lib/error-codes.ts:190
+msgid "구분 블록의 여백 정보가 필요합니다."
+msgstr "Margin information for divider block is required."
+
+#: src/lib/error-codes.ts:187
+msgid "구분 블록의 타입이 필요합니다."
+msgstr "Type for divider block is required."
 
 #: src/app/[locale]/profile/page.tsx:24
 #: src/app/[locale]/profile/page.tsx:67
@@ -219,9 +267,13 @@ msgstr "My Campaigns"
 msgid "내역 삭제"
 msgstr "Delete history"
 
-#: src/app/[locale]/login/page.tsx:38
+#: src/shared/hooks/use-auth.ts:100
 msgid "너무 많은 시도가 있었습니다. 잠시 후 다시 시도해주세요."
 msgstr "Too many attempts. Please try again later."
+
+#: src/shared/hooks/use-auth.ts:101
+msgid "네트워크 오류가 발생했습니다."
+msgstr "A network error occurred."
 
 #: src/app/[locale]/search/page.tsx:64
 msgid "다른 검색어로 다시 검색해 보세요."
@@ -231,8 +283,8 @@ msgstr "Try searching with a different keyword."
 msgid "다중디엔핑"
 msgstr "Dianping"
 
-#: src/components/Footer.tsx:70
-#: src/components/Footer.tsx:167
+#: src/components/Footer.tsx:74
+#: src/components/Footer.tsx:171
 msgid "대표"
 msgstr "CEO"
 
@@ -245,11 +297,11 @@ msgstr "See More"
 msgid "더우인"
 msgstr "Douyin"
 
-#: src/lib/api/campaign.ts:201
+#: src/lib/api/campaign.ts:202
 msgid "도우인"
 msgstr "Douyin"
 
-#: src/app/[locale]/register/page.tsx:465
+#: src/app/[locale]/register/page.tsx:469
 msgid "동의하고 회원가입"
 msgstr "Agree and Sign Up"
 
@@ -265,6 +317,10 @@ msgstr "An error occurred during registration."
 #: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:198
 msgid "등록 중..."
 msgstr "Registering..."
+
+#: src/shared/hooks/use-auth.ts:74
+#~ msgid "등록되지 않은 이메일입니다."
+#~ msgstr ""
 
 #: src/app/[locale]/community/page.tsx:224
 msgid "등록된 공지사항이 없습니다."
@@ -299,20 +355,24 @@ msgstr "Registered content and reviews may be used for promotional purposes, and
 msgid "등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에 대한 비용이 청구될 수 있습니다."
 msgstr "Failure to maintain registered content and reviews for the required period (6 months) may result in charges for the provided items."
 
-#: src/lib/api/campaign.ts:202
+#: src/lib/api/campaign.ts:203
 msgid "따종디엔핑"
 msgstr "Dianping"
+
+#: src/lib/error-codes.ts:155
+msgid "라인 ID를 입력해주세요."
+msgstr "Please enter your LINE ID."
 
 #: src/components/Header.tsx:378
 msgid "로그아웃"
 msgstr "Logout"
 
-#: src/app/[locale]/login/page.tsx:138
+#: src/app/[locale]/login/page.tsx:115
 #: src/components/Header.tsx:391
 msgid "로그인"
 msgstr "Login"
 
-#: src/app/[locale]/login/page.tsx:138
+#: src/app/[locale]/login/page.tsx:115
 msgid "로그인 중..."
 msgstr "Logging in..."
 
@@ -321,7 +381,7 @@ msgstr "Logging in..."
 msgid "로그인 후 신청하세요!"
 msgstr "Please login to apply!"
 
-#: src/app/[locale]/login/page.tsx:30
+#: src/shared/hooks/use-auth.ts:90
 msgid "로그인에 실패했습니다."
 msgstr "Login failed."
 
@@ -329,6 +389,26 @@ msgstr "Login failed."
 #: src/app/[locale]/my-campaign/_components/ViewSelectedCampaignDialog.tsx:106
 msgid "링크"
 msgstr "Link"
+
+#: src/lib/error-codes.ts:166
+msgid "링크 블록의 레이아웃이 필요합니다."
+msgstr "Layout for link block is required."
+
+#: src/lib/error-codes.ts:160
+msgid "링크 블록의 링크가 필요합니다."
+msgstr "Link for link block is required."
+
+#: src/lib/error-codes.ts:169
+msgid "링크 블록의 이미지가 필요합니다."
+msgstr "Image for link block is required."
+
+#: src/lib/error-codes.ts:163
+msgid "링크 블록의 제목이 필요합니다."
+msgstr "Title for link block is required."
+
+#: src/lib/error-codes.ts:118
+msgid "링크를 입력해주세요."
+msgstr "Please enter a link."
 
 #: src/app/[locale]/_components/CampaignCard.tsx:92
 #: src/app/[locale]/_components/CampaignCard.tsx:145
@@ -382,21 +462,37 @@ msgstr "people"
 msgid "목록으로"
 msgstr "Back to List"
 
-#: src/components/Footer.tsx:93
-#: src/components/Footer.tsx:190
+#: src/components/Footer.tsx:97
+#: src/components/Footer.tsx:194
 msgid "문의"
 msgstr "Contact"
 
-#: src/app/[locale]/login/page.tsx:173
+#: src/lib/error-codes.ts:224
+msgid "문의 블록의 문의 리스트가 필요합니다."
+msgstr "Inquiry list for inquiry block is required."
+
+#: src/lib/error-codes.ts:227
+msgid "문의 블록의 문의 양식이 필요합니다."
+msgstr "Inquiry form for inquiry block is required."
+
+#: src/lib/error-codes.ts:230
+msgid "문의 블록의 제목이 필요합니다."
+msgstr "Title for inquiry block is required."
+
+#: src/app/[locale]/login/page.tsx:150
 msgid "문의 채널을 이용해주세요."
 msgstr "Please use the inquiry channel."
 
-#: src/app/[locale]/login/page.tsx:182
+#: src/lib/error-codes.ts:153
+msgid "문의내용을 입력해주세요."
+msgstr "Please enter your inquiry."
+
+#: src/app/[locale]/login/page.tsx:159
 msgid "문의채널로 이동"
 msgstr "Go to Inquiry Channel"
 
-#: src/components/Footer.tsx:50
-#: src/components/Footer.tsx:143
+#: src/components/Footer.tsx:54
+#: src/components/Footer.tsx:147
 msgid "문의하기"
 msgstr "Contact Us"
 
@@ -410,13 +506,25 @@ msgstr "Culture"
 msgid "미디어 전체"
 msgstr "All Media"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:474
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:479
 msgid "미션 내용"
 msgstr "Mission Details"
+
+#: src/lib/error-codes.ts:236
+msgid "미션 신청자가 초과되었습니다."
+msgstr "Mission enrollment limit has been reached."
+
+#: src/lib/error-codes.ts:246
+msgid "미션을 찾을 수 없습니다."
+msgstr "Mission not found."
 
 #: src/app/[locale]/my-campaign/page.tsx:56
 msgid "방문"
 msgstr "Visit"
+
+#: src/lib/error-codes.ts:258
+msgid "방문 날짜와 시간을 입력해주세요."
+msgstr "Please enter the visit date and time."
 
 #: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:338
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:182
@@ -433,11 +541,11 @@ msgstr "Visit Date & Time"
 msgid "방문일 및 시간을 입력해주세요"
 msgstr "Please enter the visit date and time"
 
-#: src/app/[locale]/_components/HeroBanner.tsx:54
+#: src/app/[locale]/_components/HeroBanner.tsx:57
 msgid "배너를 불러오는데 실패했습니다"
 msgstr "Failed to load banners"
 
-#: src/app/[locale]/forgot-password/page.tsx:252
+#: src/app/[locale]/forgot-password/page.tsx:253
 msgid "변경하기"
 msgstr "Change"
 
@@ -459,8 +567,12 @@ msgstr "Busan"
 msgid "뷰티"
 msgstr "Beauty"
 
-#: src/app/[locale]/login/page.tsx:91
-#: src/app/[locale]/register/page.tsx:299
+#: src/lib/error-codes.ts:184
+msgid "비디오 블록의 URL이 필요합니다."
+msgstr "URL for video block is required."
+
+#: src/app/[locale]/login/page.tsx:68
+#: src/app/[locale]/register/page.tsx:303
 msgid "비밀번호"
 msgstr "Password"
 
@@ -472,13 +584,18 @@ msgstr "Change Password"
 
 #: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:49
 #: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:60
+#: src/shared/hooks/use-auth.ts:95
 msgid "비밀번호 변경에 실패했습니다."
 msgstr "Password change failed."
 
-#: src/app/[locale]/forgot-password/page.tsx:150
-#: src/app/[locale]/forgot-password/page.tsx:224
+#: src/app/[locale]/forgot-password/page.tsx:151
+#: src/app/[locale]/forgot-password/page.tsx:225
 msgid "비밀번호 재설정"
 msgstr "Reset Password"
+
+#: src/shared/hooks/use-auth.ts:94
+msgid "비밀번호 재설정에 실패했습니다."
+msgstr "Password reset failed."
 
 #: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:109
 msgid "비밀번호 저장"
@@ -488,33 +605,34 @@ msgstr "Save Password"
 msgid "비밀번호가 변경되었습니다."
 msgstr "Password has been changed."
 
-#: src/app/[locale]/forgot-password/page.tsx:121
+#: src/app/[locale]/forgot-password/page.tsx:122
 #: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:31
-#: src/app/[locale]/register/page.tsx:58
-#: src/app/[locale]/register/page.tsx:70
-#: src/app/[locale]/register/page.tsx:195
+#: src/app/[locale]/register/page.tsx:62
+#: src/app/[locale]/register/page.tsx:74
+#: src/app/[locale]/register/page.tsx:199
 msgid "비밀번호가 일치하지 않습니다."
 msgstr "Passwords do not match."
 
-#: src/app/[locale]/register/page.tsx:191
-#: src/app/[locale]/register/page.tsx:306
+#: src/app/[locale]/register/page.tsx:195
+#: src/app/[locale]/register/page.tsx:310
+#: src/lib/error-codes.ts:117
 msgid "비밀번호를 입력해주세요."
 msgstr "Please enter your password."
 
-#: src/app/[locale]/register/page.tsx:330
+#: src/app/[locale]/register/page.tsx:334
 msgid "비밀번호를 재입력해주세요."
 msgstr "Please re-enter your password."
 
-#: src/app/[locale]/login/page.tsx:122
+#: src/app/[locale]/login/page.tsx:99
 msgid "비밀번호찾기"
 msgstr "Find Password"
 
-#: src/components/Footer.tsx:79
-#: src/components/Footer.tsx:174
+#: src/components/Footer.tsx:83
+#: src/components/Footer.tsx:178
 msgid "사업자등록번호"
 msgstr "Business Registration No."
 
-#: src/app/[locale]/login/page.tsx:34
+#: src/shared/hooks/use-auth.ts:97
 msgid "사용자를 찾을 수 없습니다."
 msgstr "User not found."
 
@@ -530,7 +648,7 @@ msgstr "New Password"
 msgid "새 비밀번호 확인"
 msgstr "Confirm New Password"
 
-#: src/app/[locale]/forgot-password/page.tsx:117
+#: src/app/[locale]/forgot-password/page.tsx:118
 #: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:26
 msgid "새 비밀번호를 입력해주세요."
 msgstr "Please enter a new password."
@@ -540,9 +658,13 @@ msgid "새로운"
 msgstr "New"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:53
-#: src/lib/api/campaign.ts:200
+#: src/lib/api/campaign.ts:201
 msgid "샤오홍슈"
 msgstr "Xiaohongshu"
+
+#: src/shared/hooks/use-auth.ts:102
+msgid "서버 오류가 발생했습니다."
+msgstr "A server error occurred."
 
 #: src/app/[locale]/support/[category]/page.tsx:37
 #: src/app/[locale]/support/[category]/page.tsx:50
@@ -550,13 +672,13 @@ msgstr "Xiaohongshu"
 msgid "서비스 이용 가이드"
 msgstr "Service Guide"
 
-#: src/app/[locale]/register/page.tsx:406
-#: src/app/[locale]/register/page.tsx:478
+#: src/app/[locale]/register/page.tsx:410
+#: src/app/[locale]/register/page.tsx:482
 msgid "서비스 이용약관"
 msgstr "Terms of Service"
 
-#: src/app/[locale]/register/page.tsx:503
-#: src/components/Footer.tsx:261
+#: src/app/[locale]/register/page.tsx:507
+#: src/components/Footer.tsx:271
 msgid "서비스 이용약관의 전체 내용은 지원 페이지(/support)에서 확인하실 수 있습니다."
 msgstr "You can view the full terms of service on the support page (/support)."
 
@@ -585,6 +707,10 @@ msgstr "Selected Campaigns"
 msgid "선정된 캠페인이 없습니다."
 msgstr "No selected campaigns."
 
+#: src/lib/error-codes.ts:243
+msgid "소셜정보를 입력해주세요."
+msgstr "Please enter your social information."
+
 #: src/app/[locale]/register/page.tsx:538
 #~ msgid "수집하는 개인정보 항목: 이메일 주소, 비밀번호, 이름, 연락처, SNS 계정 정보"
 #~ msgstr "Personal information collected: Email address, password, name, contact information, SNS account information"
@@ -597,6 +723,10 @@ msgstr "Accommodation"
 #: src/app/[locale]/my-campaign/page.tsx:56
 msgid "시"
 msgstr "o'clock"
+
+#: src/lib/error-codes.ts:239
+msgid "시작하지 않은 미션입니다."
+msgstr "This mission has not started yet."
 
 #: src/app/[locale]/support/page.tsx:61
 msgid "신규회원을 위한"
@@ -679,13 +809,25 @@ msgstr "You can check your applied campaigns in the My Page application history.
 msgid "신청한 캠페인이 없습니다."
 msgstr "No applied campaigns."
 
-#: src/app/[locale]/register/page.tsx:408
+#: src/lib/error-codes.ts:269
+msgid "아이디나 비밀번호가 일치하지 않습니다."
+msgstr "Username or password is incorrect."
+
+#: src/lib/error-codes.ts:265
+msgid "업로드할 이미지가 없습니다."
+msgstr "No image to upload."
+
+#: src/app/[locale]/register/page.tsx:412
 msgid "에 동의합니다 (필수)"
 msgstr " (Required)"
 
-#: src/app/[locale]/register/page.tsx:438
+#: src/app/[locale]/register/page.tsx:442
 msgid "에 동의합니다(필수)"
 msgstr "(Required)"
+
+#: src/lib/error-codes.ts:121
+msgid "예금주를 입력해주세요."
+msgstr "Please enter the account holder name."
 
 #: src/app/[locale]/campaigns/[id]/_components/CampaignApplyDialog.tsx:136
 msgid "오류가 발생했습니다. 다시 시도해주세요."
@@ -703,6 +845,10 @@ msgstr "Coming Soon"
 #: src/app/[locale]/my-campaign/page.tsx:55
 msgid "오후"
 msgstr "PM"
+
+#: src/lib/error-codes.ts:116
+msgid "올바른 이메일 형식이 아닙니다."
+msgstr "Invalid email format."
 
 #: src/app/[locale]/campaigns/[id]/_components/CampaignApplyDialog.tsx:384
 msgid "원활한 캠페인 서비스 제공을 위해 최소한의 범주 내에서 아래와 같이 개인정보를 제공합니다. 회원님께서는 제3자 제공에 동의하지 않으실 수 있으며, 이를 거부할 경우 일부 캠페인 참여가 제한됩니다."
@@ -732,7 +878,7 @@ msgid "위챗문의"
 msgstr "WeChat Inquiry"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:57
-#: src/lib/api/campaign.ts:204
+#: src/lib/api/campaign.ts:205
 msgid "유튜브"
 msgstr "YouTube"
 
@@ -754,42 +900,80 @@ msgstr "Enter name"
 msgid "이름을 입력해주세요"
 msgstr "Please enter your name"
 
-#: src/app/[locale]/forgot-password/page.tsx:161
-#: src/app/[locale]/login/page.tsx:82
-#: src/app/[locale]/register/page.tsx:230
-#: src/app/[locale]/register/page.tsx:236
+#: src/lib/error-codes.ts:154
+#: src/lib/error-codes.ts:242
+msgid "이름을 입력해주세요."
+msgstr "Please enter your name."
+
+#: src/app/[locale]/forgot-password/page.tsx:162
+#: src/app/[locale]/login/page.tsx:59
+#: src/app/[locale]/register/page.tsx:234
+#: src/app/[locale]/register/page.tsx:240
 msgid "이메일"
 msgstr "Email"
 
-#: src/app/[locale]/login/page.tsx:32
+#: src/shared/hooks/use-auth.ts:96
 msgid "이메일 또는 비밀번호가 올바르지 않습니다."
 msgstr "Invalid email or password."
+
+#: src/shared/hooks/use-auth.ts:69
+#~ msgid "이메일 또는 비밀번호가 잘못되었습니다."
+#~ msgstr ""
 
 #: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:257
 #~ msgid "이메일 수정 시 재인증이 필요합니다."
 #~ msgstr "Re-authentication is required when modifying email."
 
-#: src/app/[locale]/forgot-password/page.tsx:109
-#: src/app/[locale]/register/page.tsx:187
+#: src/app/[locale]/forgot-password/page.tsx:110
+#: src/app/[locale]/register/page.tsx:191
 msgid "이메일 인증을 완료해주세요."
 msgstr "Please complete email verification."
 
-#: src/app/[locale]/forgot-password/page.tsx:45
-#: src/app/[locale]/forgot-password/page.tsx:105
-#: src/app/[locale]/forgot-password/page.tsx:167
-#: src/app/[locale]/register/page.tsx:108
-#: src/app/[locale]/register/page.tsx:183
+#: src/app/[locale]/forgot-password/page.tsx:46
+#: src/app/[locale]/forgot-password/page.tsx:106
+#: src/app/[locale]/forgot-password/page.tsx:168
+#: src/app/[locale]/register/page.tsx:112
+#: src/app/[locale]/register/page.tsx:187
+#: src/lib/error-codes.ts:115
 msgid "이메일을 입력해주세요."
 msgstr "Please enter your email."
 
-#: src/app/[locale]/login/page.tsx:115
-#: src/app/[locale]/login/page.tsx:159
+#: src/lib/error-codes.ts:113
+msgid "이메일이나 비밀번호가 일치하지 않습니다."
+msgstr "Email or password is incorrect."
+
+#: src/app/[locale]/login/page.tsx:92
+#: src/app/[locale]/login/page.tsx:136
 msgid "이메일찾기"
 msgstr "Find Email"
+
+#: src/shared/hooks/use-auth.ts:70
+#~ msgid "이미 가입된 이메일 주소입니다."
+#~ msgstr ""
+
+#: src/lib/error-codes.ts:110
+msgid "이미 가입된 이메일입니다."
+msgstr "This email is already registered."
+
+#: src/lib/error-codes.ts:119
+msgid "이미 등록된 링크입니다."
+msgstr "This link is already registered."
+
+#: src/lib/error-codes.ts:234
+msgid "이미 신청한 미션입니다."
+msgstr "You have already applied for this mission."
 
 #: src/app/[locale]/campaigns/[id]/_components/CampaignAlertDialog.tsx:24
 msgid "이미 신청한 캠페인 입니다"
 msgstr "You have already applied for this campaign"
+
+#: src/lib/error-codes.ts:181
+msgid "이미지 블록의 레이아웃이 필요합니다."
+msgstr "Layout for image block is required."
+
+#: src/lib/error-codes.ts:178
+msgid "이미지 블록의 이미지 리스트가 필요합니다."
+msgstr "Image list for image block is required."
 
 #: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:78
 msgid "이미지 업로드에 실패했습니다."
@@ -813,50 +997,71 @@ msgstr "User Guide"
 #: src/app/[locale]/support/[category]/page.tsx:38
 #: src/app/[locale]/support/[category]/page.tsx:55
 #: src/app/[locale]/support/page.tsx:26
-#: src/components/Footer.tsx:110
-#: src/components/Footer.tsx:208
-#: src/components/Footer.tsx:236
+#: src/components/Footer.tsx:114
+#: src/components/Footer.tsx:212
+#: src/components/Footer.tsx:240
 msgid "이용약관"
 msgstr "Terms of Use"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:56
-#: src/lib/api/campaign.ts:203
+#: src/lib/api/campaign.ts:204
 msgid "인스타그램"
 msgstr "Instagram"
 
-#: src/app/[locale]/login/page.tsx:35
+#: src/shared/hooks/use-auth.ts:98
 msgid "인증 정보가 올바르지 않습니다."
 msgstr "Invalid credentials."
 
-#: src/app/[locale]/forgot-password/page.tsx:181
-#: src/app/[locale]/register/page.tsx:253
+#: src/app/[locale]/forgot-password/page.tsx:182
+#: src/app/[locale]/register/page.tsx:257
 msgid "인증번호 재전송"
 msgstr "Resend Verification Code"
 
-#: src/app/[locale]/forgot-password/page.tsx:183
-#: src/app/[locale]/register/page.tsx:255
+#: src/app/[locale]/forgot-password/page.tsx:184
+#: src/app/[locale]/register/page.tsx:259
 msgid "인증번호 전송"
 msgstr "Send Verification Code"
 
-#: src/app/[locale]/register/page.tsx:125
+#: src/app/[locale]/register/page.tsx:129
+#: src/shared/hooks/use-auth.ts:93
 msgid "인증번호 전송에 실패했습니다."
 msgstr "Failed to send verification code."
 
-#: src/app/[locale]/forgot-password/page.tsx:113
+#: src/app/[locale]/forgot-password/page.tsx:114
 msgid "인증번호 확인을 완료해주세요."
 msgstr "Please complete verification code confirmation."
 
-#: src/app/[locale]/forgot-password/page.tsx:61
-#: src/app/[locale]/forgot-password/page.tsx:196
-#: src/app/[locale]/register/page.tsx:132
-#: src/app/[locale]/register/page.tsx:268
+#: src/shared/hooks/use-auth.ts:72
+#~ msgid "인증번호가 만료되었습니다."
+#~ msgstr ""
+
+#: src/shared/hooks/use-auth.ts:71
+#~ msgid "인증번호가 일치하지 않습니다."
+#~ msgstr ""
+
+#: src/app/[locale]/forgot-password/page.tsx:62
+#: src/app/[locale]/forgot-password/page.tsx:197
+#: src/app/[locale]/register/page.tsx:136
+#: src/app/[locale]/register/page.tsx:272
 msgid "인증번호를 입력해주세요."
 msgstr "Please enter the verification code."
 
-#: src/app/[locale]/forgot-password/page.tsx:209
-#: src/app/[locale]/register/page.tsx:284
+#: src/shared/hooks/use-auth.ts:92
+msgid "인증에 실패했습니다."
+msgstr "Verification failed."
+
+#: src/app/[locale]/forgot-password/page.tsx:210
+#: src/app/[locale]/register/page.tsx:288
 msgid "인증완료"
 msgstr "Verified"
+
+#: src/lib/error-codes.ts:109
+msgid "인증코드가 만료되었습니다."
+msgstr "Verification code has expired."
+
+#: src/lib/error-codes.ts:108
+msgid "인증코드가 일치하지 않습니다."
+msgstr "Verification code does not match."
 
 #: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:326
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:181
@@ -874,12 +1079,16 @@ msgstr "View Details"
 msgid "자주하는 질문"
 msgstr "FAQ"
 
-#: src/app/[locale]/register/page.tsx:112
+#: src/shared/hooks/use-auth.ts:103
+msgid "잘못된 요청입니다."
+msgstr "Invalid request."
+
+#: src/app/[locale]/register/page.tsx:116
 msgid "잘못된 이메일 주소입니다."
 msgstr "Invalid email address."
 
-#: src/app/[locale]/register/page.tsx:152
-#: src/app/[locale]/register/page.tsx:157
+#: src/app/[locale]/register/page.tsx:156
+#: src/app/[locale]/register/page.tsx:161
 msgid "잘못된 인증번호입니다. 다시 확인 후 입력해 주세요."
 msgstr "Invalid verification code. Please check and enter again."
 
@@ -888,12 +1097,12 @@ msgstr "Invalid verification code. Please check and enter again."
 msgid "잠시 후 다시 시도해주세요"
 msgstr "Please try again later"
 
-#: src/app/[locale]/forgot-password/page.tsx:230
+#: src/app/[locale]/forgot-password/page.tsx:231
 #: src/app/[locale]/profile/_components/ProfilePasswordChange.tsx:78
 msgid "재설정할 비밀번호를 입력해주세요."
 msgstr "Please enter the new password."
 
-#: src/app/[locale]/forgot-password/page.tsx:240
+#: src/app/[locale]/forgot-password/page.tsx:241
 msgid "재설정할 비밀번호를 재입력해주세요."
 msgstr "Please re-enter the new password."
 
@@ -924,8 +1133,8 @@ msgstr "Save failed."
 msgid "저장하기"
 msgstr "Save"
 
-#: src/app/[locale]/forgot-password/page.tsx:179
-#: src/app/[locale]/register/page.tsx:251
+#: src/app/[locale]/forgot-password/page.tsx:180
+#: src/app/[locale]/register/page.tsx:255
 msgid "전송 중..."
 msgstr "Sending..."
 
@@ -935,7 +1144,7 @@ msgstr "Sending..."
 msgid "전체"
 msgstr "All"
 
-#: src/app/[locale]/register/page.tsx:378
+#: src/app/[locale]/register/page.tsx:382
 msgid "전체 동의"
 msgstr "Agree to All"
 
@@ -964,6 +1173,10 @@ msgstr "Jeju"
 msgid "종료"
 msgstr "Ended"
 
+#: src/lib/error-codes.ts:241
+msgid "종료된 미션입니다."
+msgstr "This mission has ended."
+
 #: src/app/[locale]/my-campaign/page.tsx:82
 msgid "종료된 캠페인"
 msgstr "Ended Campaigns"
@@ -977,24 +1190,40 @@ msgstr "No ended campaigns."
 msgid "종료됨"
 msgstr "Ended"
 
-#: src/components/Footer.tsx:85
-#: src/components/Footer.tsx:181
+#: src/components/Footer.tsx:89
+#: src/components/Footer.tsx:185
 msgid "주소"
 msgstr "Address"
 
-#: src/components/Footer.tsx:40
-#: src/components/Footer.tsx:133
+#: src/lib/error-codes.ts:244
+msgid "주소를 입력해주세요."
+msgstr "Please enter your address."
+
+#: src/components/Footer.tsx:44
+#: src/components/Footer.tsx:137
 msgid "지금 문의 해보세요! 누구나 손쉽게 시작할 수 있습니다."
 msgstr "Contact us now! Anyone can easily get started."
+
+#: src/lib/error-codes.ts:211
+msgid "지도 블록의 경도 정보가 필요합니다."
+msgstr "Longitude information for map block is required."
+
+#: src/lib/error-codes.ts:208
+msgid "지도 블록의 위도 정보가 필요합니다."
+msgstr "Latitude information for map block is required."
+
+#: src/lib/error-codes.ts:205
+msgid "지도 블록의 주소가 필요합니다."
+msgstr "Address for map block is required."
 
 #: src/app/[locale]/community/page.tsx:269
 msgid "진행 중인 이벤트가 없습니다."
 msgstr "No events in progress."
 
-#: src/app/[locale]/forgot-password/page.tsx:252
+#: src/app/[locale]/forgot-password/page.tsx:253
 #: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:187
 #: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:375
-#: src/app/[locale]/register/page.tsx:465
+#: src/app/[locale]/register/page.tsx:469
 msgid "처리 중..."
 msgstr "Processing..."
 
@@ -1003,7 +1232,7 @@ msgstr "Processing..."
 msgid "최신 등록순"
 msgstr "Newest first"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:495
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:503
 msgid "추가 안내사항"
 msgstr "Additional Information"
 
@@ -1029,6 +1258,22 @@ msgstr "Kakao Inquiry"
 #: src/app/[locale]/support/page.tsx:140
 msgid "카테고리를 선택해주세요."
 msgstr "Please select a category."
+
+#: src/lib/error-codes.ts:193
+msgid "캘린더 블록의 일정 리스트가 필요합니다."
+msgstr "Schedule list for calendar block is required."
+
+#: src/lib/error-codes.ts:199
+msgid "캘린더 블록의 일정 시작 날짜가 필요합니다."
+msgstr "Schedule start date for calendar block is required."
+
+#: src/lib/error-codes.ts:196
+msgid "캘린더 블록의 일정 제목이 필요합니다."
+msgstr "Schedule title for calendar block is required."
+
+#: src/lib/error-codes.ts:202
+msgid "캘린더 블록의 일정 종료 날짜가 필요합니다."
+msgstr "Schedule end date for calendar block is required."
 
 #: src/app/[locale]/_components/HomeContent.tsx:58
 #: src/app/[locale]/_components/HomeContent.tsx:67
@@ -1101,7 +1346,7 @@ msgstr "Campaign Terms and Content Usage Agreement"
 msgid "캠페인 유의사항, 개인정보 및 콘텐츠 제3자 제공, 저작물 이용에 동의합니다."
 msgstr "I agree to campaign terms, personal information and content sharing with third parties, and content usage rights."
 
-#: src/app/[locale]/_components/HeroBanner.tsx:66
+#: src/app/[locale]/_components/HeroBanner.tsx:69
 msgid "캠페인에 참여하세요!"
 msgstr "Join the campaign!"
 
@@ -1132,6 +1377,14 @@ msgstr "Community"
 msgid "컨텐츠 등록"
 msgstr "Register Content"
 
+#: src/lib/error-codes.ts:248
+msgid "컨텐츠 등록 기간이 만료되었습니다."
+msgstr "Content registration period has expired."
+
+#: src/lib/error-codes.ts:251
+msgid "컨텐츠 등록 기간이 시작되지 않았습니다."
+msgstr "Content registration period has not started yet."
+
 #: src/app/[locale]/my-campaign/page.tsx:333
 #~ msgid "컨텐츠 등록 기간이 아닙니다."
 #~ msgstr "Not the content registration period."
@@ -1139,6 +1392,10 @@ msgstr "Register Content"
 #: src/app/[locale]/my-campaign/page.tsx:119
 msgid "컨텐츠 등록하기"
 msgstr "Register Content"
+
+#: src/lib/error-codes.ts:245
+msgid "컨텐츠 링크를 입력해주세요."
+msgstr "Please enter the content link."
 
 #: src/app/[locale]/my-campaign/_components/ViewContentDialog.tsx:115
 msgid "콘텐츠 URL"
@@ -1189,7 +1446,59 @@ msgstr "Account deletion failed."
 msgid "탈퇴하기"
 msgstr "Delete Account"
 
-#: src/app/[locale]/register/page.tsx:199
+#: src/lib/error-codes.ts:175
+msgid "텍스트 블록의 정렬 정보가 필요합니다."
+msgstr "Alignment information for text block is required."
+
+#: src/lib/error-codes.ts:172
+msgid "텍스트 블록의 제목이 필요합니다."
+msgstr "Title for text block is required."
+
+#: src/lib/error-codes.ts:262
+msgid "포인트가 충분하지 않습니다."
+msgstr "Insufficient points."
+
+#: src/lib/error-codes.ts:136
+msgid "프로필 디자인 배경 색상이 필요합니다."
+msgstr "Profile design background color is required."
+
+#: src/lib/error-codes.ts:133
+msgid "프로필 디자인 배경 이미지가 필요합니다."
+msgstr "Profile design background image is required."
+
+#: src/lib/error-codes.ts:130
+msgid "프로필 디자인 배경 타입이 필요합니다."
+msgstr "Profile design background type is required."
+
+#: src/lib/error-codes.ts:139
+msgid "프로필 디자인 버튼 배경 색상이 필요합니다."
+msgstr "Profile design button background color is required."
+
+#: src/lib/error-codes.ts:142
+msgid "프로필 디자인 버튼 폰트가 필요합니다."
+msgstr "Profile design button font is required."
+
+#: src/lib/error-codes.ts:127
+msgid "프로필 배경 이미지가 필요합니다."
+msgstr "Profile background image is required."
+
+#: src/lib/error-codes.ts:148
+msgid "프로필 버튼 링크가 필요합니다."
+msgstr "Profile button link is required."
+
+#: src/lib/error-codes.ts:145
+msgid "프로필 버튼 텍스트가 필요합니다."
+msgstr "Profile button text is required."
+
+#: src/lib/error-codes.ts:125
+msgid "프로필 이미지가 필요합니다."
+msgstr "Profile image is required."
+
+#: src/lib/error-codes.ts:124
+msgid "프로필명이 필요합니다."
+msgstr "Profile name is required."
+
+#: src/app/[locale]/register/page.tsx:203
 msgid "필수 약관에 동의해주세요."
 msgstr "Please agree to the required terms."
 
@@ -1206,10 +1515,10 @@ msgstr "Home"
 #: src/app/[locale]/campaigns/[id]/_components/CampaignApplyDialog.tsx:396
 #: src/app/[locale]/my-campaign/_components/CancelSuccessDialog.tsx:55
 #: src/app/[locale]/my-campaign/_components/ViewApplicationDialog.tsx:185
-#: src/app/[locale]/register/page.tsx:515
-#: src/app/[locale]/register/page.tsx:567
-#: src/components/Footer.tsx:273
-#: src/components/Footer.tsx:325
+#: src/app/[locale]/register/page.tsx:519
+#: src/app/[locale]/register/page.tsx:571
+#: src/components/Footer.tsx:283
+#: src/components/Footer.tsx:341
 msgid "확인"
 msgstr "Confirm"
 
@@ -1227,10 +1536,14 @@ msgstr "Checking..."
 msgid "회원 탈퇴"
 msgstr "Delete Account"
 
-#: src/app/[locale]/login/page.tsx:147
-#: src/app/[locale]/register/page.tsx:224
+#: src/app/[locale]/login/page.tsx:124
+#: src/app/[locale]/register/page.tsx:228
 msgid "회원가입"
 msgstr "Sign Up"
+
+#: src/shared/hooks/use-auth.ts:91
+msgid "회원가입에 실패했습니다."
+msgstr "Registration failed."
 
 #: src/app/[locale]/register/page.tsx:558
 #~ msgid "회원은 개인정보 수집 및 이용에 동의하지 않을 권리가 있으나, 동의를 거부할 경우 서비스 이용이 제한될 수 있습니다."

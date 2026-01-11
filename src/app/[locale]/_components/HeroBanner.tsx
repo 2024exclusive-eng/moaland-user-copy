@@ -25,6 +25,9 @@ function BannerSkeleton() {
 export function HeroBanner() {
   const { banners, isLoading, isError } = useBanners("home");
 
+  // Sort banners by order field
+  const sortedBanners = [...banners].sort((a, b) => a.order - b.order);
+
   return (
     <section className="py-8">
       <div className="container mx-auto px-4">
@@ -71,7 +74,7 @@ export function HeroBanner() {
 
             {!isLoading &&
               !isError &&
-              banners.map((banner, idx) => (
+              sortedBanners.map((banner, idx) => (
                 <CarouselItem
                   key={banner.id}
                   className="pl-2 md:pl-4 md:basis-1/3"
@@ -98,7 +101,7 @@ export function HeroBanner() {
                       </div>
                       <div className="md:hidden block absolute bottom-3 right-3">
                         <div className="bg-black/60 text-white text-xs font-medium px-2 py-1 rounded-xl">
-                          {idx + 1}/{banners.length}
+                          {idx + 1}/{sortedBanners.length}
                         </div>
                       </div>
                     </div>

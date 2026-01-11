@@ -4,12 +4,14 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { CheckCircle2, Eye, EyeOff, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { getLocalizedContent } from "@/lib/localized-content";
 import { extractErrorMessage, useAuth } from "@/shared/hooks/use-auth";
 import { useFaqs } from "@/shared/hooks/use-content";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
@@ -17,6 +19,8 @@ import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 const RegisterPage = () => {
   const { _ } = useLingui();
   const r = useLocalizedNavigation();
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1] || "ko";
   const { sendVerificationCode, verifyCode, register, isLoading, clearError } =
     useAuth();
   const { faqs: termsContent } = useFaqs("terms_of_use");
@@ -493,7 +497,7 @@ const RegisterPage = () => {
                   <div
                     key={item.id}
                     className="text-sm text-[#6b7280] ck-content leading-[1.7] ck-content"
-                    dangerouslySetInnerHTML={{ __html: item.answer }}
+                    dangerouslySetInnerHTML={{ __html: getLocalizedContent(item.answer, item.answerCn, locale) }}
                   />
                 ))}
               </div>
@@ -545,7 +549,7 @@ const RegisterPage = () => {
                   <div
                     key={item.id}
                     className="text-sm text-[#6b7280] leading-[1.7] ck-content"
-                    dangerouslySetInnerHTML={{ __html: item.answer }}
+                    dangerouslySetInnerHTML={{ __html: getLocalizedContent(item.answer, item.answerCn, locale) }}
                   />
                 ))}
               </div>

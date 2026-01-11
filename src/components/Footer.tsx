@@ -5,11 +5,13 @@ import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { X } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import LocalizedLink from "@/components/LocalizedLink";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { getLocalizedContent } from "@/lib/localized-content";
 import { useFaqs } from "@/shared/hooks/use-content";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
@@ -20,6 +22,8 @@ interface FooterProps {
 export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
   const { _ } = useLingui();
   const pn = useLocalizedNavigation();
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1] || "ko";
   const { faqs: termsContent } = useFaqs("terms_of_use");
   const { faqs: privacyContent } = useFaqs("privacy_policy");
   const [showTermsPopup, setShowTermsPopup] = useState(false);
@@ -251,7 +255,13 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
                   <div
                     key={item.id}
                     className="text-sm text-[#6b7280] ck-content leading-[1.7] ck-content"
-                    dangerouslySetInnerHTML={{ __html: item.answer }}
+                    dangerouslySetInnerHTML={{
+                      __html: getLocalizedContent(
+                        item.answer,
+                        item.answerCn,
+                        locale
+                      ),
+                    }}
                   />
                 ))}
               </div>
@@ -303,7 +313,13 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
                   <div
                     key={item.id}
                     className="text-sm text-[#6b7280] leading-[1.7] ck-content"
-                    dangerouslySetInnerHTML={{ __html: item.answer }}
+                    dangerouslySetInnerHTML={{
+                      __html: getLocalizedContent(
+                        item.answer,
+                        item.answerCn,
+                        locale
+                      ),
+                    }}
                   />
                 ))}
               </div>
