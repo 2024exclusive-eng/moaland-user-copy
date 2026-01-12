@@ -31,7 +31,7 @@ msgstr "{0}명"
 #: src/app/[locale]/_components/CampaignCard.tsx:91
 #: src/app/[locale]/_components/CampaignCard.tsx:144
 #: src/app/[locale]/_components/CampaignCard.tsx:194
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:290
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:293
 #: src/app/[locale]/my-campaign/page.tsx:354
 #: src/app/[locale]/my-campaign/page.tsx:700
 msgid "{daysRemaining}일 남음"
@@ -125,7 +125,7 @@ msgstr "SNS 블록의 제목이 필요합니다."
 msgid "WeChat ID를 입력해주세요."
 msgstr "WeChat ID를 입력해주세요."
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:454
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:473
 msgid "가이드라인"
 msgstr "가이드라인"
 
@@ -305,7 +305,7 @@ msgstr "더보기"
 msgid "더우인"
 msgstr "더우인"
 
-#: src/lib/api/campaign.ts:205
+#: src/lib/api/campaign.ts:207
 msgid "도우인"
 msgstr "도우인"
 
@@ -363,7 +363,7 @@ msgstr "등록한 콘텐츠 및 구매평은 홍보나 필요에 의해 사용�
 msgid "등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에 대한 비용이 청구될 수 있습니다."
 msgstr "등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에 대한 비용이 청구될 수 있습니다."
 
-#: src/lib/api/campaign.ts:206
+#: src/lib/api/campaign.ts:208
 msgid "따종디엔핑"
 msgstr "따종디엔핑"
 
@@ -385,7 +385,7 @@ msgstr "로그인"
 msgid "로그인 중..."
 msgstr "로그인 중..."
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:203
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:206
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:135
 msgid "로그인 후 신청하세요!"
 msgstr "로그인 후 신청하세요!"
@@ -450,8 +450,8 @@ msgstr "마이페이지"
 msgid "맛집"
 msgstr "맛집"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:408
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:429
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:411
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:440
 msgid "매장 위치"
 msgstr "매장 위치"
 
@@ -462,7 +462,7 @@ msgstr "매장 위치"
 msgid "메모"
 msgstr "메모"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:373
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:376
 msgid "명"
 msgstr "명"
 
@@ -515,7 +515,7 @@ msgstr "문화"
 msgid "미디어 전체"
 msgstr "미디어 전체"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:479
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:498
 msgid "미션 내용"
 msgstr "미션 내용"
 
@@ -535,7 +535,7 @@ msgstr "방문"
 msgid "방문 날짜와 시간을 입력해주세요."
 msgstr "방문 날짜와 시간을 입력해주세요."
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:338
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:341
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:182
 msgid "방문기간"
 msgstr "방문기간"
@@ -666,7 +666,7 @@ msgid "새로운"
 msgstr "새로운"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:53
-#: src/lib/api/campaign.ts:204
+#: src/lib/api/campaign.ts:206
 msgid "샤오홍슈"
 msgstr "샤오홍슈"
 
@@ -791,7 +791,7 @@ msgstr "신청서 보기"
 msgid "신청에 실패했습니다"
 msgstr "신청에 실패했습니다"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:362
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:365
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:187
 msgid "신청자"
 msgstr "신청자"
@@ -890,7 +890,7 @@ msgid "위챗문의"
 msgstr "위챗문의"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:57
-#: src/lib/api/campaign.ts:208
+#: src/lib/api/campaign.ts:210
 msgid "유튜브"
 msgstr "유튜브"
 
@@ -1016,7 +1016,7 @@ msgid "이용약관"
 msgstr "이용약관"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:56
-#: src/lib/api/campaign.ts:207
+#: src/lib/api/campaign.ts:209
 msgid "인스타그램"
 msgstr "인스타그램"
 
@@ -1074,7 +1074,7 @@ msgstr "인증코드가 만료되었습니다."
 msgid "인증코드가 일치하지 않습니다."
 msgstr "인증코드가 일치하지 않습니다."
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:326
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:329
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:181
 msgid "인플루언서 발표"
 msgstr "인플루언서 발표"
@@ -1168,7 +1168,7 @@ msgstr "정당한 사유 없이 콘텐츠 등록 기간 내 콘텐츠 및 구매
 msgid "정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다."
 msgstr "정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다."
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:390
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:393
 msgid "제공 내역"
 msgstr "제공 내역"
 
@@ -1243,7 +1243,7 @@ msgstr "처리 중..."
 msgid "최신 등록순"
 msgstr "최신 등록순"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:503
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:522
 msgid "추가 안내사항"
 msgstr "추가 안내사항"
 
@@ -1308,7 +1308,7 @@ msgstr "캠페인 목록"
 msgid "캠페인 보기"
 msgstr "캠페인 보기"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:248
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:251
 msgid "캠페인 상세"
 msgstr "캠페인 상세"
 
@@ -1316,7 +1316,7 @@ msgstr "캠페인 상세"
 msgid "캠페인 신청 취소하기"
 msgstr "캠페인 신청 취소하기"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:314
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:317
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:180
 msgid "캠페인 신청기간"
 msgstr "캠페인 신청기간"
@@ -1416,7 +1416,7 @@ msgstr "콘텐츠 URL"
 #~ msgid "콘텐츠 등록"
 #~ msgstr "콘텐츠 등록"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:350
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:353
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:183
 #: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:171
 #: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:163
@@ -1533,7 +1533,7 @@ msgstr "홈"
 msgid "확인"
 msgstr "확인"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:201
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:204
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:133
 msgid "확인 중..."
 msgstr "확인 중..."

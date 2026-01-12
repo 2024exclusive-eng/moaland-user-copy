@@ -31,7 +31,7 @@ msgstr "{0}人"
 #: src/app/[locale]/_components/CampaignCard.tsx:91
 #: src/app/[locale]/_components/CampaignCard.tsx:144
 #: src/app/[locale]/_components/CampaignCard.tsx:194
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:290
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:293
 #: src/app/[locale]/my-campaign/page.tsx:354
 #: src/app/[locale]/my-campaign/page.tsx:700
 msgid "{daysRemaining}일 남음"
@@ -121,7 +121,7 @@ msgstr "需要SNS块的标题。"
 msgid "WeChat ID를 입력해주세요."
 msgstr "请输入微信ID。"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:454
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:473
 msgid "가이드라인"
 msgstr "指南"
 
@@ -301,7 +301,7 @@ msgstr "查看更多"
 msgid "더우인"
 msgstr "抖音"
 
-#: src/lib/api/campaign.ts:205
+#: src/lib/api/campaign.ts:207
 msgid "도우인"
 msgstr "抖音"
 
@@ -359,7 +359,7 @@ msgstr "注册的内容和评价可用于宣传或其他需要，广告主可在
 msgid "등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에 대한 비용이 청구될 수 있습니다."
 msgstr "如未遵守注册内容和评价的保留期限（6个月），可能会收取提供内容的费用。"
 
-#: src/lib/api/campaign.ts:206
+#: src/lib/api/campaign.ts:208
 msgid "따종디엔핑"
 msgstr "大众点评"
 
@@ -381,7 +381,7 @@ msgstr "登录"
 msgid "로그인 중..."
 msgstr "登录中..."
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:203
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:206
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:135
 msgid "로그인 후 신청하세요!"
 msgstr "请登录后申请！"
@@ -446,8 +446,8 @@ msgstr "我的页面"
 msgid "맛집"
 msgstr "美食"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:408
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:429
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:411
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:440
 msgid "매장 위치"
 msgstr "店铺位置"
 
@@ -458,7 +458,7 @@ msgstr "店铺位置"
 msgid "메모"
 msgstr "备注"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:373
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:376
 msgid "명"
 msgstr "人"
 
@@ -511,7 +511,7 @@ msgstr "文化"
 msgid "미디어 전체"
 msgstr "全部媒体"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:479
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:498
 msgid "미션 내용"
 msgstr "任务内容"
 
@@ -531,7 +531,7 @@ msgstr "访问"
 msgid "방문 날짜와 시간을 입력해주세요."
 msgstr "请输入访问日期和时间。"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:338
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:341
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:182
 msgid "방문기간"
 msgstr "访问期限"
@@ -662,7 +662,7 @@ msgid "새로운"
 msgstr "最新"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:53
-#: src/lib/api/campaign.ts:204
+#: src/lib/api/campaign.ts:206
 msgid "샤오홍슈"
 msgstr "小红书"
 
@@ -787,7 +787,7 @@ msgstr "查看申请"
 msgid "신청에 실패했습니다"
 msgstr "申请失败"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:362
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:365
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:187
 msgid "신청자"
 msgstr "申请人"
@@ -886,7 +886,7 @@ msgid "위챗문의"
 msgstr "微信咨询"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:57
-#: src/lib/api/campaign.ts:208
+#: src/lib/api/campaign.ts:210
 msgid "유튜브"
 msgstr "YouTube"
 
@@ -1012,7 +1012,7 @@ msgid "이용약관"
 msgstr "使用条款"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:56
-#: src/lib/api/campaign.ts:207
+#: src/lib/api/campaign.ts:209
 msgid "인스타그램"
 msgstr "Instagram"
 
@@ -1070,7 +1070,7 @@ msgstr "验证码已过期。"
 msgid "인증코드가 일치하지 않습니다."
 msgstr "验证码不匹配。"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:326
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:329
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:181
 msgid "인플루언서 발표"
 msgstr "网红公布"
@@ -1164,7 +1164,7 @@ msgstr "如无正当理由未在内容注册期限内撰写内容和评价，需
 msgid "정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다."
 msgstr "确定要注销账户吗？注销后所有数据将被删除且无法恢复。"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:390
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:393
 msgid "제공 내역"
 msgstr "提供内容"
 
@@ -1239,7 +1239,7 @@ msgstr "处理中..."
 msgid "최신 등록순"
 msgstr "最新注册"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:503
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:522
 msgid "추가 안내사항"
 msgstr "附加说明"
 
@@ -1304,7 +1304,7 @@ msgstr "活动列表"
 msgid "캠페인 보기"
 msgstr "查看活动"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:248
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:251
 msgid "캠페인 상세"
 msgstr "活动详情"
 
@@ -1312,7 +1312,7 @@ msgstr "活动详情"
 msgid "캠페인 신청 취소하기"
 msgstr "取消活动申请"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:314
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:317
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:180
 msgid "캠페인 신청기간"
 msgstr "活动申请期限"
@@ -1412,7 +1412,7 @@ msgstr "内容URL"
 #~ msgid "콘텐츠 등록"
 #~ msgstr "注册内容"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:350
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:353
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:183
 #: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:171
 #: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:163
@@ -1529,7 +1529,7 @@ msgstr "首页"
 msgid "확인"
 msgstr "确认"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:201
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:204
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:133
 msgid "확인 중..."
 msgstr "确认中..."
