@@ -134,8 +134,11 @@ export function CampaignDetailContent({
   const { mission, isLoading, isError } = useCampaignDetail(missionId);
 
   // Helper to get localized content
-  const getContent = (ko: string, cn: string | null | undefined) =>
-    getLocalizedContent(ko, cn, locale);
+  const getContent = (
+    ko: string,
+    cn: string | null | undefined,
+    en?: string | null | undefined
+  ) => getLocalizedContent(ko, cn, locale, en);
 
   const [isApplyDialogOpen, setIsApplyDialogOpen] = useState(false);
   const [alertType, setAlertType] = useState<
@@ -410,13 +413,21 @@ export function CampaignDetailContent({
                   </div>
                   <div className="flex-1 flex flex-col gap-3">
                     <p className="text-base text-[#111827] leading-[1.7]">
-                      {mission.address}
+                      {getContent(
+                        mission.address,
+                        mission.addressCn,
+                        mission.addressEn
+                      )}
                     </p>
                     <div className="relative h-[347px] w-full bg-gray-100 rounded-lg overflow-hidden">
                       <GoogleMapView
                         latitude={mission.latitude}
                         longitude={mission.longitude}
-                        address={mission.address}
+                        address={getContent(
+                          mission.address,
+                          mission.addressCn,
+                          mission.addressEn
+                        )}
                       />
                     </div>
                   </div>
@@ -430,14 +441,22 @@ export function CampaignDetailContent({
                       </h3>
                     </div>
                     <p className="flex-1 text-base text-[#111827] leading-[1.7]">
-                      {mission.address}
+                      {getContent(
+                        mission.address,
+                        mission.addressCn,
+                        mission.addressEn
+                      )}
                     </p>
                   </div>
                   <div className="relative w-[calc(100%+42px)] -mx-[21px] aspect-4/3 bg-gray-100 overflow-hidden">
                     <GoogleMapView
                       latitude={mission.latitude}
                       longitude={mission.longitude}
-                      address={mission.address}
+                      address={getContent(
+                        mission.address,
+                        mission.addressCn,
+                        mission.addressEn
+                      )}
                     />
                   </div>
                 </div>

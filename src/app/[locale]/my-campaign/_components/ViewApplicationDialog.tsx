@@ -3,10 +3,12 @@
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { getSocialLabel, type MyCampaign } from "@/lib/api/campaign";
+import { getLocalizedContent } from "@/lib/localized-content";
 
 interface ViewApplicationDialogProps {
   open: boolean;
@@ -49,7 +51,14 @@ export function ViewApplicationDialog({
   onCancel,
 }: ViewApplicationDialogProps) {
   const { _ } = useLingui();
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1] || "ko";
+
   if (!campaign) return null;
+
+  // Get localized content
+  const displayTitle = getLocalizedContent(campaign.title, campaign.titleCn, locale);
+  const displayGoodsContents = getLocalizedContent(campaign.goodsContents, campaign.goodsContentsCn, locale);
 
   const handleCancel = () => {
     onOpenChange(false);
@@ -90,10 +99,10 @@ export function ViewApplicationDialog({
             </div>
             <div className="flex-1 flex flex-col gap-1">
               <p className="text-base font-medium text-black leading-[1.5]">
-                {campaign.title}
+                {displayTitle}
               </p>
               <p className="text-sm text-[#6b7280] leading-5">
-                {campaign.goodsContents}
+                {displayGoodsContents}
               </p>
             </div>
           </div>

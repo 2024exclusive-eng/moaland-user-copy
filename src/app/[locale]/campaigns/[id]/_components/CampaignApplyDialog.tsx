@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { LocalizedDateTimePicker } from "@/components/ui/localized-datetime-picker";
 import {
   applyForCampaign,
   type CampaignApplyRequest,
@@ -29,7 +30,7 @@ interface FormData {
   name: string;
   instagramLink: string;
   wechatId: string;
-  visitDatetime: string;
+  visitDatetime: Date | null;
   memo: string;
 }
 
@@ -55,7 +56,7 @@ export function CampaignApplyDialog({
     name: "",
     instagramLink: "",
     wechatId: "",
-    visitDatetime: "",
+    visitDatetime: null,
     memo: "",
   });
   const [agreed, setAgreed] = useState(false);
@@ -76,7 +77,7 @@ export function CampaignApplyDialog({
     if (!formData.wechatId.trim()) {
       newErrors.wechatId = _(msg`위챗 아이디를 입력해주세요`);
     }
-    if (!formData.visitDatetime.trim()) {
+    if (!formData.visitDatetime) {
       newErrors.visitDatetime = _(msg`방문일 및 시간을 입력해주세요`);
     }
 
@@ -88,11 +89,11 @@ export function CampaignApplyDialog({
     formData.name.trim() &&
     formData.instagramLink.trim() &&
     formData.wechatId.trim() &&
-    formData.visitDatetime.trim() &&
+    formData.visitDatetime &&
     agreed;
 
   const handleSubmit = async () => {
-    if (!validateForm() || !agreed) return;
+    if (!validateForm() || !agreed || !formData.visitDatetime) return;
 
     setIsSubmitting(true);
     setSubmitError(null);
@@ -121,7 +122,7 @@ export function CampaignApplyDialog({
           name: "",
           instagramLink: "",
           wechatId: "",
-          visitDatetime: "",
+          visitDatetime: null,
           memo: "",
         });
         setAgreed(false);
@@ -133,7 +134,10 @@ export function CampaignApplyDialog({
     } catch (error) {
       console.error("Failed to apply:", error);
       setSubmitError(
-        extractErrorMessage(error, _(msg`오류가 발생했습니다. 다시 시도해주세요.`))
+        extractErrorMessage(
+          error,
+          _(msg`오류가 발생했습니다. 다시 시도해주세요.`)
+        )
       );
     } finally {
       setIsSubmitting(false);
@@ -152,7 +156,7 @@ export function CampaignApplyDialog({
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent
-          className="md:max-w-[400px] md:h-auto h-full w-full max-w-full md:rounded-lg rounded-none p-0 gap-0 overflow-hidden flex flex-col"
+          className="md:max-w-[400px] md:h-auto h-full w-full max-w-full md:rounded-lg rounded-none p-0 gap-0 overflow-visible flex flex-col"
           showCloseButton={false}
         >
           {/* Header */}
@@ -248,7 +252,7 @@ export function CampaignApplyDialog({
 
               {/* Visit Date and Time */}
               <div className="flex gap-2 items-center">
-                <div className="w-[100px] shrink-0">
+                <div className="w-[100px] whitespace-nowrap shrink-0">
                   <span className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
                     {_(msg`방문일 및 시간`)}
                   </span>
@@ -256,14 +260,16 @@ export function CampaignApplyDialog({
                     *
                   </span>
                 </div>
-                <input
-                  type="datetime-local"
-                  value={formData.visitDatetime}
-                  onChange={(e) =>
-                    handleInputChange("visitDatetime", e.target.value)
-                  }
-                  className="flex-1 h-10 px-3.5 py-2.5 bg-white border border-[#e5e7eb] rounded-lg text-sm text-black placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50]"
-                />
+                <div className="flex-1">
+                  <LocalizedDateTimePicker
+                    value={formData.visitDatetime}
+                    onChange={(date) =>
+                      setFormData((prev) => ({ ...prev, visitDatetime: date }))
+                    }
+                    placeholder={_(msg`날짜 및 시간 선택`)}
+                    minDate={new Date()}
+                  />
+                </div>
               </div>
 
               {/* Memo */}

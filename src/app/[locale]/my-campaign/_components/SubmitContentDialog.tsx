@@ -4,6 +4,7 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,7 @@ import {
   parseSocialPlatforms,
   submitContentLinks,
 } from "@/lib/api/campaign";
+import { getLocalizedContent } from "@/lib/localized-content";
 
 interface SubmitContentDialogProps {
   open: boolean;
@@ -44,12 +46,22 @@ export function SubmitContentDialog({
   onSuccess,
 }: SubmitContentDialogProps) {
   const { _ } = useLingui();
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1] || "ko";
   const [links, setLinks] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Get platforms from campaign
   const platforms = campaign ? parseSocialPlatforms(campaign.social) : [];
+
+  // Get localized content
+  const displayTitle = campaign
+    ? getLocalizedContent(campaign.title, campaign.titleCn, locale)
+    : "";
+  const displayGoodsContents = campaign
+    ? getLocalizedContent(campaign.goodsContents, campaign.goodsContentsCn, locale)
+    : "";
 
   // Reset links when dialog opens or campaign changes
   useEffect(() => {
@@ -136,10 +148,10 @@ export function SubmitContentDialog({
             </div>
             <div className="flex-1 flex flex-col gap-1">
               <p className="text-base font-medium text-[#111827] leading-[1.5]">
-                {campaign.title}
+                {displayTitle}
               </p>
               <p className="text-sm text-[#6b7280] leading-5">
-                {campaign.goodsContents}
+                {displayGoodsContents}
               </p>
             </div>
           </div>

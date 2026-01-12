@@ -8,12 +8,7 @@ import { useState } from "react";
 
 import LocalizedLink from "@/components/LocalizedLink";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/shared/hooks/use-auth";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
@@ -62,11 +57,6 @@ export default function LoginPage() {
     } catch {
       // Error is handled by useAuth hook
     }
-  };
-
-  const handleMoveToInquire = () => {
-    window.open("http://pf.kakao.com/_IRpxhn", "_blank", "noopener,noreferrer");
-    setDialogOpen(false);
   };
 
   return (
@@ -151,36 +141,42 @@ export default function LoginPage() {
 
       {/* Find Email Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="sm:max-w-md p-0" showCloseButton={false}>
-          <DialogHeader className="px-5 py-4 border-b">
-            <div className="flex items-center justify-between">
-              <div className="w-5" />
-              <DialogTitle className="text-base font-semibold text-[#242424] text-center">
-                {_(msg`이메일찾기`)}
-              </DialogTitle>
-              <button
-                onClick={() => setDialogOpen(false)}
-                className="w-5 h-5 flex items-center justify-center hover:opacity-70 transition-opacity"
-              >
-                <X className="w-5 h-5 text-[#111827]" />
-              </button>
-            </div>
-          </DialogHeader>
-          <div className="px-5 py-4 text-center">
-            <p className="text-base text-[#374151] leading-[1.7] whitespace-pre-wrap">
+        <DialogContent
+          className="w-[372px] p-0 gap-0 overflow-hidden rounded-lg"
+          showCloseButton={false}
+        >
+          {/* Header */}
+          <div className="bg-white flex items-center justify-between px-5 py-4 h-15">
+            <div className="size-5" />
+            <DialogTitle className="text-base font-semibold text-[#242424] leading-[1.7]">
+              {_(msg`이메일찾기`)}
+            </DialogTitle>
+            <button
+              onClick={() => setDialogOpen(false)}
+              className="text-gray-800 hover:text-gray-600 transition-colors size-5"
+            >
+              <X className="size-5" />
+            </button>
+          </div>
+
+          {/* Content */}
+          <div className="bg-white flex flex-col items-center px-5 pb-5">
+            <p className="text-base text-[#374151] leading-[1.7] text-center mb-4 whitespace-pre-line">
               {_(msg`가입 이메일을 잊으셨나요?`)}
               {"\n"}
-              {_(msg`문의 채널을 이용해주세요.`)}
+              {_(msg`위챗 QR코드를 스캔해주세요.`)}
             </p>
-          </div>
-          <div className="px-5 py-4">
-            <Button
-              onClick={handleMoveToInquire}
-              variant="outline"
-              className="w-full h-10 border-[#e5e7eb] text-[#374151] text-sm font-medium"
-            >
-              {_(msg`문의채널로 이동`)}
-            </Button>
+
+            {/* WeChat QR Code */}
+            <div className="size-64.5 relative mb-4">
+              <Image
+                src="/wechat-qr.png"
+                alt="WeChat QR Code"
+                width={258}
+                height={258}
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
         </DialogContent>
       </Dialog>

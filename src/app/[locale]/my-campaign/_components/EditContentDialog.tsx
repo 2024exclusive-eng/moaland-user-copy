@@ -3,17 +3,19 @@
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { useState, useEffect } from "react";
 import { X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import {
   getSocialLabel,
-  submitContentLinks,
-  parseSocialPlatforms,
   type MyCampaign,
+  parseSocialPlatforms,
+  submitContentLinks,
 } from "@/lib/api/campaign";
+import { getLocalizedContent } from "@/lib/localized-content";
 
 interface EditContentDialogProps {
   open: boolean;
@@ -54,12 +56,22 @@ export function EditContentDialog({
   onSuccess,
 }: EditContentDialogProps) {
   const { _ } = useLingui();
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1] || "ko";
   const [links, setLinks] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Get platforms from campaign
   const platforms = campaign ? parseSocialPlatforms(campaign.social) : [];
+
+  // Get localized content
+  const displayTitle = campaign
+    ? getLocalizedContent(campaign.title, campaign.titleCn, locale)
+    : "";
+  const displayGoodsContents = campaign
+    ? getLocalizedContent(campaign.goodsContents, campaign.goodsContentsCn, locale)
+    : "";
 
   // Initialize links when dialog opens
   useEffect(() => {
@@ -93,9 +105,7 @@ export function EditContentDialog({
     // Validate all platform links are filled
     const emptyPlatforms = platforms.filter((p) => !links[p]?.trim());
     if (emptyPlatforms.length > 0) {
-      const labels = emptyPlatforms
-        .map((p) => getSocialLabel(p, _))
-        .join(", ");
+      const labels = emptyPlatforms.map((p) => getSocialLabel(p, _)).join(", ");
       setError(_(msg`${labels} URL을 입력해주세요.`));
       return;
     }
@@ -147,10 +157,10 @@ export function EditContentDialog({
             </p>
             <div className="flex flex-col gap-1">
               <p className="text-base font-medium text-[#111827] leading-[1.5]">
-                {campaign.title}
+                {displayTitle}
               </p>
               <p className="text-sm text-[#6b7280] leading-5">
-                {campaign.goodsContents}
+                {displayGoodsContents}
               </p>
             </div>
           </div>
@@ -181,7 +191,9 @@ export function EditContentDialog({
                 type="url"
                 value={links[platform] || ""}
                 onChange={(e) => handleLinkChange(platform, e.target.value)}
-                placeholder={_(msg`${getSocialLabel(platform, _)} URL을 등록해주세요.`)}
+                placeholder={_(
+                  msg`${getSocialLabel(platform, _)} URL을 등록해주세요.`
+                )}
                 className="w-full h-10 px-3.5 py-2.5 border border-[#e5e7eb] rounded-lg text-sm text-[#111827] placeholder:text-[#9ca3af] focus:outline-none focus:border-[#ea3a50] transition-colors"
               />
             </div>

@@ -1,7 +1,7 @@
 import type { MyCampaign, MyCampaignStatus } from "@/lib/api/campaign";
 
 // Enable mock data for testing (set to false to use real API)
-export const USE_MOCK_DATA = false;
+export const USE_MOCK_DATA = true;
 
 // Helper to create mock campaign with all required fields
 const createMockCampaign = (

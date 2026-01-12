@@ -5,6 +5,7 @@ import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { MoreHorizontal } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import LocalizedLink from "@/components/LocalizedLink";
@@ -23,6 +24,7 @@ import {
   parseSocialPlatforms,
   SOCIAL_LOGO_MAP,
 } from "@/lib/api/campaign";
+import { getLocalizedContent } from "@/lib/localized-content";
 import {
   useMyCampaigns,
   useMyCampaignsCounts,
@@ -211,9 +213,23 @@ function CampaignCard({
   onEditContent?: (campaign: MyCampaign) => void;
 }) {
   const { _ } = useLingui();
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1] || "ko";
   const daysRemaining = calculateDaysRemaining(campaign.enrollEndDate);
   const socialPlatforms = parseSocialPlatforms(campaign.social);
   const actionButtons = getActionButtons(status, _);
+
+  // Get localized content
+  const displayTitle = getLocalizedContent(
+    campaign.title,
+    campaign.titleCn,
+    locale
+  );
+  const displayMissionContent = getLocalizedContent(
+    campaign.missionContent,
+    campaign.missionContentCn,
+    locale
+  );
 
   const handleButtonClick = (_variant: string, key: string) => {
     if (status === "applied") {
@@ -256,7 +272,7 @@ function CampaignCard({
             src={campaign.thumbnailImg || "/images/placeholder.png"}
             width={78}
             height={78}
-            alt={campaign.title}
+            alt={displayTitle}
             className="w-full h-full object-cover"
           />
         </div>
@@ -265,10 +281,10 @@ function CampaignCard({
         <div className="flex-1 flex flex-col gap-2 justify-center min-w-0">
           <div className="flex flex-col">
             <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
-              {campaign.title}
+              {displayTitle}
             </h3>
             <p className="text-sm text-[#6b7280] leading-[1.7] line-clamp-1">
-              {campaign.missionContent}
+              {displayMissionContent}
             </p>
           </div>
 
@@ -467,8 +483,22 @@ function MobileCampaignCard({
   onEditContent?: (campaign: MyCampaign) => void;
 }) {
   const { _ } = useLingui();
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1] || "ko";
   const daysRemaining = calculateDaysRemaining(campaign.enrollEndDate);
   const socialPlatforms = parseSocialPlatforms(campaign.social);
+
+  // Get localized content
+  const displayTitle = getLocalizedContent(
+    campaign.title,
+    campaign.titleCn,
+    locale
+  );
+  const displayMissionContent = getLocalizedContent(
+    campaign.missionContent,
+    campaign.missionContentCn,
+    locale
+  );
 
   // Get menu items based on status
   const getMenuItems = () => {
@@ -597,10 +627,10 @@ function MobileCampaignCard({
         >
           <div className="flex flex-col">
             <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
-              {campaign.title}
+              {displayTitle}
             </h3>
             <p className="text-sm text-[#6b7280] leading-[1.7] line-clamp-2">
-              {campaign.missionContent}
+              {displayMissionContent}
             </p>
           </div>
 

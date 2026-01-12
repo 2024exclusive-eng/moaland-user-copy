@@ -48,6 +48,8 @@ export interface CampaignDetail {
   social: string;
   region: string;
   address: string;
+  addressCn: string | null;
+  addressEn: string | null;
   latitude: number;
   longitude: number;
   point: number;
@@ -113,8 +115,10 @@ export interface MyCampaign {
   missionId: number;
   category: string;
   missionContent: string;
+  missionContentCn: string | null;
   enrollStartDate: string;
   goodsContents: string;
+  goodsContentsCn: string | null;
   enrollEndDate: string;
   selectDate: string;
   paymentDate: string;
@@ -127,6 +131,7 @@ export interface MyCampaign {
   maxEnroll: number;
   brand: string;
   title: string;
+  titleCn: string | null;
   thumbnailImg: string;
   isRecommended: number;
   enrollCount: number;

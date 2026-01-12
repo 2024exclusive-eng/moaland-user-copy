@@ -5,6 +5,8 @@ import { ArrowLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 import LocalizedLink from "@/components/LocalizedLink";
+import { useAuth } from "@/shared/hooks/use-auth";
+import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 import { useProfile } from "@/shared/hooks/use-profile";
 
 import { ProfileBasicInfo } from "./_components/ProfileBasicInfo";
@@ -16,6 +18,13 @@ export default function ProfilePage() {
   const [profileTab, setProfileTab] = useState<"basic" | "password">("basic");
   const [mobileScreen, setMobileScreen] = useState<MobileScreen>("main");
   const { profile: profileData } = useProfile();
+  const { logout } = useAuth();
+  const { push } = useLocalizedNavigation();
+
+  const handleLogout = () => {
+    logout();
+    push("/login");
+  };
 
   // Mobile header title based on current screen
   const getMobileTitle = () => {
@@ -81,9 +90,19 @@ export default function ProfilePage() {
               </button>
 
               {/* Withdraw Link */}
-              <div className="px-[21px] py-4">
+              <div className="px-[21px] py-4 border-b border-[#e5e7eb]">
                 <ProfileBasicInfo profile={profileData} showWithdrawOnly />
               </div>
+
+              {/* Logout Button */}
+              <button
+                onClick={handleLogout}
+                className="flex items-center justify-between px-[21px] py-4 w-full"
+              >
+                <span className="text-base font-medium text-[#ea3a50]">
+                  <Trans>로그아웃</Trans>
+                </span>
+              </button>
             </div>
           )}
 

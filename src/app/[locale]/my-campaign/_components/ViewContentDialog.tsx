@@ -3,6 +3,7 @@
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import {
@@ -10,6 +11,7 @@ import {
   parseSocialPlatforms,
   type MyCampaign,
 } from "@/lib/api/campaign";
+import { getLocalizedContent } from "@/lib/localized-content";
 
 interface ViewContentDialogProps {
   open: boolean;
@@ -48,7 +50,14 @@ export function ViewContentDialog({
   campaign,
 }: ViewContentDialogProps) {
   const { _ } = useLingui();
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1] || "ko";
+
   if (!campaign) return null;
+
+  // Get localized content
+  const displayTitle = getLocalizedContent(campaign.title, campaign.titleCn, locale);
+  const displayGoodsContents = getLocalizedContent(campaign.goodsContents, campaign.goodsContentsCn, locale);
 
   const handleClose = () => {
     onOpenChange(false);
@@ -85,10 +94,10 @@ export function ViewContentDialog({
             </p>
             <div className="flex flex-col gap-1">
               <p className="text-base font-medium text-[#111827] leading-[1.5]">
-                {campaign.title}
+                {displayTitle}
               </p>
               <p className="text-sm text-[#6b7280] leading-5">
-                {campaign.goodsContents}
+                {displayGoodsContents}
               </p>
             </div>
           </div>

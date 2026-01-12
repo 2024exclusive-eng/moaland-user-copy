@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run i18n:extract:*)",
+      "Bash(grep:*)",
+      "mcp__figma__get_screenshot"
+    ]
+  }
+}
