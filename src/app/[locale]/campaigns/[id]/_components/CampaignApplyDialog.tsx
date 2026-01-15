@@ -14,6 +14,7 @@ import {
   type CampaignApplyRequest,
   getSocialLabel,
 } from "@/lib/api/campaign";
+import { getKoreaTodayStart } from "@/lib/date-utils";
 import { extractErrorMessage } from "@/shared/hooks/use-auth";
 
 interface CampaignApplyDialogProps {
@@ -267,7 +268,7 @@ export function CampaignApplyDialog({
                       setFormData((prev) => ({ ...prev, visitDatetime: date }))
                     }
                     placeholder={_(msg`날짜 및 시간 선택`)}
-                    minDate={new Date()}
+                    minDate={getKoreaTodayStart()}
                   />
                 </div>
               </div>

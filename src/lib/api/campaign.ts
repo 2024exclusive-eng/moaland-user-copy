@@ -1,6 +1,7 @@
 import { msg } from "@lingui/core/macro";
 
 import api from "@/lib/axios";
+import { calculateDaysRemainingKST } from "@/lib/date-utils";
 
 // Types
 export interface Banner {
@@ -288,10 +289,7 @@ export async function getNewCampaigns(
 
 // Utility functions
 export function calculateDaysRemaining(enrollEndDate: string): number {
-  const endDate = new Date(enrollEndDate);
-  const now = new Date();
-  const diffTime = endDate.getTime() - now.getTime();
-  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return calculateDaysRemainingKST(enrollEndDate);
 }
 
 export function getDeadlineApproachingCampaigns(

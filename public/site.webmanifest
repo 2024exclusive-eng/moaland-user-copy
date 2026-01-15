@@ -1,0 +1,30 @@
+{
+  "name": "K-Viewo",
+  "short_name": "K-Viewo",
+  "description": "K-Viewo - Creator Campaign Platform",
+  "icons": [
+    {
+      "src": "/kviewo_logo.png",
+      "sizes": "567x567",
+      "type": "image/png"
+    },
+    {
+      "src": "/kviewo_logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/kviewo_logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait-primary"
+}

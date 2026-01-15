@@ -20,6 +20,13 @@ import {
   SOCIAL_LOGO_MAP,
 } from "@/lib/api/campaign";
 import { tokenStorage } from "@/lib/axios";
+import {
+  formatDateMMDD,
+  formatDateRangeMMDD,
+  getKoreaTime,
+  setKoreaEndOfDay,
+  toKoreaTime,
+} from "@/lib/date-utils";
 import { getLocalizedContent } from "@/lib/localized-content";
 import { useCampaignDetail } from "@/shared/hooks/use-campaigns";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
@@ -41,11 +48,9 @@ function getButtonState(
   enrollStartDate: string,
   enrollEndDate: string
 ): ButtonState {
-  const now = new Date();
-  const startDate = new Date(enrollStartDate);
-  const endDate = new Date(enrollEndDate);
-  // Set end date to end of day (23:59:59.999) so enrollment is available all day
-  endDate.setHours(23, 59, 59, 999);
+  const now = getKoreaTime();
+  const startDate = toKoreaTime(enrollStartDate);
+  const endDate = setKoreaEndOfDay(toKoreaTime(enrollEndDate));
 
   if (now < startDate) {
     return "opening-soon";
@@ -68,21 +73,13 @@ function getButtonConfig(
 
 // Helper function to format date range
 function formatDateRange(startDate: string, endDate: string): string {
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-  const formatDate = (d: Date) =>
-    `${String(d.getMonth() + 1).padStart(2, "0")}.${String(
-      d.getDate()
-    ).padStart(2, "0")}`;
-  return `${formatDate(start)}~${formatDate(end)}`;
+  return formatDateRangeMMDD(startDate, endDate);
 }
 
 // Helper function to format single date
 function formatSingleDate(date: string): string {
-  const d = new Date(date);
-  return `${String(d.getMonth() + 1).padStart(2, "0")}.${String(
-    d.getDate()
-  ).padStart(2, "0")}`;
+  const d = toKoreaTime(date);
+  return formatDateMMDD(d);
 }
 
 // Loading skeleton component

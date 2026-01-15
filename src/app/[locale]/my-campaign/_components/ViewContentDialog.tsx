@@ -11,6 +11,7 @@ import {
   parseSocialPlatforms,
   type MyCampaign,
 } from "@/lib/api/campaign";
+import { formatDateMMDD, toKoreaTime } from "@/lib/date-utils";
 import { getLocalizedContent } from "@/lib/localized-content";
 
 interface ViewContentDialogProps {
@@ -22,16 +23,10 @@ interface ViewContentDialogProps {
 function formatDateRange(start: string | null, end: string | null): string {
   if (!start || !end) return "-";
 
-  const startDate = new Date(start);
-  const endDate = new Date(end);
+  const startDate = toKoreaTime(start);
+  const endDate = toKoreaTime(end);
 
-  const formatDate = (date: Date) => {
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${month}.${day}`;
-  };
-
-  return `${formatDate(startDate)}~${formatDate(endDate)}`;
+  return `${formatDateMMDD(startDate)}~${formatDateMMDD(endDate)}`;
 }
 
 // Parse the link field which contains JSON object of platform URLs

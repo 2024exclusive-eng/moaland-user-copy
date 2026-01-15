@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { checkEnrollmentStatus } from "@/lib/api/campaign";
 import { tokenStorage } from "@/lib/axios";
+import { getKoreaTime, setKoreaEndOfDay, toKoreaTime } from "@/lib/date-utils";
 import { useBanners } from "@/shared/hooks/use-campaigns";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
@@ -55,11 +56,9 @@ function getButtonState(
   enrollStartDate: string,
   enrollEndDate: string
 ): ButtonState {
-  const now = new Date();
-  const startDate = new Date(enrollStartDate);
-  const endDate = new Date(enrollEndDate);
-  // Set end date to end of day (23:59:59.999) so enrollment is available all day
-  endDate.setHours(23, 59, 59, 999);
+  const now = getKoreaTime();
+  const startDate = toKoreaTime(enrollStartDate);
+  const endDate = setKoreaEndOfDay(toKoreaTime(enrollEndDate));
 
   if (now < startDate) {
     return "opening-soon";

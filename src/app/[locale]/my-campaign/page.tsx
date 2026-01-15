@@ -24,6 +24,11 @@ import {
   parseSocialPlatforms,
   SOCIAL_LOGO_MAP,
 } from "@/lib/api/campaign";
+import {
+  formatDateMMDD,
+  getKoreaTime,
+  toKoreaTime,
+} from "@/lib/date-utils";
 import { getLocalizedContent } from "@/lib/localized-content";
 import {
   useMyCampaigns,
@@ -48,7 +53,7 @@ function formatVisitDateTime(
   _: ReturnType<typeof useLingui>["_"]
 ): string {
   if (!dateString) return "";
-  const date = new Date(dateString);
+  const date = toKoreaTime(dateString);
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   const hours = date.getHours();
@@ -65,14 +70,9 @@ function formatContentDateRange(
   _: ReturnType<typeof useLingui>["_"]
 ): string {
   if (!startDate || !endDate) return "";
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-  const formatDate = (d: Date) => {
-    const month = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
-    return `${month}.${day}`;
-  };
-  return `${formatDate(start)}~${formatDate(end)} ${_(msg`등록`)}`;
+  const start = toKoreaTime(startDate);
+  const end = toKoreaTime(endDate);
+  return `${formatDateMMDD(start)}~${formatDateMMDD(end)} ${_(msg`등록`)}`;
 }
 
 // Tab configuration with labels - using function to enable translation
@@ -378,18 +378,18 @@ function CampaignCard({
           const isContentRegistrationButton =
             status === "selected" && button.key === "viewCampaign";
 
-          const now = new Date();
+          const now = getKoreaTime();
           const missionStartDate = campaign.missionStartDate
-            ? new Date(campaign.missionStartDate)
+            ? toKoreaTime(campaign.missionStartDate)
             : null;
           const missionEndDate = campaign.missionEndDate
-            ? new Date(campaign.missionEndDate)
+            ? toKoreaTime(campaign.missionEndDate)
             : null;
           const contentStartDate = campaign.contentStartDate
-            ? new Date(campaign.contentStartDate)
+            ? toKoreaTime(campaign.contentStartDate)
             : null;
           const contentEndDate = campaign.contentEndDate
-            ? new Date(campaign.contentEndDate)
+            ? toKoreaTime(campaign.contentEndDate)
             : null;
 
           const effectiveStartDate =
@@ -554,18 +554,18 @@ function MobileCampaignCard({
 
   // Get action button config for selected/registered/ended tabs
   const getActionButton = () => {
-    const now = new Date();
+    const now = getKoreaTime();
     const missionStartDate = campaign.missionStartDate
-      ? new Date(campaign.missionStartDate)
+      ? toKoreaTime(campaign.missionStartDate)
       : null;
     const missionEndDate = campaign.missionEndDate
-      ? new Date(campaign.missionEndDate)
+      ? toKoreaTime(campaign.missionEndDate)
       : null;
     const contentStartDate = campaign.contentStartDate
-      ? new Date(campaign.contentStartDate)
+      ? toKoreaTime(campaign.contentStartDate)
       : null;
     const contentEndDate = campaign.contentEndDate
-      ? new Date(campaign.contentEndDate)
+      ? toKoreaTime(campaign.contentEndDate)
       : null;
 
     const effectiveStartDate =
