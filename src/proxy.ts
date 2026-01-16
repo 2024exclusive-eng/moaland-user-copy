@@ -12,6 +12,12 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${defaultLocale}/`, request.url));
   }
 
+  // Allow SEO files to bypass locale routing
+  const seoFiles = ["/sitemap.xml", "/robots.txt"];
+  if (seoFiles.includes(pathname)) {
+    return NextResponse.next();
+  }
+
   const segments = pathname.split("/").filter(Boolean);
 
   const pathnameHasLocale = locales.some((locale) => {
@@ -40,7 +46,11 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${currentLocale}`, request.url));
   }
 
-  return NextResponse.next();
+  // Add pathname to headers for lang attribute detection in root layout
+  const response = NextResponse.next();
+  response.headers.set("x-pathname", pathname);
+
+  return response;
 }
 
 function getRequestLocale(requestHeaders: Headers): Locale {

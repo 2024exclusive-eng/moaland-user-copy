@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 
 import { generateOrganizationSchema, generateWebsiteSchema } from "@/lib/seo";
 
@@ -9,7 +10,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://kviewo.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "K-Viewo - Creator Campaign Platform",
+    default: "K-Viewo",
     template: "%s | K-Viewo",
   },
   description:
@@ -97,7 +98,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -105,8 +106,14 @@ export default function RootLayout({
   const organizationSchema = generateOrganizationSchema();
   const websiteSchema = generateWebsiteSchema();
 
+  // Extract locale from URL for lang attribute
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") || "";
+  const localeMatch = pathname.match(/^\/(en|ko|zh)/);
+  const locale = localeMatch ? localeMatch[1] : "en";
+
   return (
-    <html>
+    <html lang={locale}>
       <head>
         <script
           type="application/ld+json"

@@ -1,9 +1,6 @@
-# *
 User-agent: *
 Allow: /
 
-# Disallow private/auth routes
 Disallow: /api/
 
-# Sitemap
 Sitemap: https://kviewo.com/sitemap.xml
