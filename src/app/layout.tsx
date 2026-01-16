@@ -1,6 +1,6 @@
 import "./globals.css";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 
 import { generateOrganizationSchema, generateWebsiteSchema } from "@/lib/seo";
@@ -58,10 +58,10 @@ export const metadata: Metadata = {
       "Connect with brands and grow your creator career. K-Viewo is the leading platform for creator campaigns and collaborations.",
     images: [
       {
-        url: "/logo.png",
-        width: 567,
-        height: 567,
-        alt: "K-Viewo Logo",
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "K-Viewo - Creator Campaign Platform",
       },
     ],
   },
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     title: "K-Viewo - Creator Campaign Platform",
     description:
       "Connect with brands and grow your creator career. K-Viewo is the leading platform for creator campaigns and collaborations.",
-    images: ["/logo.png"],
+    images: ["/og.png"],
     creator: "@kviewo",
   },
   alternates: {
@@ -81,21 +81,22 @@ export const metadata: Metadata = {
       zh: `${SITE_URL}/zh`,
     },
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#242424" },
-  ],
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-  },
   verification: {
     // Add your verification codes here when available
     // google: "your-google-verification-code",
     // yandex: "your-yandex-verification-code",
     // bing: "your-bing-verification-code",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#242424" },
+  ],
 };
 
 export default async function RootLayout({
