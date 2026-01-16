@@ -12,8 +12,8 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${defaultLocale}/`, request.url));
   }
 
-  // Allow SEO files to bypass locale routing
-  const seoFiles = ["/sitemap.xml", "/robots.txt"];
+  // Allow SEO files and manifest to bypass locale routing
+  const seoFiles = ["/sitemap.xml", "/robots.txt", "/site.webmanifest"];
   if (seoFiles.includes(pathname)) {
     return NextResponse.next();
   }
