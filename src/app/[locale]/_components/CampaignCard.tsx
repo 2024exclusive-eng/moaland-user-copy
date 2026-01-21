@@ -55,19 +55,30 @@ export function CampaignCard({
 
   // Get localized content
   const displayTitle = getLocalizedContent(title, titleCn, locale);
-  const displayMissionContent = getLocalizedContent(missionContent, missionContentCn, locale);
+  const displayMissionContent = getLocalizedContent(
+    missionContent,
+    missionContentCn,
+    locale,
+  );
+
+  // Handle click - redirect to login if not authenticated
+  const handleClick = () => {
+    onClick?.();
+  };
 
   // Vertical variant (for search page)
   if (variant === "vertical") {
     return (
-      <div onClick={onClick} className="group cursor-pointer">
+      <div onClick={handleClick} className="group cursor-pointer">
         {/* Image Container */}
         <div className="relative w-full aspect-square overflow-hidden rounded-sm mb-3">
           <Image
             src={thumbnailImg}
             alt={displayTitle}
-            width={256}
-            height={256}
+            width={280}
+            priority
+            quality={100}
+            height={280}
             className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
           />
         </div>
@@ -113,7 +124,7 @@ export function CampaignCard({
 
   // Horizontal variant (default)
   return (
-    <div onClick={onClick} className="group cursor-pointer">
+    <div onClick={handleClick} className="group cursor-pointer">
       {/* Mobile: Horizontal Layout */}
       <div className="md:hidden flex gap-3">
         {/* Image Container */}
@@ -121,6 +132,8 @@ export function CampaignCard({
           <Image
             src={thumbnailImg}
             alt={displayTitle}
+            quality={100}
+            priority
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
@@ -168,6 +181,8 @@ export function CampaignCard({
         <div className="relative w-full aspect-square overflow-hidden rounded-lg mb-3">
           <Image
             src={thumbnailImg}
+            priority
+            quality={100}
             alt={displayTitle}
             width={280}
             height={280}
@@ -206,7 +221,9 @@ export function CampaignCard({
           <div className="text-[#111827] font-semibold text-[16px] mt-2">
             <h3>{displayTitle}</h3>
             <p className="text-[#6B7280] font-light text-sm mt-1 line-clamp-2">
-              <span dangerouslySetInnerHTML={{ __html: displayMissionContent }} />
+              <span
+                dangerouslySetInnerHTML={{ __html: displayMissionContent }}
+              />
             </p>
           </div>
 

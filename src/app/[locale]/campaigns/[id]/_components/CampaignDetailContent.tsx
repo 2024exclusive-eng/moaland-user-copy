@@ -46,7 +46,7 @@ type ButtonState = "opening-soon" | "apply" | "deadline";
 // Helper function to get button state
 function getButtonState(
   enrollStartDate: string,
-  enrollEndDate: string
+  enrollEndDate: string,
 ): ButtonState {
   const now = getKoreaTime();
   const startDate = toKoreaTime(enrollStartDate);
@@ -62,7 +62,7 @@ function getButtonState(
 
 // Helper function to get button config
 function getButtonConfig(
-  _: ReturnType<typeof useLingui>["_"]
+  _: ReturnType<typeof useLingui>["_"],
 ): Record<ButtonState, { text: string; disabled: boolean }> {
   return {
     "opening-soon": { text: _(msg`오픈 예정`), disabled: true },
@@ -134,7 +134,7 @@ export function CampaignDetailContent({
   const getContent = (
     ko: string,
     cn: string | null | undefined,
-    en?: string | null | undefined
+    en?: string | null | undefined,
   ) => getLocalizedContent(ko, cn, locale, en);
 
   const [isApplyDialogOpen, setIsApplyDialogOpen] = useState(false);
@@ -163,16 +163,16 @@ export function CampaignDetailContent({
   // Format dates for display
   const applicationPeriod = formatDateRange(
     mission.enrollStartDate,
-    mission.enrollEndDate
+    mission.enrollEndDate,
   );
   const announcementDate = formatSingleDate(mission.selectDate);
   const visitPeriod = formatDateRange(
     mission.missionStartDate,
-    mission.missionEndDate
+    mission.missionEndDate,
   );
   const registrationPeriod = formatDateRange(
     mission.contentStartDate,
-    mission.contentEndDate
+    mission.contentEndDate,
   );
 
   // Parse detail images (could be comma-separated or single image)
@@ -191,7 +191,7 @@ export function CampaignDetailContent({
   // Button state and handlers for mobile sticky button
   const buttonState = getButtonState(
     mission.enrollStartDate,
-    mission.enrollEndDate
+    mission.enrollEndDate,
   );
   const buttonConfig = getButtonConfig(_);
   const { text: buttonText, disabled: isButtonDisabled } =
@@ -413,7 +413,7 @@ export function CampaignDetailContent({
                       {getContent(
                         mission.address,
                         mission.addressCn,
-                        mission.addressEn
+                        mission.addressEn,
                       )}
                     </p>
                     <div className="relative h-[347px] w-full bg-gray-100 rounded-lg overflow-hidden">
@@ -423,7 +423,7 @@ export function CampaignDetailContent({
                         address={getContent(
                           mission.address,
                           mission.addressCn,
-                          mission.addressEn
+                          mission.addressEn,
                         )}
                       />
                     </div>
@@ -441,7 +441,7 @@ export function CampaignDetailContent({
                       {getContent(
                         mission.address,
                         mission.addressCn,
-                        mission.addressEn
+                        mission.addressEn,
                       )}
                     </p>
                   </div>
@@ -452,7 +452,7 @@ export function CampaignDetailContent({
                       address={getContent(
                         mission.address,
                         mission.addressCn,
-                        mission.addressEn
+                        mission.addressEn,
                       )}
                     />
                   </div>
@@ -476,7 +476,7 @@ export function CampaignDetailContent({
                         dangerouslySetInnerHTML={{
                           __html: getContent(
                             mission.guideline,
-                            mission.guidelineCn
+                            mission.guidelineCn,
                           ),
                         }}
                       />
@@ -501,7 +501,7 @@ export function CampaignDetailContent({
                         dangerouslySetInnerHTML={{
                           __html: getContent(
                             mission.missionContents,
-                            mission.missionContentsCn
+                            mission.missionContentsCn,
                           ),
                         }}
                       />
@@ -525,7 +525,7 @@ export function CampaignDetailContent({
                       dangerouslySetInnerHTML={{
                         __html: getContent(
                           mission.additionalInfo,
-                          mission.additionalInfoCn
+                          mission.additionalInfoCn,
                         ),
                       }}
                     />
@@ -541,7 +541,7 @@ export function CampaignDetailContent({
               campaignTitle={getContent(mission.title, mission.titleCn)}
               campaignSubtitle={getContent(
                 mission.goodsContents,
-                mission.goodsContentsCn
+                mission.goodsContentsCn,
               )}
               applicationPeriod={applicationPeriod}
               announcementDate={announcementDate}
@@ -583,7 +583,7 @@ export function CampaignDetailContent({
           campaignTitle={getContent(mission.title, mission.titleCn)}
           campaignSubtitle={getContent(
             mission.goodsContents,
-            mission.goodsContentsCn
+            mission.goodsContentsCn,
           )}
           social={mission.social}
           open={isApplyDialogOpen}

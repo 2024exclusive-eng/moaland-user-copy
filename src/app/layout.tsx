@@ -2,6 +2,7 @@ import "./globals.css";
 
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
+import Script from "next/script";
 
 import { generateOrganizationSchema, generateWebsiteSchema } from "@/lib/seo";
 
@@ -82,10 +83,12 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // Add your verification codes here when available
     // google: "your-google-verification-code",
     // yandex: "your-yandex-verification-code",
     // bing: "your-bing-verification-code",
+    other: {
+      "naver-site-verification": "9c58db13a3715b34a8922346b00760a85ae39b66",
+    },
   },
 };
 
@@ -130,6 +133,19 @@ export default async function RootLayout({
         />
       </head>
       <body className={`antialiased`}>
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-JXNBYEGT8W"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-JXNBYEGT8W');
+          `}
+        </Script>
         <main>{children} </main>
       </body>
     </html>
