@@ -128,7 +128,22 @@ export function CampaignDetailContent({
   const { push } = useLocalizedNavigation();
   const pathname = usePathname();
   const locale = pathname.split("/")[1] || "ko";
-  const { mission, isLoading, isError } = useCampaignDetail(missionId);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+  // Check auth status on mount and redirect if not logged in
+  useEffect(() => {
+    const token = tokenStorage.get();
+    if (!token) {
+      push("login");
+      return;
+    }
+    setIsLoggedIn(true);
+  }, [push]);
+
+  // Only fetch campaign detail when logged in
+  const { mission, isLoading, isError } = useCampaignDetail(
+    isLoggedIn ? missionId : null,
+  );
 
   // Helper to get localized content
   const getContent = (
@@ -142,14 +157,9 @@ export function CampaignDetailContent({
     "already-applied" | "success" | null
   >(null);
   const [isChecking, setIsChecking] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check auth status on mount
-  useEffect(() => {
-    setIsLoggedIn(!!tokenStorage.get());
-  }, []);
-
-  if (isLoading) {
+  // Show skeleton while checking auth or loading data
+  if (isLoggedIn === null || isLoading) {
     return <CampaignDetailSkeleton />;
   }
 
@@ -384,7 +394,7 @@ export function CampaignDetailContent({
               />
 
               {/* Provision Details */}
-              <div className="flex gap-4 py-4">
+              <div className="flex gap-4 py-4 md:flex-row flex-col">
                 <div className="w-[118px] shrink-0">
                   <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
                     {_(msg`제공 내역`)}
@@ -402,7 +412,7 @@ export function CampaignDetailContent({
               {/* Store Location */}
               <div className="py-4">
                 {/* Desktop layout */}
-                <div className="hidden md:flex gap-4">
+                <div className="hidden md:flex gap-4 md:flex-row flex-col">
                   <div className="w-[118px] shrink-0">
                     <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
                       {_(msg`매장 위치`)}
@@ -430,8 +440,8 @@ export function CampaignDetailContent({
                   </div>
                 </div>
                 {/* Mobile layout */}
-                <div className="md:hidden flex flex-col gap-3">
-                  <div className="flex gap-4">
+                <div className="md:hidden flex flex-col  gap-3">
+                  <div className="flex gap-4 md:flex-row flex-col">
                     <div className="w-[118px] shrink-0">
                       <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
                         {_(msg`매장 위치`)}
@@ -464,7 +474,7 @@ export function CampaignDetailContent({
               {/* Guideline */}
               {mission.guideline && (
                 <>
-                  <div className="flex gap-4 py-4">
+                  <div className="flex gap-4 md:flex-row flex-col py-4">
                     <div className="w-[118px] shrink-0">
                       <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
                         {_(msg`가이드라인`)}
@@ -489,7 +499,7 @@ export function CampaignDetailContent({
               {/* Mission Contents */}
               {mission.missionContents && (
                 <>
-                  <div className="flex gap-4 py-4">
+                  <div className="flex gap-4 md:flex-row flex-col py-4">
                     <div className="w-[118px] shrink-0">
                       <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
                         {_(msg`미션 내용`)}
@@ -513,7 +523,7 @@ export function CampaignDetailContent({
 
               {/* Additional Information */}
               {mission.additionalInfo && (
-                <div className="flex gap-4 py-4 pb-16">
+                <div className="flex gap-4 md:flex-row flex-col py-4 pb-16">
                   <div className="w-[118px] shrink-0">
                     <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
                       {_(msg`추가 안내사항`)}
