@@ -94,6 +94,14 @@ export function CategoryIcons({
     },
     {
       icon: (
+        <Image src="/icons/others.svg" width={40} height={40} alt="others" />
+      ),
+      label: _(msg`기타`),
+      value: "Others",
+      type: "filter",
+    },
+    {
+      icon: (
         <Image src="/icons/inquire.svg" width={40} height={40} alt="inquire" />
       ),
       label: _(msg`광고문의`),
@@ -106,7 +114,7 @@ export function CategoryIcons({
     switch (category.type) {
       case "guide":
         // Redirect to support page with usage tab
-        push("support?tab=usage");
+        push("support/usage");
         break;
       case "inquiry":
         // Open Kakao inquiry in new tab

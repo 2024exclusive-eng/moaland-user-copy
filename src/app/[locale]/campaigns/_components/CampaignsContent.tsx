@@ -31,7 +31,7 @@ function getCategoryTabs(_: ReturnType<typeof useLingui>["_"]) {
     { label: _(msg`문화`), value: "Culture" },
     { label: _(msg`숙박`), value: "Stay" },
     { label: _(msg`마사지`), value: "Massage" },
-    { label: _(msg`기타`), value: "Other" },
+    { label: _(msg`기타`), value: "Others" },
   ];
 }
 
@@ -98,16 +98,16 @@ export function CampaignsContent({
   };
 
   const [currentCategory, setCurrentCategory] = useState<string | undefined>(
-    initialCategory
+    initialCategory,
   );
   const [currentRegion, setCurrentRegion] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   const [currentSocial, setCurrentSocial] = useState<string | undefined>(
-    initialSocial
+    initialSocial,
   );
   const [currentSort, setCurrentSort] = useState<"deadline" | undefined>(
-    undefined
+    undefined,
   );
   const [currentPage, setCurrentPage] = useState(initialPage);
 
