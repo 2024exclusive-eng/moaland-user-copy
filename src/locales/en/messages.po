@@ -28,10 +28,10 @@ msgstr "Please enter your {0} URL."
 msgid "{0}명"
 msgstr "{0} people"
 
-#: src/app/[locale]/_components/CampaignCard.tsx:91
-#: src/app/[locale]/_components/CampaignCard.tsx:144
-#: src/app/[locale]/_components/CampaignCard.tsx:194
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:290
+#: src/app/[locale]/_components/CampaignCard.tsx:102
+#: src/app/[locale]/_components/CampaignCard.tsx:157
+#: src/app/[locale]/_components/CampaignCard.tsx:209
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:300
 #: src/app/[locale]/my-campaign/page.tsx:354
 #: src/app/[locale]/my-campaign/page.tsx:700
 msgid "{daysRemaining}일 남음"
@@ -121,7 +121,7 @@ msgstr "Title for SNS block is required."
 msgid "WeChat ID를 입력해주세요."
 msgstr "Please enter your WeChat ID."
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:470
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:480
 msgid "가이드라인"
 msgstr "Guidelines"
 
@@ -227,7 +227,7 @@ msgstr "Notice not found."
 msgid "광고 배너"
 msgstr "Advertisement"
 
-#: src/app/[locale]/_components/CategoryIcons.tsx:99
+#: src/app/[locale]/_components/CategoryIcons.tsx:107
 #: src/components/Header.tsx:338
 msgid "광고문의"
 msgstr "Advertising"
@@ -251,6 +251,7 @@ msgstr "Type for divider block is required."
 msgid "기본 정보"
 msgstr "Basic Info"
 
+#: src/app/[locale]/_components/CategoryIcons.tsx:99
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:34
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:45
 msgid "기타"
@@ -292,7 +293,7 @@ msgstr "Dianping"
 msgid "대표"
 msgstr "CEO"
 
-#: src/app/[locale]/_components/CampaignSection.tsx:68
+#: src/app/[locale]/_components/CampaignSection.tsx:74
 #: src/app/[locale]/_components/LandmarkSection.tsx:52
 msgid "더보기"
 msgstr "See More"
@@ -381,7 +382,7 @@ msgstr "Login"
 msgid "로그인 중..."
 msgstr "Logging in..."
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:203
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:213
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:134
 msgid "로그인 후 신청하세요!"
 msgstr "Please login to apply!"
@@ -415,9 +416,9 @@ msgstr "Title for link block is required."
 msgid "링크를 입력해주세요."
 msgstr "Please enter a link."
 
-#: src/app/[locale]/_components/CampaignCard.tsx:92
-#: src/app/[locale]/_components/CampaignCard.tsx:145
-#: src/app/[locale]/_components/CampaignCard.tsx:195
+#: src/app/[locale]/_components/CampaignCard.tsx:103
+#: src/app/[locale]/_components/CampaignCard.tsx:158
+#: src/app/[locale]/_components/CampaignCard.tsx:210
 msgid "마감"
 msgstr "Closed"
 
@@ -446,8 +447,8 @@ msgstr "My Page"
 msgid "맛집"
 msgstr "Restaurant"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:408
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:437
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:418
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:447
 msgid "매장 위치"
 msgstr "Store Location"
 
@@ -458,7 +459,7 @@ msgstr "Store Location"
 msgid "메모"
 msgstr "Notes"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:373
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:383
 msgid "명"
 msgstr "people"
 
@@ -511,7 +512,7 @@ msgstr "Culture"
 msgid "미디어 전체"
 msgstr "All Media"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:495
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:505
 msgid "미션 내용"
 msgstr "Mission Details"
 
@@ -531,7 +532,7 @@ msgstr "Visit"
 msgid "방문 날짜와 시간을 입력해주세요."
 msgstr "Please enter the visit date and time."
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:338
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:348
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:181
 msgid "방문기간"
 msgstr "Visit Period"
@@ -736,9 +737,9 @@ msgstr "This mission has not started yet."
 msgid "신규회원을 위한"
 msgstr "For new members"
 
-#: src/app/[locale]/_components/CampaignCard.tsx:96
-#: src/app/[locale]/_components/CampaignCard.tsx:161
-#: src/app/[locale]/_components/CampaignCard.tsx:200
+#: src/app/[locale]/_components/CampaignCard.tsx:107
+#: src/app/[locale]/_components/CampaignCard.tsx:174
+#: src/app/[locale]/_components/CampaignCard.tsx:215
 #: src/app/[locale]/my-campaign/page.tsx:91
 #: src/app/[locale]/my-campaign/page.tsx:368
 #: src/app/[locale]/my-campaign/page.tsx:714
@@ -787,7 +788,7 @@ msgstr "View Application"
 msgid "신청에 실패했습니다"
 msgstr "Application failed"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:362
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:372
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:186
 msgid "신청자"
 msgstr "Applicants"
@@ -1070,7 +1071,7 @@ msgstr "Verification code has expired."
 msgid "인증코드가 일치하지 않습니다."
 msgstr "Verification code does not match."
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:326
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:336
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:180
 msgid "인플루언서 발표"
 msgstr "Influencer Announcement"
@@ -1099,7 +1100,7 @@ msgstr "Invalid email address."
 msgid "잘못된 인증번호입니다. 다시 확인 후 입력해 주세요."
 msgstr "Invalid verification code. Please check and enter again."
 
-#: src/app/[locale]/_components/CampaignSection.tsx:85
+#: src/app/[locale]/_components/CampaignSection.tsx:91
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:412
 msgid "잠시 후 다시 시도해주세요"
 msgstr "Please try again later"
@@ -1164,7 +1165,7 @@ msgstr "Failure to submit content or reviews within the registration period with
 msgid "정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다."
 msgstr "Are you sure you want to delete your account? All data will be deleted and cannot be recovered."
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:390
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:400
 msgid "제공 내역"
 msgstr "Provided Items"
 
@@ -1239,7 +1240,7 @@ msgstr "Processing..."
 msgid "최신 등록순"
 msgstr "Newest first"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:519
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:529
 msgid "추가 안내사항"
 msgstr "Additional Information"
 
@@ -1304,7 +1305,7 @@ msgstr "Campaign List"
 msgid "캠페인 보기"
 msgstr "View Campaign"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:248
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:258
 msgid "캠페인 상세"
 msgstr "Campaign Details"
 
@@ -1312,7 +1313,7 @@ msgstr "Campaign Details"
 msgid "캠페인 신청 취소하기"
 msgstr "Cancel Campaign Application"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:314
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:324
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:179
 msgid "캠페인 신청기간"
 msgstr "Application Period"
@@ -1361,12 +1362,12 @@ msgstr "Join the campaign!"
 msgid "캠페인은 신청기간내 재신청이 가능합니다."
 msgstr "You can reapply during the application period."
 
-#: src/app/[locale]/_components/CampaignSection.tsx:83
+#: src/app/[locale]/_components/CampaignSection.tsx:89
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:409
 msgid "캠페인을 불러오는데 실패했습니다"
 msgstr "Failed to load campaigns"
 
-#: src/app/[locale]/_components/CampaignSection.tsx:92
+#: src/app/[locale]/_components/CampaignSection.tsx:98
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:421
 msgid "캠페인이 없습니다"
 msgstr "No campaigns available"
@@ -1412,7 +1413,7 @@ msgstr "Content URL"
 #~ msgid "콘텐츠 등록"
 #~ msgstr "Register Content"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:350
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:360
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:182
 #: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:166
 #: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:158
@@ -1529,7 +1530,7 @@ msgstr "Home"
 msgid "확인"
 msgstr "Confirm"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:201
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:211
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:132
 msgid "확인 중..."
 msgstr "Checking..."

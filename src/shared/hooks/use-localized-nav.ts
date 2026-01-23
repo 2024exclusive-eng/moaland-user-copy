@@ -8,7 +8,7 @@ export function useLocalizedNavigation() {
   const params = useParams();
   const path = usePathname();
   const cleanPath = !path.at(3) ? "/" : `/${path.split("/")?.at(-1)}`;
-  const currentLocale = params.locale as string;
+  const currentLocale = (params.locale as string) || "ko";
 
   const push = useCallback(
     (path: string) => {

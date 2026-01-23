@@ -19,7 +19,7 @@ export default function LocalizedLink({
   ...linkProps
 }: LocalizedLinkProps) {
   const params = useParams();
-  const currentLocale = params.locale as string;
+  const currentLocale = (params.locale as string) || "ko";
 
   const localizedHref = href.startsWith("/")
     ? `/${currentLocale}${href}`

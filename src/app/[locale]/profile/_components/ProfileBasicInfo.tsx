@@ -123,7 +123,10 @@ export function ProfileBasicInfo({
         // Clear auth token and redirect to login page
         logout();
         const locale = window.location.pathname.split("/")[1] || "en";
-        window.location.href = `/${locale}/login`;
+        // Small delay to ensure cookie is removed before redirect
+        setTimeout(() => {
+          window.location.href = `/${locale}/login`;
+        }, 50);
       }
     } catch (err) {
       const errorMessage = (
