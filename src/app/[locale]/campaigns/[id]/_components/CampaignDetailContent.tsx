@@ -46,7 +46,7 @@ type ButtonState = "opening-soon" | "apply" | "deadline";
 // Helper function to get button state
 function getButtonState(
   enrollStartDate: string,
-  enrollEndDate: string
+  enrollEndDate: string,
 ): ButtonState {
   const now = getKoreaTime();
   const startDate = toKoreaTime(enrollStartDate);
@@ -62,7 +62,7 @@ function getButtonState(
 
 // Helper function to get button config
 function getButtonConfig(
-  _: ReturnType<typeof useLingui>["_"]
+  _: ReturnType<typeof useLingui>["_"],
 ): Record<ButtonState, { text: string; disabled: boolean }> {
   return {
     "opening-soon": { text: _(msg`오픈 예정`), disabled: true },
@@ -128,13 +128,28 @@ export function CampaignDetailContent({
   const { push } = useLocalizedNavigation();
   const pathname = usePathname();
   const locale = pathname.split("/")[1] || "ko";
-  const { mission, isLoading, isError } = useCampaignDetail(missionId);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+  // Check auth status on mount and redirect if not logged in
+  useEffect(() => {
+    const token = tokenStorage.get();
+    if (!token) {
+      push("login");
+      return;
+    }
+    setIsLoggedIn(true);
+  }, [push]);
+
+  // Only fetch campaign detail when logged in
+  const { mission, isLoading, isError } = useCampaignDetail(
+    isLoggedIn ? missionId : null,
+  );
 
   // Helper to get localized content
   const getContent = (
     ko: string,
     cn: string | null | undefined,
-    en?: string | null | undefined
+    en?: string | null | undefined,
   ) => getLocalizedContent(ko, cn, locale, en);
 
   const [isApplyDialogOpen, setIsApplyDialogOpen] = useState(false);
@@ -142,14 +157,9 @@ export function CampaignDetailContent({
     "already-applied" | "success" | null
   >(null);
   const [isChecking, setIsChecking] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check auth status on mount
-  useEffect(() => {
-    setIsLoggedIn(!!tokenStorage.get());
-  }, []);
-
-  if (isLoading) {
+  // Show skeleton while checking auth or loading data
+  if (isLoggedIn === null || isLoading) {
     return <CampaignDetailSkeleton />;
   }
 
@@ -163,16 +173,16 @@ export function CampaignDetailContent({
   // Format dates for display
   const applicationPeriod = formatDateRange(
     mission.enrollStartDate,
-    mission.enrollEndDate
+    mission.enrollEndDate,
   );
   const announcementDate = formatSingleDate(mission.selectDate);
   const visitPeriod = formatDateRange(
     mission.missionStartDate,
-    mission.missionEndDate
+    mission.missionEndDate,
   );
   const registrationPeriod = formatDateRange(
     mission.contentStartDate,
-    mission.contentEndDate
+    mission.contentEndDate,
   );
 
   // Parse detail images (could be comma-separated or single image)
@@ -191,7 +201,7 @@ export function CampaignDetailContent({
   // Button state and handlers for mobile sticky button
   const buttonState = getButtonState(
     mission.enrollStartDate,
-    mission.enrollEndDate
+    mission.enrollEndDate,
   );
   const buttonConfig = getButtonConfig(_);
   const { text: buttonText, disabled: isButtonDisabled } =
@@ -384,7 +394,7 @@ export function CampaignDetailContent({
               />
 
               {/* Provision Details */}
-              <div className="flex gap-4 py-4">
+              <div className="flex gap-4 py-4 md:flex-row flex-col">
                 <div className="w-[118px] shrink-0">
                   <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
                     {_(msg`제공 내역`)}
@@ -402,7 +412,7 @@ export function CampaignDetailContent({
               {/* Store Location */}
               <div className="py-4">
                 {/* Desktop layout */}
-                <div className="hidden md:flex gap-4">
+                <div className="hidden md:flex gap-4 md:flex-row flex-col">
                   <div className="w-[118px] shrink-0">
                     <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
                       {_(msg`매장 위치`)}
@@ -413,7 +423,7 @@ export function CampaignDetailContent({
                       {getContent(
                         mission.address,
                         mission.addressCn,
-                        mission.addressEn
+                        mission.addressEn,
                       )}
                     </p>
                     <div className="relative h-[347px] w-full bg-gray-100 rounded-lg overflow-hidden">
@@ -423,15 +433,15 @@ export function CampaignDetailContent({
                         address={getContent(
                           mission.address,
                           mission.addressCn,
-                          mission.addressEn
+                          mission.addressEn,
                         )}
                       />
                     </div>
                   </div>
                 </div>
                 {/* Mobile layout */}
-                <div className="md:hidden flex flex-col gap-3">
-                  <div className="flex gap-4">
+                <div className="md:hidden flex flex-col  gap-3">
+                  <div className="flex gap-4 md:flex-row flex-col">
                     <div className="w-[118px] shrink-0">
                       <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
                         {_(msg`매장 위치`)}
@@ -441,7 +451,7 @@ export function CampaignDetailContent({
                       {getContent(
                         mission.address,
                         mission.addressCn,
-                        mission.addressEn
+                        mission.addressEn,
                       )}
                     </p>
                   </div>
@@ -452,7 +462,7 @@ export function CampaignDetailContent({
                       address={getContent(
                         mission.address,
                         mission.addressCn,
-                        mission.addressEn
+                        mission.addressEn,
                       )}
                     />
                   </div>
@@ -464,7 +474,7 @@ export function CampaignDetailContent({
               {/* Guideline */}
               {mission.guideline && (
                 <>
-                  <div className="flex gap-4 py-4">
+                  <div className="flex gap-4 md:flex-row flex-col py-4">
                     <div className="w-[118px] shrink-0">
                       <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
                         {_(msg`가이드라인`)}
@@ -476,7 +486,7 @@ export function CampaignDetailContent({
                         dangerouslySetInnerHTML={{
                           __html: getContent(
                             mission.guideline,
-                            mission.guidelineCn
+                            mission.guidelineCn,
                           ),
                         }}
                       />
@@ -489,7 +499,7 @@ export function CampaignDetailContent({
               {/* Mission Contents */}
               {mission.missionContents && (
                 <>
-                  <div className="flex gap-4 py-4">
+                  <div className="flex gap-4 md:flex-row flex-col py-4">
                     <div className="w-[118px] shrink-0">
                       <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
                         {_(msg`미션 내용`)}
@@ -501,7 +511,7 @@ export function CampaignDetailContent({
                         dangerouslySetInnerHTML={{
                           __html: getContent(
                             mission.missionContents,
-                            mission.missionContentsCn
+                            mission.missionContentsCn,
                           ),
                         }}
                       />
@@ -513,7 +523,7 @@ export function CampaignDetailContent({
 
               {/* Additional Information */}
               {mission.additionalInfo && (
-                <div className="flex gap-4 py-4 pb-16">
+                <div className="flex gap-4 md:flex-row flex-col py-4 pb-16">
                   <div className="w-[118px] shrink-0">
                     <h3 className="text-base font-semibold text-[#111827] leading-[1.7]">
                       {_(msg`추가 안내사항`)}
@@ -525,7 +535,7 @@ export function CampaignDetailContent({
                       dangerouslySetInnerHTML={{
                         __html: getContent(
                           mission.additionalInfo,
-                          mission.additionalInfoCn
+                          mission.additionalInfoCn,
                         ),
                       }}
                     />
@@ -541,7 +551,7 @@ export function CampaignDetailContent({
               campaignTitle={getContent(mission.title, mission.titleCn)}
               campaignSubtitle={getContent(
                 mission.goodsContents,
-                mission.goodsContentsCn
+                mission.goodsContentsCn,
               )}
               applicationPeriod={applicationPeriod}
               announcementDate={announcementDate}
@@ -583,7 +593,7 @@ export function CampaignDetailContent({
           campaignTitle={getContent(mission.title, mission.titleCn)}
           campaignSubtitle={getContent(
             mission.goodsContents,
-            mission.goodsContentsCn
+            mission.goodsContentsCn,
           )}
           social={mission.social}
           open={isApplyDialogOpen}

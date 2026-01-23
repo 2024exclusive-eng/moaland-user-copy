@@ -5,7 +5,7 @@ export const USE_MOCK_DATA = false;
 
 // Helper to create mock campaign with all required fields
 const createMockCampaign = (
-  data: Partial<MyCampaign> & { missionId: number; title: string }
+  data: Partial<MyCampaign> & { missionId: number; title: string },
 ): MyCampaign => ({
   missionId: data.missionId,
   category: data.category || "Beauty",
@@ -52,7 +52,7 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       missionContent:
         "250,000원 상당 두피스케일링, 헤어크리닉, 헤어크리닉제 증정",
       enrollEndDate: new Date(
-        Date.now() + 3 * 24 * 60 * 60 * 1000
+        Date.now() + 3 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       enrollCount: 20,
       maxEnroll: 2,
@@ -66,7 +66,7 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       title: "[홍대] 카페 모카",
       missionContent: "시그니처 음료 2잔 + 디저트 세트 제공, SNS 리뷰 작성",
       enrollEndDate: new Date(
-        Date.now() + 5 * 24 * 60 * 60 * 1000
+        Date.now() + 5 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       enrollCount: 15,
       maxEnroll: 5,
@@ -80,7 +80,7 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       title: "[성수] 플라워 스튜디오",
       missionContent: "꽃다발 제작 클래스 무료 체험 + 완성작 증정",
       enrollEndDate: new Date(
-        Date.now() + 7 * 24 * 60 * 60 * 1000
+        Date.now() + 7 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       enrollCount: 8,
       maxEnroll: 3,
@@ -96,7 +96,7 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       title: "[압구정] 스킨케어 클리닉",
       missionContent: "프리미엄 피부관리 풀코스 체험 (150,000원 상당)",
       enrollEndDate: new Date(
-        Date.now() - 2 * 24 * 60 * 60 * 1000
+        Date.now() - 2 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       enrollCount: 10,
       maxEnroll: 2,
@@ -105,22 +105,22 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       category: "Beauty",
       brand: "스킨케어 클리닉",
       visitDatetimeStart: new Date(
-        Date.now() + 2 * 24 * 60 * 60 * 1000
+        Date.now() + 2 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       visitDatetimeEnd: new Date(
-        Date.now() + 2 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000
+        Date.now() + 2 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000,
       ).toISOString(),
       contentStartDate: new Date(
-        Date.now() + 3 * 24 * 60 * 60 * 1000
+        Date.now() + 3 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       contentEndDate: new Date(
-        Date.now() + 10 * 24 * 60 * 60 * 1000
+        Date.now() + 10 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       missionStartDate: new Date(
-        Date.now() + 2 * 24 * 60 * 60 * 1000
+        Date.now() + 2 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       missionEndDate: new Date(
-        Date.now() + 10 * 24 * 60 * 60 * 1000
+        Date.now() + 10 * 24 * 60 * 60 * 1000,
       ).toISOString(),
     }),
     createMockCampaign({
@@ -128,7 +128,7 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       title: "[이태원] 멕시칸 레스토랑",
       missionContent: "2인 코스요리 + 마가리타 2잔 제공",
       enrollEndDate: new Date(
-        Date.now() - 1 * 24 * 60 * 60 * 1000
+        Date.now() - 1 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       enrollCount: 25,
       maxEnroll: 5,
@@ -137,22 +137,22 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       category: "restaurant",
       brand: "멕시칸 레스토랑",
       visitDatetimeStart: new Date(
-        Date.now() + 4 * 24 * 60 * 60 * 1000
+        Date.now() + 4 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       visitDatetimeEnd: new Date(
-        Date.now() + 4 * 24 * 60 * 60 * 1000 + 3 * 60 * 60 * 1000
+        Date.now() + 4 * 24 * 60 * 60 * 1000 + 3 * 60 * 60 * 1000,
       ).toISOString(),
       contentStartDate: new Date(
-        Date.now() + 5 * 24 * 60 * 60 * 1000
+        Date.now() + 5 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       contentEndDate: new Date(
-        Date.now() + 14 * 24 * 60 * 60 * 1000
+        Date.now() + 14 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       missionStartDate: new Date(
-        Date.now() + 4 * 24 * 60 * 60 * 1000
+        Date.now() + 4 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       missionEndDate: new Date(
-        Date.now() + 14 * 24 * 60 * 60 * 1000
+        Date.now() + 14 * 24 * 60 * 60 * 1000,
       ).toISOString(),
     }),
   ],
@@ -162,7 +162,7 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       title: "[강남] 네일아트 살롱",
       missionContent: "젤네일 풀세트 + 케어 서비스 (120,000원 상당)",
       enrollEndDate: new Date(
-        Date.now() - 10 * 24 * 60 * 60 * 1000
+        Date.now() - 10 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       enrollCount: 12,
       maxEnroll: 3,
@@ -171,22 +171,22 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       category: "Beauty",
       brand: "네일아트 살롱",
       visitDatetimeStart: new Date(
-        Date.now() - 5 * 24 * 60 * 60 * 1000
+        Date.now() - 5 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       visitDatetimeEnd: new Date(
-        Date.now() - 5 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000
+        Date.now() - 5 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000,
       ).toISOString(),
       contentStartDate: new Date(
-        Date.now() - 4 * 24 * 60 * 60 * 1000
+        Date.now() - 4 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       contentEndDate: new Date(
-        Date.now() + 3 * 24 * 60 * 60 * 1000
+        Date.now() + 3 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       missionStartDate: new Date(
-        Date.now() - 5 * 24 * 60 * 60 * 1000
+        Date.now() - 5 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       missionEndDate: new Date(
-        Date.now() + 3 * 24 * 60 * 60 * 1000
+        Date.now() + 3 * 24 * 60 * 60 * 1000,
       ).toISOString(),
     }),
   ],
@@ -196,7 +196,7 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       title: "[명동] 코스메틱 스토어",
       missionContent: "신제품 스킨케어 라인 체험 키트 증정",
       enrollEndDate: new Date(
-        Date.now() - 30 * 24 * 60 * 60 * 1000
+        Date.now() - 30 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       enrollCount: 50,
       maxEnroll: 10,
@@ -205,22 +205,22 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       category: "Beauty",
       brand: "코스메틱 스토어",
       visitDatetimeStart: new Date(
-        Date.now() - 25 * 24 * 60 * 60 * 1000
+        Date.now() - 25 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       visitDatetimeEnd: new Date(
-        Date.now() - 25 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000
+        Date.now() - 25 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000,
       ).toISOString(),
       contentStartDate: new Date(
-        Date.now() - 24 * 24 * 60 * 60 * 1000
+        Date.now() - 24 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       contentEndDate: new Date(
-        Date.now() - 14 * 24 * 60 * 60 * 1000
+        Date.now() - 14 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       missionStartDate: new Date(
-        Date.now() - 25 * 24 * 60 * 60 * 1000
+        Date.now() - 25 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       missionEndDate: new Date(
-        Date.now() - 14 * 24 * 60 * 60 * 1000
+        Date.now() - 14 * 24 * 60 * 60 * 1000,
       ).toISOString(),
     }),
     createMockCampaign({
@@ -228,7 +228,7 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       title: "[잠실] 스포츠 센터",
       missionContent: "PT 3회 무료 체험 + 운동복 증정",
       enrollEndDate: new Date(
-        Date.now() - 45 * 24 * 60 * 60 * 1000
+        Date.now() - 45 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       enrollCount: 30,
       maxEnroll: 5,
@@ -237,22 +237,22 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       category: "Culture",
       brand: "스포츠 센터",
       visitDatetimeStart: new Date(
-        Date.now() - 40 * 24 * 60 * 60 * 1000
+        Date.now() - 40 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       visitDatetimeEnd: new Date(
-        Date.now() - 40 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000
+        Date.now() - 40 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000,
       ).toISOString(),
       contentStartDate: new Date(
-        Date.now() - 39 * 24 * 60 * 60 * 1000
+        Date.now() - 39 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       contentEndDate: new Date(
-        Date.now() - 25 * 24 * 60 * 60 * 1000
+        Date.now() - 25 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       missionStartDate: new Date(
-        Date.now() - 40 * 24 * 60 * 60 * 1000
+        Date.now() - 40 * 24 * 60 * 60 * 1000,
       ).toISOString(),
       missionEndDate: new Date(
-        Date.now() - 25 * 24 * 60 * 60 * 1000
+        Date.now() - 25 * 24 * 60 * 60 * 1000,
       ).toISOString(),
     }),
   ],

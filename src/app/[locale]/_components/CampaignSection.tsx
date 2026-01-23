@@ -5,6 +5,7 @@ import { useLingui } from "@lingui/react";
 import { AlertCircle, ChevronRight } from "lucide-react";
 
 import type { Campaign } from "@/lib/api/campaign";
+import { tokenStorage } from "@/lib/axios";
 import { useLocalizedNavigation } from "@/shared/hooks/use-localized-nav";
 
 import { CampaignCard } from "./CampaignCard";
@@ -39,6 +40,11 @@ export function CampaignSection({
   const r = useLocalizedNavigation();
 
   const handleCardClick = (missionId: number) => {
+    const isLoggedIn = !!tokenStorage.get();
+    if (!isLoggedIn) {
+      r.push("/login");
+      return;
+    }
     r.push(`/campaigns/${missionId}`);
   };
 
