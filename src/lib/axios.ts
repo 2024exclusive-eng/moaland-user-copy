@@ -350,7 +350,10 @@ api.interceptors.response.use(
       tokenStorage.remove();
       if (typeof window !== "undefined") {
         const locale = window.location.pathname.split("/")[1] || "en";
-        window.location.href = `/${locale}/login`;
+        // Small delay to ensure cookie is removed before redirect
+        setTimeout(() => {
+          window.location.href = `/${locale}/login`;
+        }, 50);
       }
     }
 
