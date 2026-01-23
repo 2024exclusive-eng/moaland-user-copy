@@ -28,10 +28,10 @@ msgstr "请输入您的{0}链接。"
 msgid "{0}명"
 msgstr "{0}人"
 
-#: src/app/[locale]/_components/CampaignCard.tsx:91
-#: src/app/[locale]/_components/CampaignCard.tsx:144
-#: src/app/[locale]/_components/CampaignCard.tsx:194
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:290
+#: src/app/[locale]/_components/CampaignCard.tsx:102
+#: src/app/[locale]/_components/CampaignCard.tsx:157
+#: src/app/[locale]/_components/CampaignCard.tsx:209
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:300
 #: src/app/[locale]/my-campaign/page.tsx:354
 #: src/app/[locale]/my-campaign/page.tsx:700
 msgid "{daysRemaining}일 남음"
@@ -121,7 +121,7 @@ msgstr "需要SNS块的标题。"
 msgid "WeChat ID를 입력해주세요."
 msgstr "请输入微信ID。"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:470
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:480
 msgid "가이드라인"
 msgstr "指南"
 
@@ -227,7 +227,7 @@ msgstr "找不到公告。"
 msgid "광고 배너"
 msgstr "广告横幅"
 
-#: src/app/[locale]/_components/CategoryIcons.tsx:99
+#: src/app/[locale]/_components/CategoryIcons.tsx:107
 #: src/components/Header.tsx:338
 msgid "광고문의"
 msgstr "广告咨询"
@@ -251,6 +251,7 @@ msgstr "需要分隔块的类型。"
 msgid "기본 정보"
 msgstr "基本信息"
 
+#: src/app/[locale]/_components/CategoryIcons.tsx:99
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:34
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:45
 msgid "기타"
@@ -292,7 +293,7 @@ msgstr "大众点评"
 msgid "대표"
 msgstr "代表"
 
-#: src/app/[locale]/_components/CampaignSection.tsx:68
+#: src/app/[locale]/_components/CampaignSection.tsx:74
 #: src/app/[locale]/_components/LandmarkSection.tsx:52
 msgid "더보기"
 msgstr "查看更多"
@@ -381,7 +382,7 @@ msgstr "登录"
 msgid "로그인 중..."
 msgstr "登录中..."
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:203
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:213
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:134
 msgid "로그인 후 신청하세요!"
 msgstr "请登录后申请！"
@@ -415,9 +416,9 @@ msgstr "需要链接块的标题。"
 msgid "링크를 입력해주세요."
 msgstr "请输入链接。"
 
-#: src/app/[locale]/_components/CampaignCard.tsx:92
-#: src/app/[locale]/_components/CampaignCard.tsx:145
-#: src/app/[locale]/_components/CampaignCard.tsx:195
+#: src/app/[locale]/_components/CampaignCard.tsx:103
+#: src/app/[locale]/_components/CampaignCard.tsx:158
+#: src/app/[locale]/_components/CampaignCard.tsx:210
 msgid "마감"
 msgstr "已截止"
 
@@ -446,8 +447,8 @@ msgstr "我的页面"
 msgid "맛집"
 msgstr "美食"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:408
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:437
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:418
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:447
 msgid "매장 위치"
 msgstr "店铺位置"
 
@@ -458,7 +459,7 @@ msgstr "店铺位置"
 msgid "메모"
 msgstr "备注"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:373
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:383
 msgid "명"
 msgstr "人"
 
@@ -511,7 +512,7 @@ msgstr "文化"
 msgid "미디어 전체"
 msgstr "全部媒体"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:495
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:505
 msgid "미션 내용"
 msgstr "任务内容"
 
@@ -531,7 +532,7 @@ msgstr "访问"
 msgid "방문 날짜와 시간을 입력해주세요."
 msgstr "请输入访问日期和时间。"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:338
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:348
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:181
 msgid "방문기간"
 msgstr "访问期限"
@@ -736,9 +737,9 @@ msgstr "任务尚未开始。"
 msgid "신규회원을 위한"
 msgstr "新会员专享"
 
-#: src/app/[locale]/_components/CampaignCard.tsx:96
-#: src/app/[locale]/_components/CampaignCard.tsx:161
-#: src/app/[locale]/_components/CampaignCard.tsx:200
+#: src/app/[locale]/_components/CampaignCard.tsx:107
+#: src/app/[locale]/_components/CampaignCard.tsx:174
+#: src/app/[locale]/_components/CampaignCard.tsx:215
 #: src/app/[locale]/my-campaign/page.tsx:91
 #: src/app/[locale]/my-campaign/page.tsx:368
 #: src/app/[locale]/my-campaign/page.tsx:714
@@ -787,7 +788,7 @@ msgstr "查看申请"
 msgid "신청에 실패했습니다"
 msgstr "申请失败"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:362
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:372
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:186
 msgid "신청자"
 msgstr "申请人"
@@ -1070,7 +1071,7 @@ msgstr "验证码已过期。"
 msgid "인증코드가 일치하지 않습니다."
 msgstr "验证码不匹配。"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:326
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:336
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:180
 msgid "인플루언서 발표"
 msgstr "网红公布"
@@ -1099,7 +1100,7 @@ msgstr "邮箱地址无效。"
 msgid "잘못된 인증번호입니다. 다시 확인 후 입력해 주세요."
 msgstr "验证码无效，请检查后重新输入。"
 
-#: src/app/[locale]/_components/CampaignSection.tsx:85
+#: src/app/[locale]/_components/CampaignSection.tsx:91
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:412
 msgid "잠시 후 다시 시도해주세요"
 msgstr "请稍后再试"
@@ -1164,7 +1165,7 @@ msgstr "如无正当理由未在内容注册期限内撰写内容和评价，需
 msgid "정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다."
 msgstr "确定要注销账户吗？注销后所有数据将被删除且无法恢复。"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:390
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:400
 msgid "제공 내역"
 msgstr "提供内容"
 
@@ -1239,7 +1240,7 @@ msgstr "处理中..."
 msgid "최신 등록순"
 msgstr "最新注册"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:519
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:529
 msgid "추가 안내사항"
 msgstr "附加说明"
 
@@ -1304,7 +1305,7 @@ msgstr "活动列表"
 msgid "캠페인 보기"
 msgstr "查看活动"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:248
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:258
 msgid "캠페인 상세"
 msgstr "活动详情"
 
@@ -1312,7 +1313,7 @@ msgstr "活动详情"
 msgid "캠페인 신청 취소하기"
 msgstr "取消活动申请"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:314
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:324
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:179
 msgid "캠페인 신청기간"
 msgstr "活动申请期限"
@@ -1361,12 +1362,12 @@ msgstr "参加活动吧！"
 msgid "캠페인은 신청기간내 재신청이 가능합니다."
 msgstr "可在申请期限内重新申请活动。"
 
-#: src/app/[locale]/_components/CampaignSection.tsx:83
+#: src/app/[locale]/_components/CampaignSection.tsx:89
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:409
 msgid "캠페인을 불러오는데 실패했습니다"
 msgstr "加载活动失败"
 
-#: src/app/[locale]/_components/CampaignSection.tsx:92
+#: src/app/[locale]/_components/CampaignSection.tsx:98
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:421
 msgid "캠페인이 없습니다"
 msgstr "暂无活动"
@@ -1412,7 +1413,7 @@ msgstr "内容URL"
 #~ msgid "콘텐츠 등록"
 #~ msgstr "注册内容"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:350
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:360
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:182
 #: src/app/[locale]/my-campaign/_components/EditContentDialog.tsx:166
 #: src/app/[locale]/my-campaign/_components/SubmitContentDialog.tsx:158
@@ -1529,7 +1530,7 @@ msgstr "首页"
 msgid "확인"
 msgstr "确认"
 
-#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:201
+#: src/app/[locale]/campaigns/[id]/_components/CampaignDetailContent.tsx:211
 #: src/app/[locale]/campaigns/[id]/_components/CampaignSidebar.tsx:132
 msgid "확인 중..."
 msgstr "确认中..."
