@@ -93,12 +93,6 @@ export function HeroBanner() {
                         className="object-cover"
                       />
                       {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" /> */}
-                      <div className="absolute bottom-3 left-3">
-                        <h2 className="text-white text-xl font-bold">
-                          {banner.name}
-                        </h2>
-                        <h3 className="text-white text-sm font-bold">asd</h3>
-                      </div>
                       <div className="md:hidden block absolute bottom-3 right-3">
                         <div className="bg-black/60 text-white text-xs font-medium px-2 py-1 rounded-xl">
                           {idx + 1}/{sortedBanners.length}
