@@ -1228,7 +1228,7 @@ msgstr "지도 블록의 위도 정보가 필요합니다."
 msgid "지도 블록의 주소가 필요합니다."
 msgstr "지도 블록의 주소가 필요합니다."
 
-#: src/app/[locale]/community/page.tsx:269
+#: src/app/[locale]/community/page.tsx:273
 msgid "진행 중인 이벤트가 없습니다."
 msgstr "진행 중인 이벤트가 없습니다."
 

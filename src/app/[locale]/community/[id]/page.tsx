@@ -71,7 +71,7 @@ export default function CommunityDetailPage(props: PageProps) {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-6 min-h-[65vh] md:border-l border-[#e5e7eb] md:pl-10 pt-[20px] md:py-10 pl-[21px] pr-0 md:px-0 flex flex-col gap-[20px] md:gap-5">
+        <div className="col-span-6 min-h-[60vh] md:border-l border-[#e5e7eb] md:pl-10 pt-[20px] md:py-10 pl-[21px] pr-0 md:px-0 flex flex-col gap-[20px] md:gap-5">
           {/* Back Button - Desktop Only */}
           <Link
             href={`/${params.locale}/community`}

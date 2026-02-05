@@ -80,7 +80,7 @@ export default function Page(props: PageProps) {
   };
 
   return (
-    <div className="min-h-screen container mx-auto">
+    <div className="min-h-[60vh] container mx-auto">
       {/* Mobile Header */}
       <div className="md:hidden">
         <div className="h-[60px] flex items-center justify-between px-[21px] border-b border-[#e5e7eb]">
@@ -198,7 +198,7 @@ export default function Page(props: PageProps) {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-6 md:pl-10 pt-[20px] md:py-10 px-[21px] md:px-0 min-h-[65vh] flex flex-col gap-[20px] md:gap-5">
+        <div className="col-span-6 md:pl-10 pt-[20px] md:py-10 px-[21px] md:px-0 min-h-[60vh] flex flex-col gap-[20px] md:gap-5">
           <h2 className="hidden md:block text-xl font-bold text-[#111827]">
             {activeCategory === "notice" ? _(msg`공지사항`) : _(msg`이벤트`)}
           </h2>
