@@ -228,11 +228,6 @@ export function CampaignSidebar({
                 fill
                 className="object-cover"
               />
-              <div className="absolute bottom-0 left-0 p-5">
-                <h2 className="text-white text-xl font-bold">
-                  {randomBanner.name}
-                </h2>
-              </div>
             </div>
           </a>
         ) : (
