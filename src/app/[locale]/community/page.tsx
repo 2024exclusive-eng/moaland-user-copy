@@ -53,7 +53,7 @@ export default function Page(props: PageProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [eventPage, setEventPage] = useState(1);
   const [activeCategory, setActiveCategory] = useState<"notice" | "event">(
-    "notice"
+    "notice",
   );
 
   // Always fetch notices
@@ -232,7 +232,11 @@ export default function Page(props: PageProps) {
                     >
                       <div className="flex-1 flex items-center justify-between gap-4">
                         <p className="flex-1 font-semibold text-[#111827] text-[14px] leading-[1.7]">
-                          {getLocalizedContent(notice.title, notice.titleCn, locale)}
+                          {getLocalizedContent(
+                            notice.title,
+                            notice.titleCn,
+                            locale,
+                          )}
                         </p>
                         <p className="text-[#4b5563] text-[14px] leading-[1.7] whitespace-nowrap">
                           {formatDate(notice.created)}
@@ -285,15 +289,15 @@ export default function Page(props: PageProps) {
                           className="object-cover transition-transform group-hover:scale-105"
                         />
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                      <div className="relative z-10 p-5">
+                      {/* <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" /> */}
+                      {/* <div className="relative z-10 p-5">
                         <h3 className="text-white text-lg md:text-xl font-bold truncate">
                           {event.name}
                         </h3>
                         <p className="text-white/80 text-sm">
                           {formatDate(event.created)}
                         </p>
-                      </div>
+                      </div> */}
                     </a>
                   ))
                 )}

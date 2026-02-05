@@ -125,8 +125,8 @@ msgstr "Please enter your WeChat ID."
 msgid "가이드라인"
 msgstr "Guidelines"
 
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:249
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:320
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:252
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:323
 msgid "가입 이메일"
 msgstr "Registered Email"
 
@@ -1127,8 +1127,8 @@ msgstr "An error occurred while saving."
 msgid "저장 중..."
 msgstr "Saving..."
 
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:260
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:331
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:263
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:334
 msgid "저장되었습니다."
 msgstr "Saved."
 
@@ -1160,8 +1160,8 @@ msgstr "Agree to All"
 msgid "정당한 사유 없이 콘텐츠 등록 기간 내 콘텐츠 및 구매평을 작성하지 않을 경우 제공상품 또는 용역의 대가를 환불해야 하며, 관련 법 조항(형법 제347조)에 따라 법적 처벌 대상이 될 수 있습니다."
 msgstr "Failure to submit content or reviews within the registration period without valid reason may require refund of provided goods or services and may be subject to legal penalties under relevant laws (Criminal Act Article 347)."
 
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:163
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:351
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:166
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:354
 msgid "정말로 탈퇴하시겠습니까? 탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다."
 msgstr "Are you sure you want to delete your account? All data will be deleted and cannot be recovered."
 
@@ -1229,8 +1229,8 @@ msgid "진행 중인 이벤트가 없습니다."
 msgstr "No events in progress."
 
 #: src/app/[locale]/forgot-password/page.tsx:252
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:187
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:375
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:190
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:378
 #: src/app/[locale]/register/page.tsx:469
 msgid "처리 중..."
 msgstr "Processing..."
@@ -1249,8 +1249,8 @@ msgid "추천"
 msgstr "Recommended"
 
 #: src/app/[locale]/my-campaign/_components/CancelConfirmDialog.tsx:85
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:179
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:367
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:182
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:370
 msgid "취소"
 msgstr "Cancel"
 
@@ -1443,14 +1443,14 @@ msgstr "Edit Content"
 msgid "키워드 챌린지 캠페인은 최소 30일 동안 유지되어야 하며, 유지 기간 미준수 시 콘텐츠 재개 요청이 있을 수 있습니다."
 msgstr "Keyword challenge campaigns must be maintained for at least 30 days. Failure to maintain the required period may result in content resumption requests."
 
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:137
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:140
 msgid "탈퇴 처리에 실패했습니다."
 msgstr "Account deletion failed."
 
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:152
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:187
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:340
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:375
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:155
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:190
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:343
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:378
 msgid "탈퇴하기"
 msgstr "Delete Account"
 
@@ -1539,8 +1539,8 @@ msgstr "Checking..."
 #~ msgid "회사는 서비스 운영상 필요한 경우 사전 공지 후 서비스 내용을 변경할 수 있습니다."
 #~ msgstr "The company may change the service content after prior notice if necessary for service operation."
 
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:160
-#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:348
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:163
+#: src/app/[locale]/profile/_components/ProfileBasicInfo.tsx:351
 msgid "회원 탈퇴"
 msgstr "Delete Account"
 
