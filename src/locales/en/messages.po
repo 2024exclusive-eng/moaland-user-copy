@@ -1224,7 +1224,7 @@ msgstr "Latitude information for map block is required."
 msgid "지도 블록의 주소가 필요합니다."
 msgstr "Address for map block is required."
 
-#: src/app/[locale]/community/page.tsx:269
+#: src/app/[locale]/community/page.tsx:273
 msgid "진행 중인 이벤트가 없습니다."
 msgstr "No events in progress."
 
