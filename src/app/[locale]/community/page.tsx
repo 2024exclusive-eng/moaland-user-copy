@@ -3,7 +3,7 @@
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { Globe, Search } from "lucide-react";
+import { Globe, Search } from "lucide-react"; 
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
