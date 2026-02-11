@@ -279,25 +279,18 @@ export default function Page(props: PageProps) {
                       href={event.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="relative bg-gray-900 rounded-lg min-h-45 flex flex-col justify-end overflow-hidden group"
+                      className="rounded-lg overflow-hidden group"
                     >
                       {event.thumbnailPath && (
                         <Image
                           src={event.thumbnailPath}
                           alt={event.name}
-                          fill
-                          className="object-cover transition-transform group-hover:scale-105"
+                          width={0}
+                          height={0}
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          className="w-full h-auto transition-transform group-hover:scale-105"
                         />
                       )}
-                      {/* <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" /> */}
-                      {/* <div className="relative z-10 p-5">
-                        <h3 className="text-white text-lg md:text-xl font-bold truncate">
-                          {event.name}
-                        </h3>
-                        <p className="text-white/80 text-sm">
-                          {formatDate(event.created)}
-                        </p>
-                      </div> */}
                     </a>
                   ))
                 )}
