@@ -16,8 +16,8 @@ import { useBanners } from "@/shared/hooks/use-campaigns";
 
 function BannerSkeleton() {
   return (
-    <CarouselItem className="pl-2 md:pl-4 md:basis-1/3">
-      <Skeleton className="rounded-lg min-h-45 w-full" />
+    <CarouselItem className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3">
+      <Skeleton className="rounded-lg aspect-video w-full" />
     </CarouselItem>
   );
 }
@@ -51,7 +51,7 @@ export function HeroBanner() {
             {/* Error State */}
             {isError && !isLoading && (
               <CarouselItem className="pl-2 md:pl-4 basis-full">
-                <div className="bg-gray-100 rounded-lg min-h-45 flex flex-col items-center justify-center text-gray-500">
+                <div className="bg-gray-100 rounded-lg aspect-video flex flex-col items-center justify-center text-gray-500">
                   <AlertCircle className="w-8 h-8 mb-2 text-red-400" />
                   <p className="text-sm">
                     <Trans>배너를 불러오는데 실패했습니다</Trans>
@@ -63,7 +63,7 @@ export function HeroBanner() {
             {/* Banners */}
             {!isLoading && !isError && banners.length === 0 && (
               <CarouselItem className="pl-2 md:pl-4 basis-full">
-                <div className="bg-gray-900 rounded-lg pb-5 pl-5 min-h-45 flex flex-col justify-end">
+                <div className="bg-gray-900 rounded-lg pb-5 pl-5 aspect-video flex flex-col justify-end">
                   <h2 className="text-white text-xl font-bold">K-VIEWO</h2>
                   <p className="text-white text-sm">
                     <Trans>캠페인에 참여하세요!</Trans>
@@ -77,7 +77,7 @@ export function HeroBanner() {
               sortedBanners.map((banner, idx) => (
                 <CarouselItem
                   key={banner.id}
-                  className="pl-2 md:pl-4 md:basis-1/3"
+                  className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3"
                 >
                   <a
                     href={banner.link}
@@ -85,12 +85,14 @@ export function HeroBanner() {
                     rel="noopener noreferrer"
                     className="block"
                   >
-                    <div className="relative rounded-lg min-h-45 overflow-hidden">
+                    <div className="rounded-lg overflow-hidden">
                       <Image
                         src={banner.thumbnailPath}
                         alt={banner.name}
-                        fill
-                        className="object-cover"
+                        width={0}
+                        height={0}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="w-full h-auto"
                       />
                       {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" /> */}
                       {/* <div className="absolute bottom-3 left-3">
