@@ -88,7 +88,7 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
               <span className="font-bold">
                 <Trans>주소</Trans>
               </span>{" "}
-              서울특별시 독막로 19길 27
+              서울 금천구 디지털로 178(가산퍼블릭 B동 1801호)
             </span>
           </div>
 
@@ -184,7 +184,7 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
                 <span className="font-bold">
                   <Trans>주소</Trans>
                 </span>{" "}
-                서울특별시 독막로 19길 27
+                서울 금천구 디지털로 178(가산퍼블릭 B동 1801호)
               </span>
             </div>
 
