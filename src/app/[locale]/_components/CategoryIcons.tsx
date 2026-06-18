@@ -20,7 +20,7 @@ interface CategoryIconsProps {
   onCategoryChange?: (category: string | undefined) => void;
 }
 
-const KAKAO_INQUIRY_URL = "http://pf.kakao.com/_IRpxhn";
+const KAKAO_INQUIRY_URL = "https://pf.kakao.com/_xcxmsbX";
 
 export function CategoryIcons({
   selectedCategory,

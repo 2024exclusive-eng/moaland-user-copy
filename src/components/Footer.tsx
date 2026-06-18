@@ -46,7 +46,7 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
               </Trans>
             </p>
             <a
-              href="http://pf.kakao.com/_IRpxhn"
+              href="https://pf.kakao.com/_xcxmsbX"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-[#EA3A50] hover:bg-red-700 cursor-pointer text-white h-11 w-29 rounded-md font-medium transition-colors"
@@ -139,7 +139,7 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
               </Trans>
             </p>
             <a
-              href="http://pf.kakao.com/_IRpxhn"
+              href="https://pf.kakao.com/_xcxmsbX"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-[#EA3A50] hover:bg-red-700 cursor-pointer text-white h-11 w-29 rounded-md font-medium transition-colors"

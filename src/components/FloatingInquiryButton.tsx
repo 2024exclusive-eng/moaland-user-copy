@@ -50,7 +50,7 @@ export function FloatingInquiryButton() {
         <Tooltip>
           <TooltipTrigger asChild>
             <a
-              href="http://pf.kakao.com/_IRpxhn"
+              href="https://pf.kakao.com/_xcxmsbX"
               target="_blank"
               rel="noopener noreferrer"
               className="size-13 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center transition-colors shadow-[0px_4px_4px_0px_rgba(0,0,0,0.15)] p-3.5"

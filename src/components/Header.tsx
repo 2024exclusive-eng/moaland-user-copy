@@ -330,7 +330,7 @@ export function Header({ shouldHideMobile = false }: HeaderProps = {}) {
           </DropdownMenu>
 
           <a
-            href="http://pf.kakao.com/_IRpxhn"
+            href="https://pf.kakao.com/_xcxmsbX"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-gray-900 hover:text-red-600"
