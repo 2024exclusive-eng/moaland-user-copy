@@ -83,7 +83,6 @@ export function CampaignSidebar({
   campaignTitle,
   campaignSubtitle,
   applicationPeriod,
-  announcementDate,
   visitPeriod,
   registrationPeriod,
   applicants,
@@ -177,7 +176,6 @@ export function CampaignSidebar({
         {/* Campaign Info */}
         <div className="flex flex-col gap-3">
           <InfoRow label={_(msg`캠페인 신청기간`)} value={applicationPeriod} />
-          <InfoRow label={_(msg`인플루언서 발표`)} value={announcementDate} />
           <InfoRow label={_(msg`방문기간`)} value={visitPeriod} />
           <InfoRow label={_(msg`콘텐츠 등록기간`)} value={registrationPeriod} />
           <div className="flex items-start pt-[1.63px]">

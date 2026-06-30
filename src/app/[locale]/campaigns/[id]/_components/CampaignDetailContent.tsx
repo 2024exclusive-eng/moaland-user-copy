@@ -333,18 +333,6 @@ export function CampaignDetailContent({
                 <div className="flex items-start pt-[1.63px]">
                   <div className="w-[140px] shrink-0">
                     <p className="text-base font-semibold text-[#111827] leading-[1.7]">
-                      {_(msg`인플루언서 발표`)}
-                    </p>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-base font-semibold text-[#111827] leading-[1.7]">
-                      {announcementDate}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start pt-[1.63px]">
-                  <div className="w-[140px] shrink-0">
-                    <p className="text-base font-semibold text-[#111827] leading-[1.7]">
                       {_(msg`방문기간`)}
                     </p>
                   </div>
