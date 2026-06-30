@@ -82,6 +82,7 @@ function getTabs(_: ReturnType<typeof useLingui>["_"]) {
     { key: "selected" as MyCampaignStatus, label: _(msg`선정된 캠페인`) },
     { key: "registered" as MyCampaignStatus, label: _(msg`등록한 캠페인`) },
     { key: "ended" as MyCampaignStatus, label: _(msg`종료된 캠페인`) },
+    { key: "rejected" as MyCampaignStatus, label: _(msg`반려 캠페인`) },
   ];
 }
 
@@ -92,6 +93,7 @@ function getMobileTabs(_: ReturnType<typeof useLingui>["_"]) {
     { key: "selected" as MyCampaignStatus, label: _(msg`선정`) },
     { key: "registered" as MyCampaignStatus, label: _(msg`등록`) },
     { key: "ended" as MyCampaignStatus, label: _(msg`종료`) },
+    { key: "rejected" as MyCampaignStatus, label: _(msg`반려`) },
   ];
 }
 
@@ -147,6 +149,14 @@ function getActionButtons(
           label: _(msg`콘텐츠 보기`),
           variant: "view" as const,
           key: "viewContent",
+        },
+      ];
+    case "rejected":
+      return [
+        {
+          label: _(msg`신청서 보기`),
+          variant: "view" as const,
+          key: "viewApp",
         },
       ];
     default:
@@ -776,6 +786,7 @@ function EmptyState({ status }: { status: MyCampaignStatus }) {
     selected: _(msg`선정된 캠페인이 없습니다.`),
     registered: _(msg`등록한 캠페인이 없습니다.`),
     ended: _(msg`종료된 캠페인이 없습니다.`),
+    rejected: _(msg`반려된 캠페인이 없습니다.`),
   };
 
   return (
@@ -948,6 +959,7 @@ export default function Page() {
                   selected: counts.selected,
                   registered: counts.registered,
                   ended: counts.ended,
+                  rejected: counts.rejected,
                 };
                 const count = countMap[tab.key] ?? 0;
                 const isActive = activeTab === tab.key;
@@ -1050,6 +1062,7 @@ export default function Page() {
                     selected: counts.selected,
                     registered: counts.registered,
                     ended: counts.ended,
+                    rejected: counts.rejected,
                   };
                   const count = countMap[tab.key] ?? 0;
                   const isActive = activeTab === tab.key;

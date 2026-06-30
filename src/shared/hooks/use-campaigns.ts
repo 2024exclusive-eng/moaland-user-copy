@@ -126,12 +126,14 @@ export function useMyCampaignsCounts() {
   const selected = useMyCampaigns("selected", 1, 1);
   const registered = useMyCampaigns("registered", 1, 1);
   const ended = useMyCampaigns("ended", 1, 1);
+  const rejected = useMyCampaigns("rejected", 1, 1);
 
   const mutateAll = () => {
     applied.mutate();
     selected.mutate();
     registered.mutate();
     ended.mutate();
+    rejected.mutate();
   };
 
   return {
@@ -139,11 +141,13 @@ export function useMyCampaignsCounts() {
     selected: selected.paging?.totalItems ?? 0,
     registered: registered.paging?.totalItems ?? 0,
     ended: ended.paging?.totalItems ?? 0,
+    rejected: rejected.paging?.totalItems ?? 0,
     isLoading:
       applied.isLoading ||
       selected.isLoading ||
       registered.isLoading ||
-      ended.isLoading,
+      ended.isLoading ||
+      rejected.isLoading,
     mutate: mutateAll,
   };
 }

@@ -110,7 +110,7 @@ export interface CampaignParams {
 }
 
 // My Campaign Types
-export type MyCampaignStatus = "applied" | "selected" | "registered" | "ended";
+export type MyCampaignStatus = "applied" | "selected" | "registered" | "ended" | "rejected";
 
 export interface MyCampaign {
   missionId: number;

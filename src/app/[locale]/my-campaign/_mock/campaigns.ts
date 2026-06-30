@@ -190,6 +190,7 @@ export const MOCK_CAMPAIGNS: Record<MyCampaignStatus, MyCampaign[]> = {
       ).toISOString(),
     }),
   ],
+  rejected: [],
   ended: [
     createMockCampaign({
       missionId: 7,
@@ -263,4 +264,5 @@ export const MOCK_COUNTS = {
   selected: 2,
   registered: 1,
   ended: 2,
+  rejected: 0,
 };
