@@ -555,6 +555,14 @@ function MobileCampaignCard({
             variant: "default" as const,
           },
         ];
+      case "rejected":
+        return [
+          {
+            label: _(msg`신청서 보기`),
+            onClick: () => onViewApplication?.(campaign),
+            variant: "default" as const,
+          },
+        ];
       default:
         return [];
     }
