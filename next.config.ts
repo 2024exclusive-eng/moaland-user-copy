@@ -14,6 +14,9 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
+    // Vercel 이미지 최적화 할당량(402 OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED) 회피 —
+    // 이미지는 cloudfront(CDN)에서 직접 서빙. optimizer 의존 제거.
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
