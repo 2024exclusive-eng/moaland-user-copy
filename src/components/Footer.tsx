@@ -24,6 +24,13 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
   const pn = useLocalizedNavigation();
   const pathname = usePathname();
   const locale = pathname.split("/")[1] || "ko";
+  // Company info must display in English for the Chinese locale (P32).
+  const isZh = locale === "zh";
+  const companyName = isZh ? "Exclusive Co,. LTD" : "(주)익스클루시브";
+  const representative = isZh ? "Kim soo hyun" : "김수현";
+  const companyAddress = isZh
+    ? "Room 1801, Building B, Gasan Public, 178 Digital-ro, Geumcheon-gu, Seoul, Republic of Korea"
+    : "서울 금천구 디지털로 178(가산퍼블릭 B동 1801호)";
   const { faqs: termsContent } = useFaqs("terms_of_use");
   const { faqs: privacyContent } = useFaqs("privacy_policy");
   const [showTermsPopup, setShowTermsPopup] = useState(false);
@@ -67,13 +74,13 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
         {/* Company Info */}
         <div className="flex flex-col gap-2 text-xs text-[#6B7280] leading-[1.7] mb-6">
           <div className="flex items-center whitespace-nowrap gap-2">
-            <span>(주)익스클루시브</span>
+            <span>{companyName}</span>
             <span className="text-[#9DA0A8]">|</span>
             <span>
               <span className="font-bold">
                 <Trans>대표</Trans>
               </span>{" "}
-              김수현
+              {representative}
             </span>
           </div>
 
@@ -88,7 +95,7 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
               <span className="font-bold">
                 <Trans>주소</Trans>
               </span>{" "}
-              서울 금천구 디지털로 178(가산퍼블릭 B동 1801호)
+              {companyAddress}
             </span>
           </div>
 
@@ -118,7 +125,7 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
 
         {/* Copyright */}
         <p className="text-xs text-[#6B7280] leading-[1.7] mb-4">
-          © {new Date().getFullYear()} (주)익스클루시브.
+          © {new Date().getFullYear()} {companyName}.
         </p>
       </div>
     </footer>
@@ -164,13 +171,13 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
           <div className="flex-1 flex flex-col gap-3 md:gap-3.5 w-full">
             {/* First Row - Company Info */}
             <div className="flex flex-wrap items-center gap-2 md:gap-3 text-xs text-[#4B5563] leading-normal">
-              <span>(주)익스클루시브</span>
+              <span>{companyName}</span>
               <span className="text-[#9DA0A8] hidden sm:inline">|</span>
               <span className="w-full sm:w-auto">
                 <span className="font-bold">
                   <Trans>대표</Trans>
                 </span>{" "}
-                김수현
+                {representative}
               </span>
               <span className="text-[#9DA0A8] hidden sm:inline">|</span>
               <span className="w-full sm:w-auto">
@@ -184,7 +191,7 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
                 <span className="font-bold">
                   <Trans>주소</Trans>
                 </span>{" "}
-                서울 금천구 디지털로 178(가산퍼블릭 B동 1801호)
+                {companyAddress}
               </span>
             </div>
 
@@ -215,7 +222,7 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
 
             {/* Copyright */}
             <p className="text-xs text-[#4B5563] leading-normal">
-              © {new Date().getFullYear()} (주)익스클루시브.
+              © {new Date().getFullYear()} {companyName}.
             </p>
           </div>
         </div>
