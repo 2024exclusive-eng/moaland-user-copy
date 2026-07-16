@@ -3,6 +3,7 @@
 import { Trans } from "@lingui/react/macro";
 import { AlertCircle } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 import {
   Carousel,
@@ -12,6 +13,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
+import { WeChatQRDialog } from "@/components/WeChatQRDialog";
 import { useBanners } from "@/shared/hooks/use-campaigns";
 
 function BannerSkeleton() {
@@ -24,6 +26,7 @@ function BannerSkeleton() {
 
 export function HeroBanner() {
   const { banners, isLoading, isError } = useBanners("home");
+  const [qrOpen, setQrOpen] = useState(false);
 
   // Sort banners by order field
   const sortedBanners = [...banners].sort((a, b) => a.order - b.order);
@@ -74,47 +77,51 @@ export function HeroBanner() {
 
             {!isLoading &&
               !isError &&
-              sortedBanners.map((banner, idx) => (
-                <CarouselItem
-                  key={banner.id}
-                  className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3"
-                >
-                  <a
-                    href={banner.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
+              sortedBanners.map((banner) => {
+                const bannerImage = (
+                  <div className="rounded-lg overflow-hidden">
+                    <Image
+                      src={banner.thumbnailPath}
+                      alt={banner.name}
+                      width={0}
+                      height={0}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="w-full h-auto"
+                    />
+                  </div>
+                );
+                return (
+                  <CarouselItem
+                    key={banner.id}
+                    className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3"
                   >
-                    <div className="rounded-lg overflow-hidden">
-                      <Image
-                        src={banner.thumbnailPath}
-                        alt={banner.name}
-                        width={0}
-                        height={0}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="w-full h-auto"
-                      />
-                      {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" /> */}
-                      {/* <div className="absolute bottom-3 left-3">
-                        <h2 className="text-white text-xl font-bold">
-                          {banner.name}
-                        </h2>
-                        <h3 className="text-white text-sm font-bold">asd</h3>
-                      </div>
-                      <div className="md:hidden block absolute bottom-3 right-3">
-                        <div className="bg-black/60 text-white text-xs font-medium px-2 py-1 rounded-xl">
-                          {idx + 1}/{sortedBanners.length}
-                        </div>
-                      </div> */}
-                    </div>
-                  </a>
-                </CarouselItem>
-              ))}
+                    {banner.linkType === "wechat" ? (
+                      <button
+                        type="button"
+                        onClick={() => setQrOpen(true)}
+                        className="block w-full text-left cursor-pointer"
+                      >
+                        {bannerImage}
+                      </button>
+                    ) : (
+                      <a
+                        href={banner.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block"
+                      >
+                        {bannerImage}
+                      </a>
+                    )}
+                  </CarouselItem>
+                );
+              })}
           </CarouselContent>
           <CarouselPrevious className="hidden md:flex absolute -left-6" />
           <CarouselNext className="hidden md:flex absolute -right-6" />
         </Carousel>
       </div>
+      <WeChatQRDialog open={qrOpen} onOpenChange={setQrOpen} />
     </section>
   );
 }

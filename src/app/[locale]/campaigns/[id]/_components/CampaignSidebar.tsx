@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { WeChatQRDialog } from "@/components/WeChatQRDialog";
 import { checkEnrollmentStatus } from "@/lib/api/campaign";
 import { tokenStorage } from "@/lib/axios";
 import { getKoreaTime, setKoreaEndOfDay, toKoreaTime } from "@/lib/date-utils";
@@ -93,6 +94,7 @@ export function CampaignSidebar({
   const { _ } = useLingui();
   const { push } = useLocalizedNavigation();
   const [isApplyDialogOpen, setIsApplyDialogOpen] = useState(false);
+  const [qrOpen, setQrOpen] = useState(false);
   const [alertType, setAlertType] = useState<
     "already-applied" | "success" | null
   >(null);
@@ -213,21 +215,38 @@ export function CampaignSidebar({
         {isBannerLoading ? (
           <Skeleton className="min-h-45 w-full rounded-lg" />
         ) : randomBanner ? (
-          <a
-            href={randomBanner.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-          >
-            <div className="relative min-h-45 w-full rounded-lg overflow-hidden">
-              <Image
-                src={randomBanner.thumbnailPath}
-                alt={randomBanner.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-          </a>
+          randomBanner.linkType === "wechat" ? (
+            <button
+              type="button"
+              onClick={() => setQrOpen(true)}
+              className="block w-full cursor-pointer"
+            >
+              <div className="relative min-h-45 w-full rounded-lg overflow-hidden">
+                <Image
+                  src={randomBanner.thumbnailPath}
+                  alt={randomBanner.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </button>
+          ) : (
+            <a
+              href={randomBanner.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <div className="relative min-h-45 w-full rounded-lg overflow-hidden">
+                <Image
+                  src={randomBanner.thumbnailPath}
+                  alt={randomBanner.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </a>
+          )
         ) : (
           <div className="min-h-45 bg-[#eae5e2] rounded-lg flex items-center justify-center">
             <p className="text-sm font-medium text-[#9ca3af]">
@@ -258,6 +277,8 @@ export function CampaignSidebar({
           type={alertType}
         />
       )}
+
+      <WeChatQRDialog open={qrOpen} onOpenChange={setQrOpen} />
     </>
   );
 }

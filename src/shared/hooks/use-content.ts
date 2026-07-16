@@ -4,6 +4,7 @@ import {
   type Event,
   type Faq,
   type FaqType,
+  getEventById,
   getEvents,
   getFaqs,
   getNoticeById,
@@ -68,6 +69,26 @@ export function useEvents(page: number | null = 1, item: number = 30) {
     events: data?.data ?? [],
     paging: data?.paging,
     isLoading: page !== null && isLoading,
+    isError: !!error,
+    error,
+    mutate,
+  };
+}
+
+// Hook for single event
+export function useEvent(id: number | null) {
+  const { data, error, isLoading, mutate } = useSWR<Event>(
+    id ? ["event", id] : null,
+    () => getEventById(id!),
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 60000,
+    }
+  );
+
+  return {
+    event: data,
+    isLoading,
     isError: !!error,
     error,
     mutate,
