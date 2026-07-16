@@ -14,7 +14,7 @@ import {
   type CampaignApplyRequest,
   getSocialLabel,
 } from "@/lib/api/campaign";
-import { getKoreaTodayStart } from "@/lib/date-utils";
+import { getKoreaTodayStart, toWallClockString } from "@/lib/date-utils";
 import { extractErrorMessage } from "@/shared/hooks/use-auth";
 
 interface CampaignApplyDialogProps {
@@ -100,7 +100,9 @@ export function CampaignApplyDialog({
     setSubmitError(null);
 
     try {
-      // Parse the datetime and create a 2-hour window
+      // Parse the datetime and create a 2-hour window. Send the picked time as a
+      // timezone-naive wall-clock string so it is stored/shown exactly as chosen,
+      // regardless of the applicant's timezone (fixes overseas time shift).
       const visitStart = new Date(formData.visitDatetime);
       const visitEnd = new Date(visitStart.getTime() + 2 * 60 * 60 * 1000);
 
@@ -108,8 +110,8 @@ export function CampaignApplyDialog({
         name: formData.name,
         instagramLink: formData.instagramLink,
         wechatId: formData.wechatId,
-        visitDatetimeStart: visitStart.toISOString(),
-        visitDatetimeEnd: visitEnd.toISOString(),
+        visitDatetimeStart: toWallClockString(visitStart),
+        visitDatetimeEnd: toWallClockString(visitEnd),
         memo: formData.memo || undefined,
       };
 

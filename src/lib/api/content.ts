@@ -15,6 +15,9 @@ export interface Event {
   name: string;
   thumbnailPath: string;
   link: string;
+  linkType: "url" | "wechat";
+  contents: string | null;
+  contentsCn: string | null;
   isActive: string;
   created: string;
   updated: string;

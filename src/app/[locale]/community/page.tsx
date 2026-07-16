@@ -17,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
+import { WeChatQRDialog } from "@/components/WeChatQRDialog";
 import { formatDate } from "@/lib/api/content";
 import { getLocalizedContent } from "@/lib/localized-content";
 import { useEvents, useNotices } from "@/shared/hooks/use-content";
@@ -52,6 +53,7 @@ export default function Page(props: PageProps) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [eventPage, setEventPage] = useState(1);
+  const [qrOpen, setQrOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<"notice" | "event">(
     "notice",
   );
@@ -273,26 +275,54 @@ export default function Page(props: PageProps) {
                     {_(msg`진행 중인 이벤트가 없습니다.`)}
                   </div>
                 ) : (
-                  events.map((event) => (
-                    <a
-                      key={event.id}
-                      href={event.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-lg overflow-hidden group"
-                    >
-                      {event.thumbnailPath && (
-                        <Image
-                          src={event.thumbnailPath}
-                          alt={event.name}
-                          width={0}
-                          height={0}
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                          className="w-full h-auto transition-transform group-hover:scale-105"
-                        />
-                      )}
-                    </a>
-                  ))
+                  events.map((event) => {
+                    const eventThumbnail = event.thumbnailPath && (
+                      <Image
+                        src={event.thumbnailPath}
+                        alt={event.name}
+                        width={0}
+                        height={0}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="w-full h-auto transition-transform group-hover:scale-105"
+                      />
+                    );
+                    const hasContent = !!(event.contents || event.contentsCn);
+                    // wechat → QR popup; has content → on-site detail page; else → external URL
+                    if (event.linkType === "wechat") {
+                      return (
+                        <button
+                          key={event.id}
+                          type="button"
+                          onClick={() => setQrOpen(true)}
+                          className="rounded-lg overflow-hidden group cursor-pointer"
+                        >
+                          {eventThumbnail}
+                        </button>
+                      );
+                    }
+                    if (hasContent) {
+                      return (
+                        <Link
+                          key={event.id}
+                          href={`/${locale}/community/event/${event.id}`}
+                          className="rounded-lg overflow-hidden group"
+                        >
+                          {eventThumbnail}
+                        </Link>
+                      );
+                    }
+                    return (
+                      <a
+                        key={event.id}
+                        href={event.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-lg overflow-hidden group"
+                      >
+                        {eventThumbnail}
+                      </a>
+                    );
+                  })
                 )}
               </div>
 
@@ -310,6 +340,7 @@ export default function Page(props: PageProps) {
           )}
         </div>
       </div>
+      <WeChatQRDialog open={qrOpen} onOpenChange={setQrOpen} />
     </div>
   );
 }

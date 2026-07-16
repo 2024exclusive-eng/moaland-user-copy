@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { getSocialLabel, type MyCampaign } from "@/lib/api/campaign";
-import { toKoreaTime } from "@/lib/date-utils";
+import { parseWallClock } from "@/lib/date-utils";
 import { getLocalizedContent } from "@/lib/localized-content";
 
 interface ViewApplicationDialogProps {
@@ -21,8 +21,8 @@ interface ViewApplicationDialogProps {
 function formatVisitDateTime(start: string | null, end: string | null): string {
   if (!start || !end) return "-";
 
-  const startDate = toKoreaTime(start);
-  const endDate = toKoreaTime(end);
+  const startDate = parseWallClock(start);
+  const endDate = parseWallClock(end);
 
   const dateStr = startDate.toLocaleDateString("ko-KR", {
     year: "numeric",

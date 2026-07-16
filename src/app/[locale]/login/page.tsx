@@ -53,7 +53,7 @@ export default function LoginPage() {
 
     try {
       await login(email, password);
-      r.push("/my-campaign");
+      r.push("/");
     } catch {
       // Error is handled by useAuth hook
     }

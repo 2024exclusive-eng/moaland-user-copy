@@ -82,3 +82,35 @@ export function formatDateRangeMMDD(startDate: string, endDate: string): string 
   const end = toKoreaTime(endDate);
   return `${formatDateMMDD(start)}~${formatDateMMDD(end)}`;
 }
+
+/**
+ * Visit date/time is a timezone-naive "wall clock" the user picked — it must be
+ * shown exactly as chosen, regardless of the viewer's timezone. It is stored as a
+ * wall-clock string and read back as a UTC instant (DB pool runs in UTC), so its
+ * literal parts are the UTC components.
+ *
+ * Format a picked local Date into the naive "YYYY-MM-DD HH:mm:ss" string to SEND.
+ */
+export function toWallClockString(date: Date): string {
+  const p = (n: number) => String(n).padStart(2, "0");
+  return `${date.getFullYear()}-${p(date.getMonth() + 1)}-${p(
+    date.getDate()
+  )} ${p(date.getHours())}:${p(date.getMinutes())}:${p(date.getSeconds())}`;
+}
+
+/**
+ * Parse a stored visit datetime back into its literal wall-clock parts (no
+ * timezone shift). Returns a local Date whose local components equal the picked
+ * time, so existing `.getHours()`/`toLocaleTimeString()` formatting stays correct.
+ */
+export function parseWallClock(dateString: string): Date {
+  const d = new Date(dateString);
+  return new Date(
+    d.getUTCFullYear(),
+    d.getUTCMonth(),
+    d.getUTCDate(),
+    d.getUTCHours(),
+    d.getUTCMinutes(),
+    d.getUTCSeconds()
+  );
+}

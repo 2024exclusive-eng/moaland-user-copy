@@ -4,7 +4,7 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { ChevronDown, Globe, Search } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 import { Pagination } from "@/components/Pagination";
@@ -81,6 +81,7 @@ export function CampaignsContent({
   const r = useLocalizedNavigation();
   const pn = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   // Get locale from pathname
   const locale = pn.split("/")[1] || "ko";
@@ -169,6 +170,16 @@ export function CampaignsContent({
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    // Persist the page in the URL so returning from a campaign detail (browser
+    // back) restores the same page instead of resetting to page 1 (P29).
+    const params = new URLSearchParams(searchParams.toString());
+    if (page > 1) {
+      params.set("page", String(page));
+    } else {
+      params.delete("page");
+    }
+    const qs = params.toString();
+    router.replace(qs ? `${pn}?${qs}` : pn, { scroll: false });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

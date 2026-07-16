@@ -10,6 +10,7 @@ export interface Banner {
   name: string;
   thumbnailPath: string;
   link: string;
+  linkType: "url" | "wechat";
   order: number;
   isActive: string;
   created: string;
