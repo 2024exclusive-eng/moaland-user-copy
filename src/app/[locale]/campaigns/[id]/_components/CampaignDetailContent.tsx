@@ -9,7 +9,6 @@ import { notFound, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { FloatingInquiryButton } from "@/components/FloatingInquiryButton";
-import LocalizedLink from "@/components/LocalizedLink";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -125,7 +124,7 @@ export function CampaignDetailContent({
   missionId,
 }: CampaignDetailContentProps) {
   const { _ } = useLingui();
-  const { push } = useLocalizedNavigation();
+  const { push, router } = useLocalizedNavigation();
   const pathname = usePathname();
   const locale = pathname.split("/")[1] || "ko";
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -248,12 +247,18 @@ export function CampaignDetailContent({
       {/* Mobile Header */}
       <div className="md:hidden">
         <div className="h-[60px] flex items-center justify-center px-[21px] py-[16px] border-b border-[#e5e7eb] relative">
-          <LocalizedLink
-            href="/campaigns"
-            className="absolute left-[21px] flex items-center hover:opacity-70 transition-opacity"
+          <button
+            type="button"
+            onClick={() => {
+              // Go back to the list on the page the user came from (?page=N).
+              // A hardcoded /campaigns link always landed on page 1 (P29).
+              if (window.history.length > 1) router.back();
+              else push("/campaigns");
+            }}
+            className="absolute left-[21px] flex items-center hover:opacity-70 transition-opacity cursor-pointer"
           >
             <ChevronLeft className="size-6" />
-          </LocalizedLink>
+          </button>
           <span className="text-[16px] font-semibold text-black">
             <Trans>캠페인 상세</Trans>
           </span>
