@@ -977,7 +977,7 @@ export default function Page() {
                   <button
                     key={tab.key}
                     onClick={() => handleTabChange(tab.key)}
-                    className={`flex-1 px-5 py-2.5 cursor-pointer text-base text-center ${
+                    className={`flex-1 min-w-0 px-1 py-2.5 cursor-pointer text-sm text-center whitespace-nowrap ${
                       isActive
                         ? "border-b border-black font-bold text-black"
                         : "font-medium text-[#9da0a8]"

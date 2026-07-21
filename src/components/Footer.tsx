@@ -92,7 +92,7 @@ export function Footer({ shouldHideMobile = false }: FooterProps = {}) {
               443-81-03412
             </span>
             <span className="flex gap-2">
-              <span className="font-bold">
+              <span className="font-bold whitespace-nowrap shrink-0">
                 <Trans>주소</Trans>
               </span>{" "}
               {companyAddress}
