@@ -2,6 +2,7 @@
 
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
 
 import { Pagination } from "@/components/Pagination";
@@ -17,7 +18,12 @@ import { HeroBanner } from "./HeroBanner";
 
 export function HomeContent() {
   const { _ } = useLingui();
-  const [currentPage, setCurrentPage] = useState(1);
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(
+    Number(searchParams.get("page")) || 1,
+  );
   const newCampaignsSectionRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -41,6 +47,17 @@ export function HomeContent() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    // Persist the 새로운 캠페인 page in the URL so returning from a campaign
+    // detail (browser back / in-app ←) restores the same page instead of
+    // resetting to page 1 (P29 — same fix as the /campaigns list).
+    const params = new URLSearchParams(searchParams.toString());
+    if (page > 1) {
+      params.set("page", String(page));
+    } else {
+      params.delete("page");
+    }
+    const qs = params.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
     // Scroll to new campaigns section with offset for header
     newCampaignsSectionRef.current?.scrollIntoView({
       behavior: "smooth",
