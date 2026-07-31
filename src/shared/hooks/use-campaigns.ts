@@ -70,7 +70,8 @@ export function useRecommendedCampaigns(limit: number = 4) {
 export function useDeadlineCampaigns(limit: number = 8) {
   const { data, error, isLoading, mutate } = useSWR<{ data: Campaign[]; paging: Paging }>(
     ["campaigns", "deadline", limit],
-    () => campaignFetcher({ item: limit, sort: "deadline" }),
+    // pin: 관리자가 고정한 캠페인이 먼저 노출된다 (P34)
+    () => campaignFetcher({ item: limit, sort: "deadline", pin: "deadline" }),
     {
       revalidateOnFocus: false,
       dedupingInterval: 30000,
@@ -88,7 +89,8 @@ export function useDeadlineCampaigns(limit: number = 8) {
 
 // Hook for new campaigns (paginated)
 export function useNewCampaigns(page: number = 1, limit: number = 8) {
-  return useCampaigns({ page, item: limit });
+  // pin: 관리자가 고정한 캠페인이 먼저 노출된다 (P34)
+  return useCampaigns({ page, item: limit, pin: "new" });
 }
 
 // Fetcher for my campaigns

@@ -108,6 +108,8 @@ export interface CampaignParams {
   is_recommended?: boolean;
   sort?: "deadline" | "newest";
   search?: string;
+  /** 홈 섹션 고정 슬롯을 먼저 노출한다 (P34). 미지정 시 기존 정렬 그대로. */
+  pin?: "new" | "deadline";
 }
 
 // My Campaign Types
