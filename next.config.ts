@@ -1,3 +1,4 @@
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -45,3 +46,6 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+// Cloudflare 바인딩을 로컬 개발에서도 쓸 수 있게 한다 (프리뷰 배포용)
+initOpenNextCloudflareForDev();

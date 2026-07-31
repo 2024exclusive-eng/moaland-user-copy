@@ -5,7 +5,7 @@ import { defaultLocale, isValidLocale, type Locale, locales } from "@/lib/i18n";
 
 const protectedRoutes = ["/my-campaign", "/profile"];
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname === "/") {
