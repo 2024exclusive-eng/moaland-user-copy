@@ -303,7 +303,7 @@ msgstr "查看更多"
 msgid "더우인"
 msgstr "抖音"
 
-#: src/lib/api/campaign.ts:211
+#: src/lib/api/campaign.ts:213
 msgid "도우인"
 msgstr "抖音"
 
@@ -361,7 +361,7 @@ msgstr "注册的内容和评价可用于宣传或其他需要，广告主可在
 msgid "등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에 대한 비용이 청구될 수 있습니다."
 msgstr "如未遵守注册内容和评价的保留期限（6个月），可能会收取提供内容的费用。"
 
-#: src/lib/api/campaign.ts:212
+#: src/lib/api/campaign.ts:214
 msgid "따종디엔핑"
 msgstr "大众点评"
 
@@ -427,7 +427,7 @@ msgstr "已截止"
 msgid "마감 임박순"
 msgstr "即将截止"
 
-#: src/app/[locale]/_components/HomeContent.tsx:68
+#: src/app/[locale]/_components/HomeContent.tsx:77
 msgid "마감임박"
 msgstr "即将结束"
 
@@ -673,12 +673,12 @@ msgstr "确认新密码"
 msgid "새 비밀번호를 입력해주세요."
 msgstr "请输入新密码。"
 
-#: src/app/[locale]/_components/HomeContent.tsx:78
+#: src/app/[locale]/_components/HomeContent.tsx:87
 msgid "새로운"
 msgstr "最新"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:53
-#: src/lib/api/campaign.ts:210
+#: src/lib/api/campaign.ts:212
 msgid "샤오홍슈"
 msgstr "小红书"
 
@@ -904,7 +904,7 @@ msgid "위챗문의"
 msgstr "微信咨询"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:57
-#: src/lib/api/campaign.ts:214
+#: src/lib/api/campaign.ts:216
 msgid "유튜브"
 msgstr "YouTube"
 
@@ -1035,7 +1035,7 @@ msgid "이용약관"
 msgstr "使用条款"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:56
-#: src/lib/api/campaign.ts:213
+#: src/lib/api/campaign.ts:215
 msgid "인스타그램"
 msgstr "Instagram"
 
@@ -1266,7 +1266,7 @@ msgstr "最新注册"
 msgid "추가 안내사항"
 msgstr "附加说明"
 
-#: src/app/[locale]/_components/HomeContent.tsx:59
+#: src/app/[locale]/_components/HomeContent.tsx:68
 msgid "추천"
 msgstr "推荐"
 
@@ -1305,9 +1305,9 @@ msgstr "需要日历块的日程标题。"
 msgid "캘린더 블록의 일정 종료 날짜가 필요합니다."
 msgstr "需要日历块的日程结束日期。"
 
-#: src/app/[locale]/_components/HomeContent.tsx:58
 #: src/app/[locale]/_components/HomeContent.tsx:67
-#: src/app/[locale]/_components/HomeContent.tsx:77
+#: src/app/[locale]/_components/HomeContent.tsx:76
+#: src/app/[locale]/_components/HomeContent.tsx:86
 #: src/components/Header.tsx:268
 #: src/components/MobileNavigation.tsx:24
 msgid "캠페인"

@@ -307,7 +307,7 @@ msgstr "더보기"
 msgid "더우인"
 msgstr "더우인"
 
-#: src/lib/api/campaign.ts:211
+#: src/lib/api/campaign.ts:213
 msgid "도우인"
 msgstr "도우인"
 
@@ -365,7 +365,7 @@ msgstr "등록한 콘텐츠 및 구매평은 홍보나 필요에 의해 사용�
 msgid "등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에 대한 비용이 청구될 수 있습니다."
 msgstr "등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에 대한 비용이 청구될 수 있습니다."
 
-#: src/lib/api/campaign.ts:212
+#: src/lib/api/campaign.ts:214
 msgid "따종디엔핑"
 msgstr "따종디엔핑"
 
@@ -431,7 +431,7 @@ msgstr "마감"
 msgid "마감 임박순"
 msgstr "마감 임박순"
 
-#: src/app/[locale]/_components/HomeContent.tsx:68
+#: src/app/[locale]/_components/HomeContent.tsx:77
 msgid "마감임박"
 msgstr "마감임박"
 
@@ -677,12 +677,12 @@ msgstr "새 비밀번호 확인"
 msgid "새 비밀번호를 입력해주세요."
 msgstr "새 비밀번호를 입력해주세요."
 
-#: src/app/[locale]/_components/HomeContent.tsx:78
+#: src/app/[locale]/_components/HomeContent.tsx:87
 msgid "새로운"
 msgstr "새로운"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:53
-#: src/lib/api/campaign.ts:210
+#: src/lib/api/campaign.ts:212
 msgid "샤오홍슈"
 msgstr "샤오홍슈"
 
@@ -908,7 +908,7 @@ msgid "위챗문의"
 msgstr "위챗문의"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:57
-#: src/lib/api/campaign.ts:214
+#: src/lib/api/campaign.ts:216
 msgid "유튜브"
 msgstr "유튜브"
 
@@ -1039,7 +1039,7 @@ msgid "이용약관"
 msgstr "이용약관"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:56
-#: src/lib/api/campaign.ts:213
+#: src/lib/api/campaign.ts:215
 msgid "인스타그램"
 msgstr "인스타그램"
 
@@ -1270,7 +1270,7 @@ msgstr "최신 등록순"
 msgid "추가 안내사항"
 msgstr "추가 안내사항"
 
-#: src/app/[locale]/_components/HomeContent.tsx:59
+#: src/app/[locale]/_components/HomeContent.tsx:68
 msgid "추천"
 msgstr "추천"
 
@@ -1309,9 +1309,9 @@ msgstr "캘린더 블록의 일정 제목이 필요합니다."
 msgid "캘린더 블록의 일정 종료 날짜가 필요합니다."
 msgstr "캘린더 블록의 일정 종료 날짜가 필요합니다."
 
-#: src/app/[locale]/_components/HomeContent.tsx:58
 #: src/app/[locale]/_components/HomeContent.tsx:67
-#: src/app/[locale]/_components/HomeContent.tsx:77
+#: src/app/[locale]/_components/HomeContent.tsx:76
+#: src/app/[locale]/_components/HomeContent.tsx:86
 #: src/components/Header.tsx:268
 #: src/components/MobileNavigation.tsx:24
 msgid "캠페인"

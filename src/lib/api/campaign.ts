@@ -106,6 +106,8 @@ export interface CampaignParams {
   region?: string;
   social?: string;
   is_recommended?: boolean;
+  /** 마감임박 필터: 마감된 캠페인을 제외하고 N일 이내 마감 건만 조회한다. */
+  deadline_days?: number;
   sort?: "deadline" | "newest";
   search?: string;
   /** 홈 섹션 고정 슬롯을 먼저 노출한다 (P34). 미지정 시 기존 정렬 그대로. */

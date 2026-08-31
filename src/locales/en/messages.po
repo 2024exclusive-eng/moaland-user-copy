@@ -303,7 +303,7 @@ msgstr "See More"
 msgid "더우인"
 msgstr "Douyin"
 
-#: src/lib/api/campaign.ts:211
+#: src/lib/api/campaign.ts:213
 msgid "도우인"
 msgstr "Douyin"
 
@@ -361,7 +361,7 @@ msgstr "Registered content and reviews may be used for promotional purposes, and
 msgid "등록한 콘텐츠 및 구매평의 유지 기간(6개월) 미준수 시 제공 내역에 대한 비용이 청구될 수 있습니다."
 msgstr "Failure to maintain registered content and reviews for the required period (6 months) may result in charges for the provided items."
 
-#: src/lib/api/campaign.ts:212
+#: src/lib/api/campaign.ts:214
 msgid "따종디엔핑"
 msgstr "Dianping"
 
@@ -427,7 +427,7 @@ msgstr "Closed"
 msgid "마감 임박순"
 msgstr "Deadline approaching"
 
-#: src/app/[locale]/_components/HomeContent.tsx:68
+#: src/app/[locale]/_components/HomeContent.tsx:77
 msgid "마감임박"
 msgstr "Ending soon"
 
@@ -673,12 +673,12 @@ msgstr "Confirm New Password"
 msgid "새 비밀번호를 입력해주세요."
 msgstr "Please enter a new password."
 
-#: src/app/[locale]/_components/HomeContent.tsx:78
+#: src/app/[locale]/_components/HomeContent.tsx:87
 msgid "새로운"
 msgstr "New"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:53
-#: src/lib/api/campaign.ts:210
+#: src/lib/api/campaign.ts:212
 msgid "샤오홍슈"
 msgstr "Xiaohongshu"
 
@@ -904,7 +904,7 @@ msgid "위챗문의"
 msgstr "WeChat Inquiry"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:57
-#: src/lib/api/campaign.ts:214
+#: src/lib/api/campaign.ts:216
 msgid "유튜브"
 msgstr "YouTube"
 
@@ -1035,7 +1035,7 @@ msgid "이용약관"
 msgstr "Terms of Use"
 
 #: src/app/[locale]/campaigns/_components/CampaignsContent.tsx:56
-#: src/lib/api/campaign.ts:213
+#: src/lib/api/campaign.ts:215
 msgid "인스타그램"
 msgstr "Instagram"
 
@@ -1266,7 +1266,7 @@ msgstr "Newest first"
 msgid "추가 안내사항"
 msgstr "Additional Information"
 
-#: src/app/[locale]/_components/HomeContent.tsx:59
+#: src/app/[locale]/_components/HomeContent.tsx:68
 msgid "추천"
 msgstr "Recommended"
 
@@ -1305,9 +1305,9 @@ msgstr "Schedule title for calendar block is required."
 msgid "캘린더 블록의 일정 종료 날짜가 필요합니다."
 msgstr "Schedule end date for calendar block is required."
 
-#: src/app/[locale]/_components/HomeContent.tsx:58
 #: src/app/[locale]/_components/HomeContent.tsx:67
-#: src/app/[locale]/_components/HomeContent.tsx:77
+#: src/app/[locale]/_components/HomeContent.tsx:76
+#: src/app/[locale]/_components/HomeContent.tsx:86
 #: src/components/Header.tsx:268
 #: src/components/MobileNavigation.tsx:24
 msgid "캠페인"

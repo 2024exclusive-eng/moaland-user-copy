@@ -71,7 +71,14 @@ export function useDeadlineCampaigns(limit: number = 8) {
   const { data, error, isLoading, mutate } = useSWR<{ data: Campaign[]; paging: Paging }>(
     ["campaigns", "deadline", limit],
     // pin: 관리자가 고정한 캠페인이 먼저 노출된다 (P34)
-    () => campaignFetcher({ item: limit, sort: "deadline", pin: "deadline" }),
+    // deadline_days: 마감된 캠페인을 제외하고 7일 이내 마감 건만 노출한다 (QA)
+    () =>
+      campaignFetcher({
+        item: limit,
+        sort: "deadline",
+        pin: "deadline",
+        deadline_days: 7,
+      }),
     {
       revalidateOnFocus: false,
       dedupingInterval: 30000,
