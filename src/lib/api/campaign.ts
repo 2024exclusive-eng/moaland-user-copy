@@ -331,12 +331,14 @@ export async function getMyCampaigns(
 
 // Campaign Application Types
 export interface CampaignApplyRequest {
-  name: string;
-  instagramLink: string;
-  wechatId: string;
-  visitDatetimeStart: string;
-  visitDatetimeEnd: string;
+  name?: string;
+  instagramLink?: string;
+  wechatId?: string;
+  visitDatetimeStart?: string;
+  visitDatetimeEnd?: string;
   memo?: string;
+  formVersion?: number;
+  answers?: Record<string,string|string[]>;
 }
 
 export interface CampaignApplyResponse {

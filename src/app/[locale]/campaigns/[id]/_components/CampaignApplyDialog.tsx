@@ -3,7 +3,7 @@
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -16,6 +16,9 @@ import {
 } from "@/lib/api/campaign";
 import { getKoreaTodayStart, toWallClockString } from "@/lib/date-utils";
 import { extractErrorMessage } from "@/shared/hooks/use-auth";
+
+import api from '@/lib/axios';
+import {EnrollmentFields,type EnrollmentForm,type EnrollmentAnswers} from '@/components/EnrollmentFields';
 
 interface CampaignApplyDialogProps {
   open: boolean;
@@ -51,7 +54,11 @@ export function CampaignApplyDialog({
   social,
   onSuccess,
 }: CampaignApplyDialogProps) {
-  const { _ } = useLingui();
+  const { _, i18n } = useLingui();
+  const chinese=i18n.locale.startsWith("zh");
+  const [customForm,setCustomForm]=useState<EnrollmentForm|null>(null);
+  const [answers,setAnswers]=useState<EnrollmentAnswers>({});
+  const [formReady,setFormReady]=useState(false);
   const socialLabel = getSocialLabel(social, _);
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -66,7 +73,12 @@ export function CampaignApplyDialog({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showTermsPopup, setShowTermsPopup] = useState(false);
 
+  useEffect(()=>{let current=true;if(!open)return;setFormReady(false);setAnswers({});setSubmitError(null);
+    api.get<{success:boolean;data:EnrollmentForm|null}>(`/user/mission/info/${missionId}/form`).then(r=>{if(current){setCustomForm(r.data.data);setFormReady(true);}}).catch(()=>{if(current)setSubmitError(chinese?'无法加载报名表，请关闭后重试。':'신청서를 불러오지 못했습니다. 닫은 후 다시 시도해 주세요.');});return()=>{current=false;};
+  },[open,missionId,chinese]);
+  const customValid=customForm?.fields.every(f=>!f.required||(Array.isArray(answers[f.id])?(answers[f.id] as string[]).length>0:!!String(answers[f.id]||'').trim()));
   const validateForm = (): boolean => {
+    if(customForm)return !!customValid;
     const newErrors: FormErrors = {};
 
     if (!formData.name.trim()) {
@@ -86,15 +98,10 @@ export function CampaignApplyDialog({
     return Object.keys(newErrors).length === 0;
   };
 
-  const isFormValid =
-    formData.name.trim() &&
-    formData.instagramLink.trim() &&
-    formData.wechatId.trim() &&
-    formData.visitDatetime &&
-    agreed;
+  const isFormValid = formReady && agreed && (customForm ? customValid : formData.name.trim() && formData.instagramLink.trim() && formData.wechatId.trim() && formData.visitDatetime);
 
   const handleSubmit = async () => {
-    if (!validateForm() || !agreed || !formData.visitDatetime) return;
+    if (!formReady || !validateForm() || !agreed || (!customForm && !formData.visitDatetime)) return;
 
     setIsSubmitting(true);
     setSubmitError(null);
@@ -103,10 +110,10 @@ export function CampaignApplyDialog({
       // Parse the datetime and create a 2-hour window. Send the picked time as a
       // timezone-naive wall-clock string so it is stored/shown exactly as chosen,
       // regardless of the applicant's timezone (fixes overseas time shift).
-      const visitStart = new Date(formData.visitDatetime);
+      const visitStart = new Date(formData.visitDatetime || 0);
       const visitEnd = new Date(visitStart.getTime() + 2 * 60 * 60 * 1000);
 
-      const requestData: CampaignApplyRequest = {
+      const requestData: CampaignApplyRequest = customForm ? {formVersion:customForm.version,answers} : {
         name: formData.name,
         instagramLink: formData.instagramLink,
         wechatId: formData.wechatId,
@@ -135,7 +142,9 @@ export function CampaignApplyDialog({
         );
       }
     } catch (error) {
-      console.error("Failed to apply:", error);
+      const code=(error as {response?:{data?:{error?:{code?:string}}}})?.response?.data?.error?.code;
+      if(code==='FORM_CHANGED'){setFormReady(false);setSubmitError(chinese?'报名表已更新，请关闭后重新填写。':'신청서가 변경되었습니다. 닫은 후 다시 작성해 주세요.');return;}
+      if(code?.startsWith('FORM_')||code?.startsWith('INVALID_FORM')||code==='UNKNOWN_FORM_FIELD'){setSubmitError(chinese?'请检查必填项和输入格式。':'필수 항목과 입력 형식을 확인해 주세요.');return;}
       setSubmitError(
         extractErrorMessage(
           error,
@@ -192,6 +201,9 @@ export function CampaignApplyDialog({
 
             {/* Form Fields */}
             <div className="flex flex-col gap-5">
+              {!formReady && <p>{chinese?'正在加载报名表…':'신청서를 불러오는 중입니다…'}</p>}
+              {formReady && customForm && <EnrollmentFields form={customForm} answers={answers} chinese={chinese} onChange={(id,value)=>setAnswers(old=>({...old,[id]:value}))}/>}
+              {formReady && !customForm && <>
               {/* Name */}
               <div className="flex gap-2 items-center">
                 <div className="w-[100px] shrink-0">
@@ -291,6 +303,7 @@ export function CampaignApplyDialog({
                 />
               </div>
 
+              </>}
               {/* Agreement Checkbox */}
               <div className="flex gap-3 items-start">
                 <Checkbox
