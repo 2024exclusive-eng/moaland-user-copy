@@ -1,5 +1,6 @@
 "use client";
 
+import { EnrollmentAnswerSummary } from "@/components/EnrollmentAnswerSummary";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { X } from "lucide-react";
@@ -111,7 +112,8 @@ export function ViewApplicationDialog({
           {/* Divider */}
           <div className="h-px bg-[#e5e7eb]" />
 
-          {/* Application Details */}
+          {/* Saved questions and answers belong to this application, not the current form. */}
+          {campaign.enrollmentForm ? <EnrollmentAnswerSummary form={campaign.enrollmentForm} chinese={locale.startsWith("zh")}/> : <>
           <div className="flex gap-2 items-start">
             <div className="w-[100px] shrink-0">
               <p className="text-sm font-semibold text-[#4b5563] leading-[1.7]">
@@ -170,6 +172,7 @@ export function ViewApplicationDialog({
             </p>
           </div>
 
+          </>}
           {/* Warning Text */}
           <p className="text-sm text-[#e72b23] leading-[1.7]">
             <Trans>

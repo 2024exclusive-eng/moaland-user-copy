@@ -1,3 +1,4 @@
+import type { SavedEnrollment } from "@/components/EnrollmentAnswerSummary";
 import { msg } from "@lingui/core/macro";
 
 import api from "@/lib/axios";
@@ -142,6 +143,7 @@ export interface MyCampaign {
   isRecommended: number;
   enrollCount: number;
   // Enrollment fields
+  enrollmentForm?: SavedEnrollment | null;
   enrollId: number;
   userName: string;
   status: string;
